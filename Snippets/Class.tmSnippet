@@ -3,10 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>class ${1:ClassName}${2: extends ${3:Ancestor}}
+	<string>class ${1:Name}${2: extends ${3:Ancestor}}
 	${4:constructor: (${5:args}) -&gt;
-		${6:# body...}}
-	$7</string>
+		${6:body}}
+	$7
+$0</string>
 	<key>name</key>
 	<string>Class</string>
 	<key>scope</key>

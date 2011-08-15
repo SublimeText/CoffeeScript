@@ -7,7 +7,7 @@
 	<key>keyEquivalent</key>
 	<string>^j</string>
 	<key>name</key>
-	<string>Raw javascript</string>
+	<string>Raw JavaScript</string>
 	<key>scope</key>
 	<string>source.coffee</string>
 	<key>uuid</key>

@@ -4,9 +4,10 @@
 <dict>
 	<key>content</key>
 	<string>try
-	$1
-catch ${2:error}
-	$3</string>
+	${1:body}
+catch ${2:exception}
+	${3:body}
+$0</string>
 	<key>name</key>
 	<string>Try .. Catch</string>
 	<key>scope</key>

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>${1:action} unless ${2:condition}</string>
+	<string>${1:body} unless ${2:cond}</string>
 	<key>name</key>
 	<string>Unless</string>
 	<key>scope</key>

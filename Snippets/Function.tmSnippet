@@ -4,14 +4,15 @@
 <dict>
 	<key>content</key>
 	<string>(${1:args}) -&gt;
-	${0:# body...}
+	${2:body}
+$0
 </string>
 	<key>name</key>
 	<string>Function</string>
 	<key>scope</key>
 	<string>source.coffee</string>
 	<key>tabTrigger</key>
-	<string>fun</string>
+	<string>-</string>
 	<key>uuid</key>
 	<string>F2E2E79A-A85D-471D-9847-72AE40205942</string>
 </dict>

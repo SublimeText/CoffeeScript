@@ -3,14 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>for ${1:name} in [${2:start}..${3:finish}]${4: by ${5:step}}
-	${0:# body...}</string>
+	<string>for ${1:item} in [${2:start}..${3:finish}]${4: by ${5:step}}
+	${6:body}
+$0</string>
 	<key>name</key>
-	<string>Range comprehension (inclusive)</string>
+	<string>Range Comprehension (inclusive)</string>
 	<key>scope</key>
 	<string>source.coffee</string>
 	<key>tabTrigger</key>
-	<string>forr</string>
+	<string>fori</string>
 	<key>uuid</key>
 	<string>E0F8E45A-9262-4DD6-ADFF-B5B9D6CE99C2</string>
 </dict>

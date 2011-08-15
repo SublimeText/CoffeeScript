@@ -5,7 +5,9 @@
 	<key>content</key>
 	<string>switch ${1:object}
 	when ${2:value}
-		${0:# body...}</string>
+		${3:body}
+	$4
+$0</string>
 	<key>name</key>
 	<string>Switch</string>
 	<key>scope</key>
