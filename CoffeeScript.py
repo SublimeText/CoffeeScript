@@ -64,6 +64,7 @@ class RunScriptCommand(sublime_plugin.WindowCommand):
 	def finish(self, text):
 		if text == '':
 			return
+		text = "{puts, print} = require 'util'\n" + text
 		res = brew(['-e', '-b', text])
 		if res[0] is True:
 			output = self.window.new_file()
