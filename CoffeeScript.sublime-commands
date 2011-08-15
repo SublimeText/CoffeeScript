@@ -8,6 +8,10 @@
 	,	"command": "run_script"
 	}
 ,	{
+		"caption": "CS: Run Cake Task"
+	,	"command": "run_cake_task"
+	}
+,	{
 		"caption": "CS: Display JavaScript"
 	,	"command": "compile_and_display", "args": {"opt": "-p"}
 	}

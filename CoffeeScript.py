@@ -3,6 +3,16 @@ from subprocess import Popen, PIPE
 
 settings = sublime.load_settings('CoffeeScript.sublime-settings')
 
+def selectedText(view):
+	text = []
+	for region in view.sel():
+		if not region.empty():
+			text.append(view.substr(region))
+	if len(text) > 0:
+		return "".join(text)
+	else:
+		return False
+
 def getText(view):
 	text = []
 	for region in view.sel():
@@ -13,14 +23,21 @@ def getText(view):
 			text.append(view.substr(region))
 	return "".join(text)
 
-def brew(args):
-	args = ["coffee"] + args
-	coffee = Popen(args, env={"PATH": settings.get('binDir', '/usr/local/bin')}, stdout=PIPE, stderr=PIPE)
-	status = coffee.communicate()
-	if coffee.returncode is 0:
-		return (True, status[0])
+def run(cmd, args = [], cwd = None, env = None):
+	if env is None:
+		env = {"PATH": settings.get('binDir', '/usr/local/bin')}
+	proc = Popen([cmd] + args, cwd=cwd, env=env, stdout=PIPE, stderr=PIPE)
+	stat = proc.communicate()
+	if proc.returncode is 0:
+		return (True, stat[0])
 	else:
-		return (False, status[1])
+		return (False, stat[1])
+
+def brew(args):
+	return run("coffee", args)
+
+def cake(task, cwd):
+	return run("cake", [task], cwd)
 
 class CompileAndDisplayCommand(sublime_plugin.TextCommand):
 	def run(self, edit, **kwargs):
@@ -58,3 +75,16 @@ class RunScriptCommand(sublime_plugin.WindowCommand):
 
 	def run(self):
 		self.window.show_input_panel('Coffee>', '', self.finish, None, None)
+
+class RunCakeTaskCommand(sublime_plugin.WindowCommand):
+	def finish(self, task):
+		if task == '':
+			return
+		res = cake(task, self.window.folders()[0])
+		if res[0] is True:
+			sublime.status_message("Task '" + task + "' succeeded.")
+		else:
+			sublime.status_message("Task '" + task + "' failed.")
+
+	def run(self):
+		self.window.show_input_panel('Enter a Cake task:', '', self.finish, None, None)
