@@ -1,0 +1,10 @@
+[
+	{
+		"caption": "CS: Display Compiled JS"
+	,	"command": "compile_and_display"
+	}
+,	{
+		"caption": "CS: Check Syntax"
+	,	"command": "check_syntax"
+	}
+]

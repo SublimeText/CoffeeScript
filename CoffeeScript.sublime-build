@@ -1,0 +1,10 @@
+/*
+	file, file_path, file_name, file_extension, file_base_name,
+	project, project_path, project_name, project_extension, project_base_name
+*/
+{
+	"cmd": ["cake", "sbuild"]
+,	"path": "/usr/local/bin:$PATH"
+,	"selector": "source.coffee"
+,	"working_dir": "$project_path"
+}
