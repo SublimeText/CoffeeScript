@@ -1,10 +1,18 @@
 [
 	{
-		"caption": "CS: Display Compiled JS"
-	,	"command": "compile_and_display"
-	}
-,	{
 		"caption": "CS: Check Syntax"
 	,	"command": "check_syntax"
+	}
+,	{
+		"caption": "CS: Display JavaScript"
+	,	"command": "compile_and_display", "args": {"opt": "-p"}
+	}
+,	{
+		"caption": "CS: Display Lexer Tokens"
+	,	"command": "compile_and_display", "args": {"opt": "-t"}
+	}
+,	{
+		"caption": "CS: Display Parse Tree"
+	,	"command": "compile_and_display", "args": {"opt": "-n"}
 	}
 ]

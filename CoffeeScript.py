@@ -23,9 +23,12 @@ def brew(args):
 		return (False, status[1])
 
 class CompileAndDisplayCommand(sublime_plugin.TextCommand):
-	def run(self, edit):
-		res = brew(['-e', '-b', '-p', getText(self.view)])
+	def run(self, edit, **kwargs):
+		opt = kwargs["opt"]
+		res = brew(['-e', '-b', opt, getText(self.view)])
 		output = self.view.window().new_file()
+		if opt == '-p':
+			output.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
 		if res[0] is True:
 			output.insert(edit, 0, res[1])
 		else:
