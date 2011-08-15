@@ -1,6 +1,8 @@
 import sublime, sublime_plugin
 from subprocess import Popen, PIPE
 
+settings = sublime.load_settings('CoffeeScript.sublime-settings')
+
 def getText(view):
 	text = []
 	for region in view.sel():
@@ -13,7 +15,7 @@ def getText(view):
 
 def brew(args):
 	args = ["coffee"] + args
-	coffee = Popen(args, env={"PATH": "/usr/local/bin"}, stdout=PIPE, stderr=PIPE)
+	coffee = Popen(args, env={"PATH": settings.get('binDir', '/usr/local/bin')}, stdout=PIPE, stderr=PIPE)
 	status = coffee.communicate()
 	if coffee.returncode is 0:
 		return (True, status[0])
@@ -23,11 +25,11 @@ def brew(args):
 class CompileAndDisplayCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
 		res = brew(['-e', '-b', '-p', getText(self.view)])
+		output = self.view.window().new_file()
 		if res[0] is True:
-			output = self.view.window().new_file()
 			output.insert(edit, 0, res[1])
 		else:
-			sublime.error_message(res[1].split("\n")[0])
+			output.insert(edit, 0, res[1].split("\n")[0])
 
 class CheckSyntaxCommand(sublime_plugin.TextCommand):
 	def run(self, edit):

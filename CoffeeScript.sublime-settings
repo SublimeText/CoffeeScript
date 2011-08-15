@@ -1,0 +1,4 @@
+{
+	// The directory containing the coffee binary.
+	"binDir": "/usr/local/bin"
+}
