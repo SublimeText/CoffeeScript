@@ -14,34 +14,26 @@ def getText(view):
 def brew(args):
 	args = ["coffee"] + args
 	coffee = Popen(args, env={"PATH": "/usr/local/bin"}, stdout=PIPE, stderr=PIPE)
-	result = coffee.communicate()
-	return {out:result[0], err:result[1]}
-
-def _compile(text):
-	return brew(['-e', '-b', '-p', text])
-
-def _syntax(text):
-	result = brew(['-e', '-b', '-p', text])
-	if result.serr:
-		return False
+	status = coffee.communicate()
+	if coffee.returncode is 0:
+		return (True, status[0])
 	else:
-		return True
+		return (False, status[1])
 
 class CompileAndDisplayCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
-		result = _compile(getText(self.view))
-		if result["err"]:
-			sublime.error_message(result["err"].split("\n")[0])
-		else:
+		res = brew(['-e', '-b', '-p', getText(self.view)])
+		if res[0] is True:
 			output = self.view.window().new_file()
-			output.insert(edit, 0, result["out"])
-			output.insert(edit, 0, "# " + self.view.file_name() + "\n")
+			output.insert(edit, 0, res[1])
+		else:
+			sublime.error_message(res[1].split("\n")[0])
 
 class CheckSyntaxCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
-		result = _compile(getText(self.view))
-		if result["err"]:
-			status = 'Syntax Error'
+		res = brew(['-e', '-b', getText(self.view)])
+		if res[0] is True:
+			status = 'Valid'
 		else:
-			status = 'Syntax Valid'
-		sublime.status_message(status)
+			status = res[1].split("\n")[0]
+		sublime.status_message('Syntax ' + status)
