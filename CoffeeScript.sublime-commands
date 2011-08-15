@@ -4,6 +4,10 @@
 	,	"command": "check_syntax"
 	}
 ,	{
+		"caption": "CS: Run Script"
+	,	"command": "run_script"
+	}
+,	{
 		"caption": "CS: Display JavaScript"
 	,	"command": "compile_and_display", "args": {"opt": "-p"}
 	}

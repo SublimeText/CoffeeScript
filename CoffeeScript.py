@@ -42,3 +42,19 @@ class CheckSyntaxCommand(sublime_plugin.TextCommand):
 		else:
 			status = res[1].split("\n")[0]
 		sublime.status_message('Syntax ' + status)
+
+class RunScriptCommand(sublime_plugin.WindowCommand):
+	def finish(self, text):
+		if text == '':
+			return
+		res = brew(['-e', '-b', text])
+		if res[0] is True:
+			output = self.window.new_file()
+			edit = output.begin_edit()
+			output.insert(edit, 0, res[1])
+			output.end_edit(edit)
+		else:
+			sublime.status_message('Syntax ' + res[1].split("\n")[0])
+
+	def run(self):
+		self.window.show_input_panel('Coffee>', '', self.finish, None, None)
