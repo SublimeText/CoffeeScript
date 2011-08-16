@@ -1,3 +1,6 @@
 [
-	{ "keys": ["super+shift+r"], "command": "run_script"}
+	{ "keys": ["alt+s"], "command": "check_syntax"}
+,	{ "keys": ["alt+r"], "command": "run_script"}
+,	{ "keys": ["alt+c"], "command": "run_cake_task"}
+,	{ "keys": ["alt+d"], "command": "compile_and_display", "args": {"opt": "-p"}}
 ]
