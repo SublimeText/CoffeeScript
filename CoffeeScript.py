@@ -80,7 +80,7 @@ class RunScriptCommand(WindowCommand):
 			sublime.status_message('Syntax %s' % res["err"].split("\n")[0])
 
 	def run(self):
-		self.window.show_input_panel('Coffee>', '', self.finish, None, None)
+		self.window.show_input_panel('Coffee >', '', self.finish, None, None)
 
 class RunCakeTaskCommand(WindowCommand):
 	def finish(self, task):
@@ -101,4 +101,4 @@ class RunCakeTaskCommand(WindowCommand):
 		sublime.status_message("Task %s - %s." % (task, msg))
 
 	def run(self):
-		self.window.show_input_panel('Enter a Cake task:', '', self.finish, None, None)
+		self.window.show_input_panel('Cake >', '', self.finish, None, None)
