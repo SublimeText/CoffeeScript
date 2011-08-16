@@ -1,6 +1,6 @@
 [
-	{ "keys": ["alt+s"], "command": "check_syntax"}
-,	{ "keys": ["alt+r"], "command": "run_script"}
-,	{ "keys": ["alt+c"], "command": "run_cake_task"}
-,	{ "keys": ["alt+d"], "command": "compile_and_display", "args": {"opt": "-p"}}
+	{ "keys": ["alt+shift+s"], "command": "check_syntax"}
+,	{ "keys": ["alt+shift+r"], "command": "run_script"}
+,	{ "keys": ["alt+shift+c"], "command": "run_cake_task"}
+,	{ "keys": ["alt+shift+d"], "command": "compile_and_display", "args": {"opt": "-p"}}
 ]
