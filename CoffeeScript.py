@@ -21,6 +21,9 @@ def brew(args):
 def cake(task, cwd):
 	return run("cake", args=task, cwd=cwd)
 
+def isCoffee():
+	sublime.active_window().active_view().scope_name(0) == 'source.coffee'
+
 class Text():
 	@staticmethod
 	def all(view):
@@ -43,6 +46,9 @@ class Text():
 		return Text.all(view)
 
 class CompileAndDisplayCommand(TextCommand):
+	def is_enabled(self):
+		return isCoffee()
+
 	def run(self, edit, **kwargs):
 		opt = kwargs["opt"]
 		res = brew(['-e', '-b', opt, Text.get(self.view)])
@@ -56,6 +62,9 @@ class CompileAndDisplayCommand(TextCommand):
 			output.insert(edit, 0, res["err"].split("\n")[0])
 
 class CheckSyntaxCommand(TextCommand):
+	def is_enabled(self):
+		return isCoffee()
+
 	def run(self, edit):
 		res = brew(['-e', '-b', '-p', Text.get(self.view)])
 		if res["okay"] is True:
@@ -80,7 +89,12 @@ class RunScriptCommand(WindowCommand):
 			sublime.status_message('Syntax %s' % res["err"].split("\n")[0])
 
 	def run(self):
-		self.window.show_input_panel('Coffee >', '', self.finish, None, None)
+		sel = Text.sel(sublime.active_window().active_view())
+		if len(sel) > 0:
+			return if not isCoffee()
+			self.finish(sel)
+		else:
+			self.window.show_input_panel('Coffee >', '', self.finish, None, None)
 
 class RunCakeTaskCommand(WindowCommand):
 	def finish(self, task):
