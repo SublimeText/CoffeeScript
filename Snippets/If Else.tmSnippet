@@ -3,18 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>try
-	${1:body}
-catch ${2:exception}
-	${3:body}
+	<string>if ${1:condition}
+	${2:# ...}
+else
+	${3:# ...}
 $0</string>
 	<key>name</key>
-	<string>Try .. Catch</string>
+	<string>If Else</string>
 	<key>scope</key>
 	<string>source.coffee</string>
 	<key>tabTrigger</key>
-	<string>try</string>
-	<key>uuid</key>
-	<string>CAFB0DED-5E23-4A84-AC20-87FBAF22DBAC</string>
+	<string>ifel</string>
 </dict>
 </plist>
