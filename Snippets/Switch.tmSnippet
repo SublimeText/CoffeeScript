@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>switch ${1:object}
 	when ${2:value}
-		${3:body}
+		${3:# ...}
 	$4
 $0</string>
 	<key>name</key>
@@ -14,7 +14,5 @@ $0</string>
 	<string>source.coffee</string>
 	<key>tabTrigger</key>
 	<string>swi</string>
-	<key>uuid</key>
-	<string>3931A7C6-F1FB-484F-82D1-26F5A8F779D0</string>
 </dict>
 </plist>

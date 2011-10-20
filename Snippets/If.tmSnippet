@@ -3,8 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>if ${1:cond}
-	${2:body}
+	<string>if ${1:condition}
+	${2:# ...}
 $0</string>
 	<key>name</key>
 	<string>If</string>
@@ -12,7 +12,5 @@ $0</string>
 	<string>source.coffee</string>
 	<key>tabTrigger</key>
 	<string>if</string>
-	<key>uuid</key>
-	<string>F4FDFB3A-71EF-48A4-93F4-178B949546B1</string>
 </dict>
 </plist>

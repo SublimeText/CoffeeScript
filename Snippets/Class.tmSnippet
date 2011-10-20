@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>class ${1:Name}${2: extends ${3:Ancestor}}
-	${4:constructor: (${5:args}) -&gt;
-		${6:body}}
-	$7
+	<string>class ${1:Name}
+	${2:constructor: ${3:(${4:arguments}) }-&gt;
+		${5:# ...}}
+	$6
 $0</string>
 	<key>name</key>
 	<string>Class</string>
@@ -14,7 +14,5 @@ $0</string>
 	<string>source.coffee</string>
 	<key>tabTrigger</key>
 	<string>cla</string>
-	<key>uuid</key>
-	<string>765ACBD3-380A-4CF8-9111-345A36A0DAE7</string>
 </dict>
 </plist>

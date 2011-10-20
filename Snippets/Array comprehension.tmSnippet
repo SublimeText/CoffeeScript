@@ -3,7 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>for ${1:item} in ${2:array}
+	<string>for ${1:i} in ${2:array}
+	${3:# ...}
 $0</string>
 	<key>name</key>
 	<string>Array Comprehension</string>
@@ -11,7 +12,5 @@ $0</string>
 	<string>source.coffee</string>
 	<key>tabTrigger</key>
 	<string>forin</string>
-	<key>uuid</key>
-	<string>2D4AC0B4-47AA-4E38-9A11-09A48C2A9439</string>
 </dict>
 </plist>

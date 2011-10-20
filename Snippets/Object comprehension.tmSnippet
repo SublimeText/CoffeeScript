@@ -3,8 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>for ${1:key}, ${2:value} of ${3:object}
-	${4:body}
+	<string>for ${1:${2:k}, ${3:v}} of ${4:object}
+	${5:# ...}
 $0</string>
 	<key>name</key>
 	<string>Object Comprehension</string>
@@ -12,7 +12,5 @@ $0</string>
 	<string>source.coffee</string>
 	<key>tabTrigger</key>
 	<string>forof</string>
-	<key>uuid</key>
-	<string>9D126CC5-EA14-4A40-B6D3-6A5FC1AC1420</string>
 </dict>
 </plist>

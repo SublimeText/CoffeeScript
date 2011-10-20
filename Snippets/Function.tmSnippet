@@ -3,8 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>(${1:args}) -&gt;
-	${2:body}
+	<string>${1:(${2:arguments}) }-&gt;
+	${3:# ...}
 $0
 </string>
 	<key>name</key>
@@ -13,7 +13,5 @@ $0
 	<string>source.coffee</string>
 	<key>tabTrigger</key>
 	<string>-</string>
-	<key>uuid</key>
-	<string>F2E2E79A-A85D-471D-9847-72AE40205942</string>
 </dict>
 </plist>

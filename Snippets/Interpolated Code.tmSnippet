@@ -12,7 +12,5 @@
 	<string>(string.quoted.double.coffee) - string source, (string.quoted.double.heredoc.coffee) - string source</string>
 	<key>tabTrigger</key>
 	<string>#</string>
-	<key>uuid</key>
-	<string>C04ED189-6ACB-44E6-AD5B-911B760AD1CC</string>
 </dict>
 </plist>
