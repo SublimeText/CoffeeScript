@@ -41,15 +41,17 @@ You can access the commands either using the command palette or via shortcuts.
 - Use `TAB` & `shift+TAB` to cycle forward/backward through fields.
 - Use `ESC` to exit snippet mode.
 
-## Triggers
+### Snippet Triggers
 
-### Comprehension
+**Comprehension**
+
 	Array:  forin
 	Object: forof
 	Range:  fori (inclusive)
 	Range:  forx (exclusive)
 
-### Statements
+**Statements**
+
 	If:        if
 	Else:      el
 	If Else:   ifel
@@ -59,10 +61,12 @@ You can access the commands either using the command palette or via shortcuts.
 	Try Catch: try
 	Unless:    unl
 
-### Classes
+**Classes**
+
 	Class - cla
 
-### Other
+**Other**
+
 	Function:      -
 	Function:      = (bound)
 	Interpolation: #
