@@ -1,4 +1,8 @@
 {
-	// The directory containing the coffee binary.
+	/*
+		binDir - The directory containing your coffee binary.
+		noWrap - Compile without the top-level function wrapper.
+	*/
 	"binDir": "/usr/local/bin"
+,	"noWrap": true
 }
