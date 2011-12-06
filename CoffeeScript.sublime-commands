@@ -1,26 +1,39 @@
 [
 	{
-		"caption": "CS: Check Syntax"
+		"caption": "Coffee: Check Syntax"
 	,	"command": "check_syntax"
 	}
 ,	{
-		"caption": "CS: Run Script"
+		"caption": "Coffee: Run Script"
 	,	"command": "run_script"
 	}
 ,	{
-		"caption": "CS: Run Cake Task"
+		"caption": "Coffee: Run Cake Task"
 	,	"command": "run_cake_task"
 	}
 ,	{
-		"caption": "CS: Display JavaScript"
+		"caption": "Coffee: Display JavaScript"
 	,	"command": "compile_and_display", "args": {"opt": "-p"}
 	}
 ,	{
-		"caption": "CS: Display Lexer Tokens"
+		"caption": "Coffee: Display Lexer Tokens"
 	,	"command": "compile_and_display", "args": {"opt": "-t"}
 	}
 ,	{
-		"caption": "CS: Display Parse Tree"
+		"caption": "Coffee: Display Parse Tree"
 	,	"command": "compile_and_display", "args": {"opt": "-n"}
 	}
+,	{
+		"caption": "Coffee: Start Watcher(s)"
+	,	"command": "start_watcher"
+	}
+,	{
+		"caption": "Coffee: Stop Watcher(s)"
+	,	"command": "stop_watcher"
+	}
+,	{
+		"caption": "Coffee: List Watcher(s)"
+	,	"command": "list_watcher"
+	}
+
 ]
