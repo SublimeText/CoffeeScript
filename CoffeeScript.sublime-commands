@@ -24,16 +24,7 @@
 	,	"command": "compile_and_display", "args": {"opt": "-n"}
 	}
 ,	{
-		"caption": "Coffee: Start Watcher(s)"
-	,	"command": "start_watcher"
+		"caption": "Coffee: Toggle Watcher(s)"
+	,	"command": "toggle_watch"
 	}
-,	{
-		"caption": "Coffee: Stop Watcher(s)"
-	,	"command": "stop_watcher"
-	}
-,	{
-		"caption": "Coffee: List Watcher(s)"
-	,	"command": "list_watcher"
-	}
-
 ]
