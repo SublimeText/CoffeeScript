@@ -2,4 +2,8 @@
 *.cache
 *.sublime-project
 *.sublime-workspace
-Test.coffee
+Test.*
+code
+spec
+src
+lib
