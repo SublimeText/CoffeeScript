@@ -1,38 +1,30 @@
 [
 	{
-		"caption": "Coffee: Check [S]yntax"
+		"caption": "Coffee: Check Syntax"
 	,	"command": "check_syntax"
 	}
 ,	{
-		"caption": "Coffee: [R]un Script"
+		"caption": "Coffee: Run Script"
 	,	"command": "run_script"
 	}
 ,	{
-		"caption": "Coffee: Run Cake [T]ask"
+		"caption": "Coffee: Run Cake Task"
 	,	"command": "run_cake_task"
 	}
 ,	{
-		"caption": "Coffee: [C]ompile File"
-	,	"command": "compile"
-	}
-,	{
-		"caption": "Coffee: [D]isplay JavaScript"
+		"caption": "Coffee: Display JavaScript"
 	,	"command": "compile_and_display", "args": {"opt": "-p"}
 	}
 ,	{
-		"caption": "Coffee: Display [L]exer Tokens"
-	,	"command": "compile_and_display", "args": {"opt": "-l"}
+		"caption": "Coffee: Display Lexer Tokens"
+	,	"command": "compile_and_display", "args": {"opt": "-t"}
 	}
 ,	{
-		"caption": "Coffee: Display Parser [N]odes"
+		"caption": "Coffee: Display Parse Tree"
 	,	"command": "compile_and_display", "args": {"opt": "-n"}
 	}
 ,	{
-		"caption": "Coffee: Toggle [W]atch Mode"
+		"caption": "Coffee: Toggle Watcher(s)"
 	,	"command": "toggle_watch"
-	}
-,	{
-		"caption": "Coffee: Toggle Output Panel [Z]"
-	,	"command": "toggle_output_panel"
 	}
 ]
