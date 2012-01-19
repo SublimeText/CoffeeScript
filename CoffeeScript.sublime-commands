@@ -12,6 +12,10 @@
 	,	"command": "run_cake_task"
 	}
 ,	{
+		"caption": "Coffee: Compile File"
+	,	"command": "compile"
+	}
+,	{
 		"caption": "Coffee: Display JavaScript"
 	,	"command": "compile_and_display", "args": {"opt": "-p"}
 	}
@@ -24,7 +28,11 @@
 	,	"command": "compile_and_display", "args": {"opt": "-n"}
 	}
 ,	{
-		"caption": "Coffee: Toggle Watcher(s)"
+		"caption": "Coffee: Toggle Watch Mode"
 	,	"command": "toggle_watch"
+	}
+,	{
+		"caption": "Coffee: Toggle Output Panel"
+	,	"command": "toggle_output_panel"
 	}
 ]
