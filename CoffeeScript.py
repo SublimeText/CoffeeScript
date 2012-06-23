@@ -1,22 +1,23 @@
 import sublime
+import sys
 from os import path
 from subprocess import Popen, PIPE
 from sublime_plugin import TextCommand, WindowCommand
 
 settings = sublime.load_settings('CoffeeScript.sublime-settings')
 
-def run(cmd, args = [], cwd = None, env = None):
+def run(cmd, args = [], source="", cwd = None, env = None):
 	if not type(args) is list:
 		args = [args]
-	if env is None:
+	if env is None and sys.platform != "win32":
 		env = {"PATH": settings.get('binDir', '/usr/local/bin')}
-	proc = Popen([cmd]+args, env=env, cwd=cwd, stdout=PIPE, stderr=PIPE)
-	stat = proc.communicate()
+	proc = Popen([cmd]+args, env=env, cwd=cwd, stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=True)
+	stat = proc.communicate(input=source)
 	okay = proc.returncode == 0
 	return {"okay": okay, "out": stat[0], "err": stat[1]}
 
-def brew(args):
-	return run("coffee", args=args)
+def brew(args, source):
+	return run("coffee", args=args, source=source)
 
 def cake(task, cwd):
 	return run("cake", args=task, cwd=cwd)
@@ -30,7 +31,6 @@ class Text():
 	@staticmethod
 	def all(view):
 		return view.substr(sublime.Region(0, view.size()))
-
 	@staticmethod
 	def sel(view):
 		text = []
@@ -53,7 +53,7 @@ class CompileAndDisplayCommand(TextCommand):
 
 	def run(self, edit, **kwargs):
 		opt = kwargs["opt"]
-		res = brew(['-e', '-b', opt, Text.get(self.view)])
+		res = brew(['-s', '-b', opt], Text.get(self.view))
 		output = self.view.window().new_file()
 		output.set_scratch(True)
 		if opt == '-p':
@@ -68,7 +68,7 @@ class CheckSyntaxCommand(TextCommand):
 		return isCoffee(self.view)
 
 	def run(self, edit):
-		res = brew(['-e', '-b', '-p', Text.get(self.view)])
+		res = brew(['-s', '-b', '-p'], Text.get(self.view))
 		if res["okay"] is True:
 			status = 'Valid'
 		else:
@@ -80,7 +80,7 @@ class RunScriptCommand(WindowCommand):
 		if text == '':
 			return
 		text = "{puts, print} = require 'util'\n" + text
-		res = brew(['-e', '-b', text])
+		res = brew(['-s', '-b', '-e'], text)
 		if res["okay"] is True:
 			output = self.window.new_file()
 			output.set_scratch(True)
@@ -103,10 +103,13 @@ class RunCakeTaskCommand(WindowCommand):
 		if task == '':
 			return
 
-		if not path.exists(path.join(self.window.folders()[0], 'Cakefile')):
-			return sublime.status_message("Cakefile not found.")
+		cakepath = path.join(self.window.folders()[0], 'Cakefile')
+		if not path.exists(cakepath):
+			cakepath = path.dirname(self.window.active_view().file_name())
+			if not path.exists(cakepath):
+				return sublime.status_message("Cakefile not found.")
 
-		res = cake(task, self.window.folders()[0])
+		res = cake(task, cakepath)
 		if res["okay"] is True:
 			if "No such task" in res["out"]:
 				msg = "doesn't exist"
