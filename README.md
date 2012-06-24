@@ -23,15 +23,17 @@ When you see *PACKAGE_PATH*, replace it with one of the above.
 
 # Commands/Shortcuts
 
-You can access the commands either using the command palette or via shortcuts.
+You can access the commands either using the command palette (meta+shift+P) or via shortcuts.
 
-	alt+shift+c - Run a Cake task
+	alt+shift+t - Run a Cake task
 	alt+shift+r - Run some CoffeeScript (puts/print for output)
 	alt+shift+s - Run a syntax check
-
+	alt+shift+c - Compile a file
 	alt+shift+d - Display compiled JavaScript
-	alt+shift+t - Display lexer tokens
-	alt+shift+n - Display parse nodes
+	alt+shift+l - Display lexer tokens
+	alt+shift+n - Display parser nodes
+	alt+shift+w - Toggle watch mode
+	alt+shift+z - Toggle output panel
 
 **Note:** Some of the commands use the status bar for output, so you'll probably want to enable it (Tools - Show Status Bar)
 
@@ -77,4 +79,21 @@ Hitting `F7` (Tools - Build) will run the Cake task 'sbuild'.
 
 # Settings
 
-If your Coffee binary isn't in `/usr/local/bin` then you can edit *binDir* in `CoffeeScript.sublime-settings`.
+**binDir**
+If your Coffee binary isn't in `/usr/local/bin` then you can change this.
+
+**noWrapper**
+Compile without the top level function wrapper (`coffee --bare`).
+
+**watchEnabled**
+Globally enable/disable watch mode (a wrapper over `coffee --watch`).
+
+**watchOutputMode**
+Where output from watch mode will be sent (panel, status, console).
+
+**watchOutputOnSuccess
+watchOutputOnFailure**
+Useful if you, for instance, only want to show compile errors.
+
+**watchHighlightErrors**
+Files will be automagically opened, if they contain an error. Also, your cursor shall of course be placed on the offending line.
