@@ -9,14 +9,26 @@ settings = sublime.load_settings('CoffeeScript.sublime-settings')
 def run(cmd, args = [], source="", cwd = None, env = None):
 	if not type(args) is list:
 		args = [args]
-	if env is None and sys.platform != "win32":
-		env = {"PATH": settings.get('binDir', '/usr/local/bin')}
-	proc = Popen([cmd]+args, env=env, cwd=cwd, stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=True)
-	stat = proc.communicate(input=source)
+	if sys.platform == "win32":		
+		proc = Popen([cmd]+args, env=env, cwd=cwd, stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=True)
+		stat = proc.communicate(input=source)
+	else:
+		if env is None:
+			env = {"PATH": settings.get('binDir', '/usr/local/bin')}
+		if source == "":
+			command = [cmd]+args
+		else:
+			command = [cmd]+args+[source] 
+		proc = Popen(command, env=env, cwd=cwd, stdout=PIPE, stderr=PIPE)
+		stat = proc.communicate()			
 	okay = proc.returncode == 0
 	return {"okay": okay, "out": stat[0], "err": stat[1]}
 
 def brew(args, source):
+	if sys.platform == "win32":
+		args.append("-s")
+	else:
+		args.append("-e")
 	return run("coffee", args=args, source=source)
 
 def cake(task, cwd):
@@ -53,7 +65,7 @@ class CompileAndDisplayCommand(TextCommand):
 
 	def run(self, edit, **kwargs):
 		opt = kwargs["opt"]
-		res = brew(['-s', '-b', opt], Text.get(self.view))
+		res = brew(['-b', opt], Text.get(self.view))
 		output = self.view.window().new_file()
 		output.set_scratch(True)
 		if opt == '-p':
@@ -68,7 +80,7 @@ class CheckSyntaxCommand(TextCommand):
 		return isCoffee(self.view)
 
 	def run(self, edit):
-		res = brew(['-s', '-b', '-p'], Text.get(self.view))
+		res = brew(['-b', '-p'], Text.get(self.view))
 		if res["okay"] is True:
 			status = 'Valid'
 		else:
@@ -80,7 +92,7 @@ class RunScriptCommand(WindowCommand):
 		if text == '':
 			return
 		text = "{puts, print} = require 'util'\n" + text
-		res = brew(['-s', '-b', '-e'], text)
+		res = brew(['-b'], text)
 		if res["okay"] is True:
 			output = self.window.new_file()
 			output.set_scratch(True)
