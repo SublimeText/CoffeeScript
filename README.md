@@ -13,7 +13,8 @@ When you see *PACKAGE_PATH*, replace it with one of the above.
 ### Nix/Mac
 
 	cd PACKAGE_PATH
-	git clone git@github.com:Xavura/CoffeeScript-Sublime-Plugin.git CoffeeScript
+	git clone https://github.com/Xavura/CoffeeScript-Sublime-Plugin.git CoffeeScript
+
 
 # Updating
 
