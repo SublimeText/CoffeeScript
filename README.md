@@ -4,13 +4,13 @@
 
 If you have Sublime Package Control, you know what to do. If not, well it's a package manager for Sublime Text 2.
 
-To install Package Control, open the Python Console (ctrl+') and paste the following into it:
+To install Package Control, open the Python Console (ctrl+' or cmd+`) and paste the following into it:
 
     import urllib2,os; pf='Package Control.sublime-package'; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read()); print 'Please restart Sublime Text to finish installation'
 
 After installing the package and restarting the editor:
 
-* Open the Command Pallete (ctrl+shift+P or cmd+P).
+* Open the Command Pallete (ctrl+shift+P or cmd+shift+P).
 * Type "Install Package" and hit return.
 * Type "CoffeeScript" and hit return.
 
@@ -40,7 +40,7 @@ If using Source Control:
 
 # Commands/Shortcuts
 
-You can access the commands either using the command palette (meta+shift+P) or via shortcuts.
+You can access the commands either using the command palette (ctrl+shift+P or cmd+shift+P) or via shortcuts.
 
 	alt+shift+t - Run a Cake task
 	alt+shift+r - Run some CoffeeScript (puts/print for output)
@@ -57,7 +57,7 @@ You can access the commands either using the command palette (meta+shift+P) or v
 # Snippets
 
 - Use `TAB` to run a snippet after typing the trigger.
-- Use `TAB` & `shift+TAB` to cycle forward/backward through fields.
+- Use `TAB` and `shift+TAB` to cycle forward/backward through fields.
 - Use `ESC` to exit snippet mode.
 
 ### Snippet Triggers
@@ -95,6 +95,8 @@ You can access the commands either using the command palette (meta+shift+P) or v
 Hitting `F7` (Tools - Build) will run the Cake task 'sbuild'.
 
 # Settings
+
+You can ignore these for now as they don't yet do anything.
 
 **binDir**
 If your Coffee binary isn't in `/usr/local/bin` then you can change this.
