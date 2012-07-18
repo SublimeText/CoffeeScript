@@ -9,7 +9,7 @@ settings = sublime.load_settings('CoffeeScript.sublime-settings')
 def run(cmd, args = [], source="", cwd = None, env = None):
 	if not type(args) is list:
 		args = [args]
-	if sys.platform == "win32":		
+	if sys.platform == "win32":
 		proc = Popen([cmd]+args, env=env, cwd=cwd, stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=True)
 		stat = proc.communicate(input=source)
 	else:
@@ -18,9 +18,9 @@ def run(cmd, args = [], source="", cwd = None, env = None):
 		if source == "":
 			command = [cmd]+args
 		else:
-			command = [cmd]+args+[source] 
+			command = [cmd]+args+[source]
 		proc = Popen(command, env=env, cwd=cwd, stdout=PIPE, stderr=PIPE)
-		stat = proc.communicate()			
+		stat = proc.communicate()
 	okay = proc.returncode == 0
 	return {"okay": okay, "out": stat[0], "err": stat[1]}
 
@@ -58,6 +58,20 @@ class Text():
 		if len(text) > 0:
 			return text
 		return Text.all(view)
+
+class CompileCommand(TextCommand):
+	def is_enabled(self):
+		return isCoffee(self.view)
+
+	def run(self, *args, **kwargs):
+		result = run("coffee", args=['-b', '-c', self.view.file_name()])
+
+		if result['okay'] is True:
+			status = 'Compilation Succeeded'
+		else:
+			status = 'Compilation Failed'
+
+		sublime.status_message(status)
 
 class CompileAndDisplayCommand(TextCommand):
 	def is_enabled(self):
@@ -121,7 +135,7 @@ class RunCakeTaskCommand(WindowCommand):
 			cakepath = path.join(self.window.folders()[0], 'Cakefile')
 			if not path.exists(cakepath):
 				cakepath = path.dirname(self.window.active_view().file_name())
-				
+
 		if not path.exists(cakepath):
 			return sublime.status_message("Cakefile not found.")
 
