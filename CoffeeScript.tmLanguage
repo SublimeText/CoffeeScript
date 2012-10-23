@@ -54,7 +54,7 @@
 				<key>2</key>
 				<dict>
 					<key>name</key>
-					<string>entity.name.type.instance.coffee</string>
+					<string>support.class.coffee</string>
 				</dict>
 			</dict>
 			<key>match</key>
@@ -348,6 +348,23 @@
 			<key>name</key>
 			<string>meta.function.coffee</string>
 		</dict>
+        <dict>
+            <key>comment</key>
+            <string>Show well-known functions from Express and Mocha in Go To Symbol view</string>
+            <key>name</key>
+            <string>meta.function.symbols.coffee</string>
+            <key>begin</key>
+            <string>^\s*(describe|it|app\.(get|post|put|all|del|delete))</string>
+            <key>end</key>
+            <string>$</string>
+            <key>patterns</key>
+            <array>
+                <dict>
+                    <key>include</key>
+                    <string>$self</string>
+                </dict>
+            </array>
+        </dict>
 		<dict>
 			<key>match</key>
 			<string>[=-]&gt;</string>
@@ -423,12 +440,6 @@
 			)\b</string>
 			<key>name</key>
 			<string>support.class.coffee</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\b(console)\b</string>
-			<key>name</key>
-			<string>entity.name.type.object.coffee</string>
 		</dict>
 		<dict>
 			<key>match</key>
