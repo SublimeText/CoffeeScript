@@ -3,4 +3,11 @@
 ,	"path": "/usr/local/bin:$PATH"
 ,	"selector": "source.coffee"
 ,	"working_dir": "$project_path"
+,	"variants":
+	[
+		{
+			"name": "Run",
+			"cmd": ["coffee", "$file"]
+		}
+	]
 }
