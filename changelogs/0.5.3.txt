@@ -1,0 +1,13 @@
+CoffeeScript-Sublime-Plugin 0.5.2 Changelog
+
+Fixes
+
+- Several syntax highlighting issues.
+- Respect noWrapper setting when compiling. 
+
+Enhancements
+
+- Added a build variant to quickly display the output of the current
+ script via (ctrl+shift+B or cmd+shift+B).
+- CSON files are now recognised.
+- Go To Symbol improvements (see: http://i.stack.imgur.com/2vssw.png).
