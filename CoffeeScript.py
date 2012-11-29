@@ -64,7 +64,11 @@ class CompileCommand(TextCommand):
 		return isCoffee(self.view)
 
 	def run(self, *args, **kwargs):
-		result = run("coffee", args=['-b', '-c', self.view.file_name()])
+		no_wrapper = settings.get('noWrapper', True)
+		args = ['-c', self.view.file_name()]
+		if no_wrapper:
+			args = ['-b'] + args
+		result = run("coffee", args=args)
 
 		if result['okay'] is True:
 			status = 'Compilation Succeeded'
@@ -79,7 +83,11 @@ class CompileAndDisplayCommand(TextCommand):
 
 	def run(self, edit, **kwargs):
 		opt = kwargs["opt"]
-		res = brew(['-b', opt], Text.get(self.view))
+		no_wrapper = settings.get('noWrapper', True)
+		args = [opt]
+		if no_wrapper:
+			args = ['-b'] + args
+		res = brew(args, Text.get(self.view))
 		output = self.view.window().new_file()
 		output.set_scratch(True)
 		if opt == '-p':
