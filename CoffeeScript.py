@@ -2,9 +2,11 @@ import sublime
 import sys
 from os import path
 from subprocess import Popen, PIPE
-from sublime_plugin import TextCommand, WindowCommand
+from sublime_plugin import TextCommand, WindowCommand, EventListener
+import time
 
 settings = sublime.load_settings('CoffeeScript.sublime-settings')
+watch_mode = False
 
 def run(cmd, args = [], source="", cwd = None, env = None):
 	if not type(args) is list:
@@ -19,6 +21,7 @@ def run(cmd, args = [], source="", cwd = None, env = None):
 			command = [cmd]+args
 		else:
 			command = [cmd]+args+[source]
+			#print command
 		proc = Popen(command, env=env, cwd=cwd, stdout=PIPE, stderr=PIPE)
 		stat = proc.communicate()
 	okay = proc.returncode == 0
@@ -82,20 +85,24 @@ class CompileAndDisplayCommand(TextCommand):
 		return isCoffee(self.view)
 
 	def run(self, edit, **kwargs):
-		opt = kwargs["opt"]
-		no_wrapper = settings.get('noWrapper', True)
-		args = [opt]
-		if no_wrapper:
-			args = ['-b'] + args
-		res = brew(args, Text.get(self.view))
 		output = self.view.window().new_file()
 		output.set_scratch(True)
+		opt = kwargs["opt"]
 		if opt == '-p':
 			output.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
+		no_wrapper = settings.get('noWrapper', True)
+
+		args = [opt]
+		print args
+		if no_wrapper:
+			args = ['-b'] + args
+
+		res = brew(args, Text.get(self.view))
 		if res["okay"] is True:
 			output.insert(edit, 0, res["out"])
 		else:
 			output.insert(edit, 0, res["err"].split("\n")[0])
+
 
 class CheckSyntaxCommand(TextCommand):
 	def is_enabled(self):
@@ -159,3 +166,34 @@ class RunCakeTaskCommand(WindowCommand):
 
 	def run(self):
 		self.window.show_input_panel('Cake >', '', self.finish, None, None)
+
+
+class ToggleWatch(TextCommand):
+	watch_mode = not watch_mode
+	print "watch_mode " , watch_mode
+	if watch_mode is True :
+
+		def is_enabled(self):
+			return isCoffee(self.view)
+
+		def run(self, edit):
+			output = self.view.window().new_file()
+			output.set_scratch(True)
+
+
+			output.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
+			no_wrapper = settings.get('noWrapper', True)
+
+			args = ['-p']
+			if no_wrapper:
+				args = ['-b'] + args
+
+			print "watch_mode yes"
+			#while True :
+			#	time.sleep(1)
+			#	print "refreshed"
+			res = brew(args, Text.get(self.view))
+			if res["okay"] is True:
+				output.insert(edit, 0, res["out"])
+			else:
+				output.insert(edit, 0, res["err"].split("\n")[0])
