@@ -170,22 +170,40 @@ class RunCakeTaskCommand(WindowCommand):
 		self.window.show_input_panel('Cake >', '', self.finish, None, None)
 
 
+#                               _ 
+#   __ _ _ __   ___  _ __ __  _(_)
+#  / _` | '_ \ / _ \| '_ \\ \/ / |
+# | (_| | |_) | (_) | | | |>  <| |
+#  \__,_| .__/ \___/|_| |_/_/\_\_|
+#       |_|                       
+
+def watched_filename(view_id):
+	view  = ToggleWatch.views[view_id]['input_obj']
+	if view.file_name() is not None:
+		filename = view.file_name().split('/')[-1]
+	else :
+		filename = "Unsaved File"
+	return filename
+
+	
 class ToggleWatch(TextCommand):
 	views = {}
 	outputs = {}
-	
-
 
 	def is_enabled(self):
 		return isCoffee(self.view)
 
 	def run(self, edit):
 		myvid = self.view.id()
+		
+
 		if not ToggleWatch.views.has_key(myvid):
+			
 			views = ToggleWatch.views
 			views[myvid] = {'watched' : True, 'modified' : True}
 			views[myvid]["input_obj"] = self.view
-			output = createOut(myvid)
+			print "Now watching", watched_filename(myvid)
+			createOut(myvid)
 			
 			#print "edit", edit
 			refreshOut(myvid)
@@ -193,13 +211,21 @@ class ToggleWatch(TextCommand):
 			views = ToggleWatch.views
 
 			views[myvid]['watched'] = not views[myvid]['watched']
-			if views[myvid]['watched'] is True :
+			if not views[myvid]['watched']:
+				print "Stopped watching",watched_filename(myvid)
+			
+			if views[myvid]['output_open'] is False:
+				print "Openning output and watching",watched_filename(myvid)
+				createOut(myvid)
+
+			elif views[myvid]['watched'] is True :
+				print "Resuming watching",watched_filename(myvid)
 				refreshOut(myvid)
 
-
-		
-		
-
+def cleanUp (input_view_id):
+	del ToggleWatch.outputs[ToggleWatch.views[input_view_id]['output_id']]
+	del ToggleWatch.views[input_view_id]
+	return
 
 def createOut(input_view_id):
 	#create output panel and save
@@ -233,7 +259,7 @@ def refreshOut (view_id):
 	
 	res = brew(args, Text.get(this_view['input_obj']))
 	output = this_view['output_obj']
-	this_view['modified'] = False
+	#this_view['modified'] = False
 	
 	if res["okay"] is True:
 		edit = output.begin_edit()
@@ -257,42 +283,47 @@ def isView(view_id):
 	view = window.active_view() if window != None else None
 	return (view is not None and view.id() == view_id)
 
+def close_output(input_id):
 
+	views = ToggleWatch.views
+	v = views[input_id]
+	output = v['output_obj']
+	output_id = v['output_id']
+	#print "close output"
+	if v['output_open'] is True:
+		#print "the output is open so we should attempt to close it"
+		output.window().focus_view(output)
+		output.window().run_command("close")
+		print watched_filename(input_id),"was closed. Closing the Output"
+		#v['output_open'] = False
+		cleanUp(input_id)
+
+	return
 class CaptureEditing(sublime_plugin.EventListener):
-	#edit_info = {}
+	
 	
 	  
 	def handleTimeout(self, vid):  
 		this_view = ToggleWatch.views[vid]
 		modified = this_view['modified']
 		if modified is True:  
-			# There are no more queued up calls to handleTimeout, so it must have  
+			 
 			# been 1000ms since the last modification  
-			print "handling"
+			#print "handling"
 			refreshOut(vid)
+
+
 
 	def on_modified(self, view):
 		vid = view.id()
-		now = time.mktime(time.gmtime())
-		#print "now ", now
-		#if not isView(vid):
-			# I only want to use views, not 
-			# the input-panel, etc..
-		#	return
-		#if not CaptureEditing.edit_info.has_key(vid):
-			# create a dictionary entry based on the 
-			# current views' id
-		#	CaptureEditing.edit_info[vid] = {}
-		#cview = CaptureEditing.edit_info[vid]
-		# I can now store details of the current edit 
-		# in the edit_info dictionary, via cview.
+		
 		watch_modified = settings.get('watchOnModified')
 
 		if watch_modified is not False and ToggleWatch.views.has_key(vid):
 			if watch_modified is True:
-				delay = 1
+				delay = 0.5
 			elif watch_modified == 0:
-				delay = 1
+				delay = 0.5
 			else :
 				delay = watch_modified
 			#then we have a watched input.
@@ -300,10 +331,9 @@ class CaptureEditing(sublime_plugin.EventListener):
 			#print " this view is ", this_view
 			if this_view['watched'] is True and this_view['modified'] is False:
 				this_view['modified'] = True
-				print " trigger "
+				#print " trigger "
 
-				#if this_view['last_modified'] <  now - delay:
-				sublime.set_timeout(functools.partial(self.handleTimeout, vid), delay*1000)  
+				sublime.set_timeout(functools.partial(self.handleTimeout, vid), int(delay*1000))  
 				
 
 			return
@@ -322,16 +352,19 @@ class CaptureEditing(sublime_plugin.EventListener):
 		views = ToggleWatch.views
 		if views.has_key(close_id):
 			#this is an input
-			this_view = views[close_id]
-			#this_view['output_obj'].close()
+			#print "input was closed"
+			views[close_id]['input_closed'] = True
+			close_output(close_id)
 		
-		if ToggleWatch.outputs.has_key(close_id):
+		if ToggleWatch.outputs.has_key(close_id) and views[ToggleWatch.outputs[close_id]['boundto']]['input_closed'] is not True:
 			#this is an output
-			print "an output was closed!"
+			#print "an output was closed!"
 			boundview = ToggleWatch.outputs[close_id]['boundto']
 			thatview = views[boundview]
 			thatview['output_open'] = False
 			thatview['watched'] = False
-			print "The output was closed, no longer watching"
+
+			filename = watched_filename(boundview)
+			print "The output was closed. No longer watching", filename
 
 		return
