@@ -7,7 +7,7 @@
 * [Snippets](#snippets)
 * [Building](#building)
 * [Settings](#settings)
-* [Special Thanks] (#specialthanks)
+* [Special Thanks] (#special-thanks)
 
 # Installation
 
@@ -224,5 +224,5 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 
 # Special Thanks
 
-(agibsonsw)[https://github.com/agibsonsw] for his help in writing WatchMode
-(Xavura)[https://github.com/Xavura] for writing this plugin
+* [agibsonsw](https://github.com/agibsonsw) for his help in writing WatchMode
+* [Xavura](https://github.com/Xavura) for writing this plugin
