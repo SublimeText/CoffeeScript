@@ -5,6 +5,7 @@ from subprocess import Popen, PIPE
 from sublime_plugin import TextCommand, WindowCommand, EventListener
 import sublime, sublime_plugin
 import time
+import functools
 
 settings = sublime.load_settings('CoffeeScript.sublime-settings')
 
@@ -171,6 +172,7 @@ class RunCakeTaskCommand(WindowCommand):
 
 class ToggleWatch(TextCommand):
 	views = {}
+	outputs = {}
 	
 
 
@@ -181,12 +183,10 @@ class ToggleWatch(TextCommand):
 		myvid = self.view.id()
 		if not ToggleWatch.views.has_key(myvid):
 			views = ToggleWatch.views
-			views[myvid] = {'watched' : True}
-
+			views[myvid] = {'watched' : True, 'modified' : True}
 			views[myvid]["input_obj"] = self.view
 			output = createOut(myvid)
-			views[myvid]["output_obj"] = output
-			views[myvid]["output_open"] = True
+			
 			#print "edit", edit
 			refreshOut(myvid)
 		else :
@@ -204,12 +204,18 @@ class ToggleWatch(TextCommand):
 def createOut(input_view_id):
 	#create output panel and save
 	this_view = ToggleWatch.views[input_view_id]
+	outputs = ToggleWatch.outputs
 	#print this_view
 
 	output = this_view["input_obj"].window().new_file()
 	output.set_scratch(True)
 	output.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
 	this_view['output_id'] = output.id()
+	this_view["output_obj"] = output
+	this_view["output_open"] = True
+	if not outputs.has_key(output.id()):
+		outputs[output.id()] = {'boundto': input_view_id}
+	
 	return output
 
 
@@ -227,6 +233,7 @@ def refreshOut (view_id):
 	
 	res = brew(args, Text.get(this_view['input_obj']))
 	output = this_view['output_obj']
+	this_view['modified'] = False
 	
 	if res["okay"] is True:
 		edit = output.begin_edit()
@@ -239,70 +246,92 @@ def refreshOut (view_id):
 		output.erase(edit, sublime.Region(0, output.size()))
 		output.insert(edit, 0, res["err"].split("\n")[0])
 		output.end_edit(edit)
+	
+
 	return 
 
 def isView(view_id):
-    # are they modifying a view (rather than a panel, etc.)
-    if not view_id: return False
-    window = sublime.active_window()
-    view = window.active_view() if window != None else None
-    return (view is not None and view.id() == view_id)
+	# are they modifying a view (rather than a panel, etc.)
+	if not view_id: return False
+	window = sublime.active_window()
+	view = window.active_view() if window != None else None
+	return (view is not None and view.id() == view_id)
 
 
 class CaptureEditing(sublime_plugin.EventListener):
-    #edit_info = {}
+	#edit_info = {}
+	
+	  
+	def handleTimeout(self, vid):  
+		this_view = ToggleWatch.views[vid]
+		modified = this_view['modified']
+		if modified is True:  
+			# There are no more queued up calls to handleTimeout, so it must have  
+			# been 1000ms since the last modification  
+			print "handling"
+			refreshOut(vid)
 
-    
-    def on_modified(self, view):
-        vid = view.id()
-        now = time.mktime(time.gmtime())
-        #print "now ", now
-        #if not isView(vid):
-            # I only want to use views, not 
-            # the input-panel, etc..
-        #    return
-        #if not CaptureEditing.edit_info.has_key(vid):
-            # create a dictionary entry based on the 
-            # current views' id
-        #    CaptureEditing.edit_info[vid] = {}
-        #cview = CaptureEditing.edit_info[vid]
-        # I can now store details of the current edit 
-        # in the edit_info dictionary, via cview.
-        watch_modified = settings.get('watchOnModified')
+	def on_modified(self, view):
+		vid = view.id()
+		now = time.mktime(time.gmtime())
+		#print "now ", now
+		#if not isView(vid):
+			# I only want to use views, not 
+			# the input-panel, etc..
+		#	return
+		#if not CaptureEditing.edit_info.has_key(vid):
+			# create a dictionary entry based on the 
+			# current views' id
+		#	CaptureEditing.edit_info[vid] = {}
+		#cview = CaptureEditing.edit_info[vid]
+		# I can now store details of the current edit 
+		# in the edit_info dictionary, via cview.
+		watch_modified = settings.get('watchOnModified')
 
-        if watch_modified is not False and ToggleWatch.views.has_key(vid):
-        	if watch_modified is True:
-        		delay = 3
-        	else :
-        		delay = watch_modified
-        	#then we have a watched input.
-        	this_view = ToggleWatch.views[vid]
-        	#print " this view is ", this_view
-        	if this_view['watched'] is True :
-        		if this_view['last_modified'] <  now - delay:
-        			refreshOut(vid)
+		if watch_modified is not False and ToggleWatch.views.has_key(vid):
+			if watch_modified is True:
+				delay = 1
+			elif watch_modified == 0:
+				delay = 1
+			else :
+				delay = watch_modified
+			#then we have a watched input.
+			this_view = ToggleWatch.views[vid]
+			#print " this view is ", this_view
+			if this_view['watched'] is True and this_view['modified'] is False:
+				this_view['modified'] = True
+				print " trigger "
 
-        	return
+				#if this_view['last_modified'] <  now - delay:
+				sublime.set_timeout(functools.partial(self.handleTimeout, vid), delay*1000)  
+				
 
-    def on_post_save ( self, view):
-    	watch_save = settings.get('watchOnSave', True)
-    	if watch_save :
+			return
+
+	def on_post_save ( self, view):
+		watch_save = settings.get('watchOnSave', True)
+		if watch_save :
 			save_id = view.id()
 			views = ToggleWatch.views
 			if views.has_key(save_id):
 				refreshOut(save_id)
 
-    	return
-    def on_close(self,view):
-    	close_id = view.id()
-    	views = ToggleWatch.views
-    	for k in views:
-    		print k
-    		if views[k].has_key('output_id') and views[k]['output_id'] is close_id:
-    			views[k]['output_open'] = False
-    			views[k]['watched'] = False
-    			print "The output was closed, no longer watching"
-    		
-    	#print "something was closed"
+		return
+	def on_close(self,view):
+		close_id = view.id()
+		views = ToggleWatch.views
+		if views.has_key(close_id):
+			#this is an input
+			this_view = views[close_id]
+			#this_view['output_obj'].close()
+		
+		if ToggleWatch.outputs.has_key(close_id):
+			#this is an output
+			print "an output was closed!"
+			boundview = ToggleWatch.outputs[close_id]['boundto']
+			thatview = views[boundview]
+			thatview['output_open'] = False
+			thatview['watched'] = False
+			print "The output was closed, no longer watching"
 
-    	return
+		return
