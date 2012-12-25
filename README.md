@@ -1,6 +1,6 @@
 # Jump to Section
 
-* [Latest Change Log] (https://github.com/aponxi/CoffeeScript-Sublime-Plugin/blob/master/changelogs/0.5.4.md)
+* [Latest Change Log] (https://github.com/aponxi/CoffeeScript-Sublime-Plugin/blob/master/changelogs/0.5.5.md)
 * [Installation](#installation)
 * [Updating](#updating)
 * [Commands/Shortcuts](#commandsshortcuts)
@@ -161,22 +161,11 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 	"binDir": "/usr/local/bin"
 
 	/*
-		Directories where the watcher will look for .js (lib)
-		and .coffee (src) files.
-	*/
-,	"libDir": ""
-,	"srcDir": ""
-
-	/*
 		Compile without the top-level function wrapper (coffee -b).
 	*/
 
 ,	"noWrapper": true
 
-	/*
-		Globally enable/disable watch mode.
-	*/
-,	"watchEnabled": true
 	/*
 		Enable or disable refresh the compiled Output on Save.
 		Only available for watch mode.
@@ -184,8 +173,6 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 ,	"watchOnSave": true
 	/*
 		Enable refreshing compiled JS when CoffeeScript is modified.
-		if its false then it won't refresh when its modified. if its an int
-		it will refresh after x seconds.
 
 		Put false to disable
 		Put a number of seconds to delay the refresh
@@ -193,33 +180,9 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 ,	"watchOnModified": 3
 
 
-	/*
-		Where output from the watcher (coffee -w) will be sent to.
 
-		panel   - a custom, toggleable (alt+shift+z) panel
-		status  - to the status bar
-		console - to the python console
-
-		log file? probably
-		growl? maybe
-	*/
-,	"watchOutputMode": "panel"
-
-,	"watchAutoStart": false
-
-	/*
-	Output success (compiled) or failure (error) messages, or both, or neither...
-	*/
-,	"watchOutputOnSuccess": true
-,	"watchOutputOnFailure": true
-
-	/*
-		Watched files containing errors will have their view focused
-		and the error highlighted, regardless of watchOutputOnFailure
-		setting above.
-	*/
-,	"watchHighlightErrors": true
 }
+
 ```
 
 # Special Thanks
