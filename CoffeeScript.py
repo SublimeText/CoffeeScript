@@ -3,10 +3,11 @@ import sys
 from os import path
 from subprocess import Popen, PIPE
 from sublime_plugin import TextCommand, WindowCommand, EventListener
+import sublime, sublime_plugin
 import time
 
 settings = sublime.load_settings('CoffeeScript.sublime-settings')
-watch_mode = False
+
 
 def run(cmd, args = [], source="", cwd = None, env = None):
 	if not type(args) is list:
@@ -169,31 +170,139 @@ class RunCakeTaskCommand(WindowCommand):
 
 
 class ToggleWatch(TextCommand):
-	watch_mode = not watch_mode
-	print "watch_mode " , watch_mode
-	if watch_mode is True :
-
-		def is_enabled(self):
-			return isCoffee(self.view)
-
-		def run(self, edit):
-			output = self.view.window().new_file()
-			output.set_scratch(True)
+	views = {}
+	
 
 
-			output.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
-			no_wrapper = settings.get('noWrapper', True)
+	def is_enabled(self):
+		return isCoffee(self.view)
 
-			args = ['-p']
-			if no_wrapper:
-				args = ['-b'] + args
+	def run(self, edit):
+		myvid = self.view.id()
+		if not ToggleWatch.views.has_key(myvid):
+			views = ToggleWatch.views
+			views[myvid] = {'watched' : True}
 
-			print "watch_mode yes"
-			#while True :
-			#	time.sleep(1)
-			#	print "refreshed"
-			res = brew(args, Text.get(self.view))
-			if res["okay"] is True:
-				output.insert(edit, 0, res["out"])
-			else:
-				output.insert(edit, 0, res["err"].split("\n")[0])
+			views[myvid]["input_obj"] = self.view
+			output = createOut(myvid)
+			views[myvid]["output_obj"] = output
+			views[myvid]["output_open"] = True
+			#print "edit", edit
+			refreshOut(myvid)
+		else :
+			views = ToggleWatch.views
+
+			views[myvid]['watched'] = not views[myvid]['watched']
+			if views[myvid]['watched'] is True :
+				refreshOut(myvid)
+
+
+		
+		
+
+
+def createOut(input_view_id):
+	#create output panel and save
+	this_view = ToggleWatch.views[input_view_id]
+	#print this_view
+
+	output = this_view["input_obj"].window().new_file()
+	output.set_scratch(True)
+	output.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
+	this_view['output_id'] = output.id()
+	return output
+
+
+def refreshOut (view_id):
+
+	this_view = ToggleWatch.views[view_id]
+	this_view['last_modified'] = time.mktime(time.gmtime())
+	#refresh the output view
+	no_wrapper = settings.get('noWrapper', True)
+
+	args = ['-p']
+	if no_wrapper:
+		args = ['-b'] + args
+
+	
+	res = brew(args, Text.get(this_view['input_obj']))
+	output = this_view['output_obj']
+	
+	if res["okay"] is True:
+		edit = output.begin_edit()
+		output.erase(edit, sublime.Region(0, output.size()))
+		output.insert(edit, 0, res["out"])
+		output.end_edit(edit)
+		#print "Refreshed"
+	else:
+		edit = output.begin_edit()
+		output.erase(edit, sublime.Region(0, output.size()))
+		output.insert(edit, 0, res["err"].split("\n")[0])
+		output.end_edit(edit)
+	return 
+
+def isView(view_id):
+    # are they modifying a view (rather than a panel, etc.)
+    if not view_id: return False
+    window = sublime.active_window()
+    view = window.active_view() if window != None else None
+    return (view is not None and view.id() == view_id)
+
+
+class CaptureEditing(sublime_plugin.EventListener):
+    #edit_info = {}
+
+    
+    def on_modified(self, view):
+        vid = view.id()
+        now = time.mktime(time.gmtime())
+        #print "now ", now
+        #if not isView(vid):
+            # I only want to use views, not 
+            # the input-panel, etc..
+        #    return
+        #if not CaptureEditing.edit_info.has_key(vid):
+            # create a dictionary entry based on the 
+            # current views' id
+        #    CaptureEditing.edit_info[vid] = {}
+        #cview = CaptureEditing.edit_info[vid]
+        # I can now store details of the current edit 
+        # in the edit_info dictionary, via cview.
+        watch_modified = settings.get('watchOnModified')
+
+        if watch_modified is not False and ToggleWatch.views.has_key(vid):
+        	if watch_modified is True:
+        		delay = 3
+        	else :
+        		delay = watch_modified
+        	#then we have a watched input.
+        	this_view = ToggleWatch.views[vid]
+        	#print " this view is ", this_view
+        	if this_view['watched'] is True :
+        		if this_view['last_modified'] <  now - delay:
+        			refreshOut(vid)
+
+        	return
+
+    def on_post_save ( self, view):
+    	watch_save = settings.get('watchOnSave', True)
+    	if watch_save :
+			save_id = view.id()
+			views = ToggleWatch.views
+			if views.has_key(save_id):
+				refreshOut(save_id)
+
+    	return
+    def on_close(self,view):
+    	close_id = view.id()
+    	views = ToggleWatch.views
+    	for k in views:
+    		print k
+    		if views[k].has_key('output_id') and views[k]['output_id'] is close_id:
+    			views[k]['output_open'] = False
+    			views[k]['watched'] = False
+    			print "The output was closed, no longer watching"
+    		
+    	#print "something was closed"
+
+    	return

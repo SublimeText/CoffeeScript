@@ -22,6 +22,21 @@
 		Globally enable/disable watch mode.
 	*/
 ,	"watchEnabled": true
+	/*
+		Enable or disable refresh the compiled Output on Save.
+		Only available for watch mode.
+	*/
+,	"watchOnSave": true
+	/*
+		Enable refreshing compiled JS when CoffeeScript is modified.
+		if its false then it won't refresh when its modified. if its an int
+		it will refresh after x seconds.
+
+		Put false to disable
+		Put a number of seconds to delay the refresh
+	*/
+,	"watchOnModified": 3
+
 
 	/*
 		Where output from the watcher (coffee -w) will be sent to.
