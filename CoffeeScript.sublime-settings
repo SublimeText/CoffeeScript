@@ -22,7 +22,7 @@
 		Put false to disable
 		Put a number of seconds to delay the refresh
 	*/
-,	"watchOnModified": 3
+,	"watchOnModified": 0.5
 
 
 

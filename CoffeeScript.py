@@ -1,3 +1,4 @@
+#aponxi v0.5.6
 import sublime
 import sys
 from os import path
@@ -200,13 +201,11 @@ class ToggleWatch(TextCommand):
 		if not ToggleWatch.views.has_key(myvid):
 			
 			views = ToggleWatch.views
-			views[myvid] = {'watched' : True, 'modified' : True}
+			views[myvid] = {'watched' : True, 'modified' : True, 'input_closed': False}
 			views[myvid]["input_obj"] = self.view
 			print "Now watching", watched_filename(myvid)
 			createOut(myvid)
 			
-			#print "edit", edit
-			refreshOut(myvid)
 		else :
 			views = ToggleWatch.views
 
@@ -241,7 +240,7 @@ def createOut(input_view_id):
 	this_view["output_open"] = True
 	if not outputs.has_key(output.id()):
 		outputs[output.id()] = {'boundto': input_view_id}
-	
+	refreshOut(input_view_id)
 	return output
 
 
@@ -259,7 +258,7 @@ def refreshOut (view_id):
 	
 	res = brew(args, Text.get(this_view['input_obj']))
 	output = this_view['output_obj']
-	#this_view['modified'] = False
+	this_view['modified'] = False
 	
 	if res["okay"] is True:
 		edit = output.begin_edit()
