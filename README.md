@@ -1,6 +1,6 @@
 # Jump to Section
 
-* [Latest Change Log](https://github.com/aponxi/CoffeeScript-Sublime-Plugin/blob/master/changelogs/0.5.6.md)
+* [Latest Change Log](https://github.com/aponxi/Better-CoffeeScript-Sublime-Plugin/blob/master/changelogs/0.5.6.md)
 * [Installation](#installation)
 * [Updating](#updating)
 * [Commands/Shortcuts](#commandsshortcuts)
