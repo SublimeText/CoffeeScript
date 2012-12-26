@@ -1,13 +1,13 @@
 # Jump to Section
 
-* [Latest Change Log] (https://github.com/aponxi/CoffeeScript-Sublime-Plugin/blob/master/changelogs/0.5.5.md)
+* [Latest Change Log](https://github.com/aponxi/CoffeeScript-Sublime-Plugin/blob/master/changelogs/0.5.5.md)
 * [Installation](#installation)
 * [Updating](#updating)
 * [Commands/Shortcuts](#commandsshortcuts)
 * [Snippets](#snippets)
 * [Building](#building)
 * [Settings](#settings)
-* [Special Thanks] (#special-thanks)
+* [Special Thanks](#special-thanks)
 
 # Installation
 
