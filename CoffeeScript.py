@@ -1,4 +1,4 @@
-#aponxi v0.5.5
+#aponxi v0.5.6
 import sublime
 import sys
 from os import path
@@ -308,7 +308,7 @@ class CaptureEditing(sublime_plugin.EventListener):
 		if modified is True:  
 			 
 			# been 1000ms since the last modification  
-			print "handling"
+			#print "handling"
 			refreshOut(vid)
 
 
@@ -330,7 +330,7 @@ class CaptureEditing(sublime_plugin.EventListener):
 			#print " this view is ", this_view
 			if this_view['watched'] is True and this_view['modified'] is False:
 				this_view['modified'] = True
-				print " trigger "
+				#print " trigger "
 
 				sublime.set_timeout(functools.partial(self.handleTimeout, vid), int(delay*1000))  
 				
