@@ -25,7 +25,7 @@ After installing the package and restarting the editor:
 
 * Open the Command Pallete (`ctrl+shift+P` or `cmd+shift+P`).
 * Type "Install Package" and hit return.
-* Type "CoffeeScript" and hit return.
+* Type "Better CoffeeScript" and hit return.
 
 ## via Source Control
 
@@ -42,7 +42,7 @@ Sublime stores packages in the following locations:
 Open a Terminal/Console and run the following commands, replacing `PACKAGE_PATH` with the path corresponding to your OS above.
 
 	cd PACKAGE_PATH
-	git clone https://github.com/Xavura/CoffeeScript-Sublime-Plugin.git CoffeeScript
+	git clone https://github.com/aponxi/Better-CoffeeScript-Sublime-Plugin.git "Better CoffeeScript"
 
 ### As a repository outside of the packages directory
 
@@ -51,7 +51,7 @@ If you use Github for Mac/Windows which store repositories in a specific locatio
 If you don't yet have the repository, then grab it via your GUI program or via the command line:
 
 	cd WHEREVER_YOU_WANT
-	git clone https://github.com/Xavura/CoffeeScript-Sublime-Plugin.git
+	git clone https://github.com/aponxi/Better-CoffeeScript-Sublime-Plugin.git
 
 Once that is done, we will create the link:
 
@@ -188,4 +188,4 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 # Special Thanks
 
 * [agibsonsw](https://github.com/agibsonsw) for his help in writing WatchMode
-* [Xavura](https://github.com/Xavura) for writing this plugin
+* [Xavura](https://github.com/Xavura) for writing the base of this plugin
