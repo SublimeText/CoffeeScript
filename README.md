@@ -1,6 +1,11 @@
+# IMPORTANT NOTE FOR INSTALLATION
+
+### As of right now this package is in the process of being pushed to Sublime Package Reposotory. Please install manually via git clone until this message is removed :)
+------
+
 # Jump to Section
 
-* [Latest Change Log](https://github.com/aponxi/Better-CoffeeScript-Sublime-Plugin/blob/master/changelogs/0.5.6.md)
+* [Latest Change Log](https://github.com/aponxi/sublime-better-coffeescript/blob/master/changelogs/0.5.6.md)
 * [Installation](#installation)
 * [Updating](#updating)
 * [Commands/Shortcuts](#commandsshortcuts)
