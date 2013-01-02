@@ -1,7 +1,4 @@
-# IMPORTANT NOTE FOR INSTALLATION
 
-### As of right now this package is in the process of being pushed to Sublime Package Reposotory. Please install manually via git clone until this message is removed :)
-------
 
 # Jump to Section
 
