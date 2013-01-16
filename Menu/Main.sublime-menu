@@ -12,23 +12,23 @@
                 "children":
                 [
                     {
-                        "caption": "CoffeeScript",
+                        "caption": "Better Coffeescript",
                         "children":
                         [
                             {
                                 "command": "open_file",
-                                "args": {"file": "${packages}/CoffeeScript/CoffeeScript.sublime-settings"},
+                                "args": {"file": "${packages}/sublime-better-coffeescript/Coffeescript.sublime-settings"},
                                 "caption": "Settings – Default"
                             },
                             {
                                 "command": "open_file",
-                                "args": {"file": "${packages}/User/CoffeeScript.sublime-settings"},
+                                "args": {"file": "${packages}/User/Coffeescript.sublime-settings"},
                                 "caption": "Settings – User"
                             },
                             {
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/CoffeeScript/Keymaps/Default (Windows).sublime-keymap",
+                                    "file": "${packages}/sublime-better-coffeescript/Keymaps/Default (Windows).sublime-keymap",
                                     "platform": "Windows"
                                 },
                                 "caption": "Key Bindings – Default"
@@ -36,7 +36,7 @@
                             {
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/CoffeeScript/Keymaps/Default (OSX).sublime-keymap",
+                                    "file": "${packages}/sublime-better-coffeescript/Keymaps/Default (OSX).sublime-keymap",
                                     "platform": "OSX"
                                 },
                                 "caption": "Key Bindings – Default"
@@ -44,7 +44,7 @@
                             {
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/CoffeeScript/Keymaps/Default (Linux).sublime-keymap",
+                                    "file": "${packages}/sublime-better-coffeescript/Keymaps/Default (Linux).sublime-keymap",
                                     "platform": "Linux"
                                 },
                                 "caption": "Key Bindings – Default"
