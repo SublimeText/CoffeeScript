@@ -401,9 +401,59 @@ class CaptureEditing(sublime_plugin.EventListener):
 
 
 class CompileOutput(TextCommand):
+    PANEL_NAME = 'coffee_compile_output'
 
     def is_enabled(self):
         return isCoffee(self.view)
 
     def run(self, edit):
+    	my_vid = self.view.id()
         return
+
+    def refreshPanel(view_id):
+        window = self.view.window()
+
+        this_view = ToggleWatch.views[view_id]
+        this_view['last_modified'] = time.mktime(time.gmtime())
+        #refresh the output view
+        no_wrapper = settings.get('noWrapper', True)
+
+        # args = ['-p']
+        if no_wrapper:
+            args = ['-b']
+
+        res = brew(args, Text.get(this_view['input_obj']))
+        panel = window.get_output_panel(self.PANEL_NAME)
+        panel.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
+        output = panel
+
+        if res["okay"] is True:
+            edit = output.begin_edit()
+            output.erase(edit, sublime.Region(0, output.size()))
+            output.insert(edit, 0, res["out"])
+            output.end_edit(edit)
+            print "Refreshed"
+        else:
+            edit = output.begin_edit()
+            output.erase(edit, sublime.Region(0, output.size()))
+            output.insert(edit, 0, res["err"].split("\n")[0])
+            output.end_edit(edit)
+        return
+
+    def _write_output_to_panel(self, window, javascript, error):
+        panel = window.get_output_panel(self.PANEL_NAME)
+        panel.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
+
+        text = javascript or str(error)
+        text = text.decode('utf8')
+        self._write_to_panel(panel, text)
+
+        window.run_command('show_panel', {'panel': 'output.%s' % self.PANEL_NAME})
+
+    def _write_to_panel(self, panel, text):
+        panel.set_read_only(False)
+        edit = panel.begin_edit()
+        panel.insert(edit, 0, text)
+        panel.end_edit(edit)
+        panel.sel().clear()
+        panel.set_read_only(True)
