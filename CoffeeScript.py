@@ -398,3 +398,12 @@ class CaptureEditing(sublime_plugin.EventListener):
             print "The output was closed. No longer watching", filename
 
         return
+
+
+class CompileOutput(TextCommand):
+
+    def is_enabled(self):
+        return isCoffee(self.view)
+
+    def run(self, edit):
+        return
