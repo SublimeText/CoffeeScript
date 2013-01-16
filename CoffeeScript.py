@@ -2,6 +2,7 @@
 import sublime
 import sys
 from os import path
+import os
 from subprocess import Popen, PIPE
 from sublime_plugin import TextCommand
 from sublime_plugin import WindowCommand
@@ -238,11 +239,20 @@ def cleanUp(input_view_id):
     return
 
 
+def get_output_filename(input_view_id):
+    input_filename = watched_filename(input_view_id)
+    fileName, fileExtension = os.path.splitext(input_filename)
+    output_filename = fileName + '.js'
+    return output_filename
+
+
 def createOut(input_view_id):
     #create output panel and save
     this_view = ToggleWatch.views[input_view_id]
     outputs = ToggleWatch.outputs
     #print this_view
+    input_filename = watched_filename(input_view_id)
+    print input_filename
 
     output = this_view["input_obj"].window().new_file()
     output.set_scratch(True)
@@ -250,6 +260,12 @@ def createOut(input_view_id):
     this_view['output_id'] = output.id()
     this_view["output_obj"] = output
     this_view["output_open"] = True
+    # setting output filename
+    # print output.settings().set('filename', '[Compiled]' + input_filename)
+    # Getting file extension
+    output_filename = get_output_filename(input_view_id)
+    output.set_name(output_filename)
+
     if not output.id() in outputs:
         outputs[output.id()] = {'boundto': input_view_id}
     refreshOut(input_view_id)
