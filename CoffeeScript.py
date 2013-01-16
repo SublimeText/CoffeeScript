@@ -328,7 +328,7 @@ class CaptureEditing(sublime_plugin.EventListener):
         if watch_modified is not False and vid in ToggleWatch.views:
             if watch_modified is True:
                 delay = 0.5
-            elif watch_modified == 0:
+            elif watch_modified < 0.5:
                 delay = 0.5
             else:
                 delay = watch_modified
