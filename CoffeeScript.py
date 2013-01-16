@@ -292,7 +292,7 @@ def refreshOut(view_id):
         output.erase(edit, sublime.Region(0, output.size()))
         output.insert(edit, 0, res["out"])
         output.end_edit(edit)
-        #print "Refreshed"
+        print "Refreshed"
     else:
         edit = output.begin_edit()
         output.erase(edit, sublime.Region(0, output.size()))
@@ -351,10 +351,11 @@ class CaptureEditing(sublime_plugin.EventListener):
             #then we have a watched input.
             this_view = ToggleWatch.views[vid]
             #print " this view is ", this_view
-            if this_view['watched'] is True and this_view['modified'] is False:
+            if this_view['modified'] is False:
                 this_view['modified'] = True
                 #print " trigger "
-                sublime.set_timeout(functools.partial(self.handleTimeout, vid), int(delay * 1000))
+                if this_view['watched'] is True:
+                    sublime.set_timeout(functools.partial(self.handleTimeout, vid), int(delay * 1000))
             return
 
     def on_post_save(self, view):
@@ -363,7 +364,11 @@ class CaptureEditing(sublime_plugin.EventListener):
             save_id = view.id()
             views = ToggleWatch.views
             if save_id in views:
-                refreshOut(save_id)
+                # getting view object
+                save_view = ToggleWatch.views[save_id]
+                # check if modified
+                if save_view['modified'] is True:
+                    refreshOut(save_id)
 
         return
 
