@@ -359,6 +359,7 @@ class CaptureEditing(sublime_plugin.EventListener):
             return
 
     def on_post_save(self, view):
+        # print "isCoffee " + str(isCoffee())
         watch_save = settings.get('watchOnSave', True)
         if watch_save:
             save_id = view.id()
@@ -369,6 +370,10 @@ class CaptureEditing(sublime_plugin.EventListener):
                 # check if modified
                 if save_view['modified'] is True:
                     refreshOut(save_id)
+        compile_on_save = settings.get('compileOnSave', True)
+        if compile_on_save is True and isCoffee() is True:
+            print "Compiling on save..."
+            view.run_command("compile")
 
         return
 
