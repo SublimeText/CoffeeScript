@@ -1,4 +1,4 @@
-#aponxi v0.5.6
+#aponxi v0.6.0
 import sublime
 import sys
 from os import path

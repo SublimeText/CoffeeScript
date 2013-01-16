@@ -2,7 +2,7 @@
 
 # Jump to Section
 
-* [Latest Change Log](https://github.com/aponxi/sublime-better-coffeescript/blob/master/changelogs/0.5.6.md)
+* [Latest Change Log](https://github.com/aponxi/sublime-better-coffeescript/blob/master/changelogs/0.6.md)
 * [Installation](#installation)
 * [Updating](#updating)
 * [Commands/Shortcuts](#commandsshortcuts)
@@ -10,6 +10,19 @@
 * [Building](#building)
 * [Settings](#settings)
 * [Special Thanks](#special-thanks)
+
+# Overview
+
+## Description
+
+CoffeeScript plugin was originally created by Xavura. As I began writing a lot of code in CoffeeScript I felt the need for side-by-side view for compiled CoffeeScript. Since Xavura's repo haven't been updated for over a year, and my sent pull requests were unresponsive I decided to branch out my own version. The biggest change in my branch is the Watch Mode which updates the compiled JavaScript view whenever you modify the CoffeeScript thus enabling you to view your progress side-by-side.
+
+I use this plugin everyday so whenever I am not developing I am in testing stage. I'll make sure every request or bug will be patched since I'm a frequent user.
+
+## Contributing
+
+- Please use [aponxi/issues page](https://github.com/aponxi/sublime-better-coffeescript/issues) to make requests or report bugs.
+- It would be best to keep the wiki on [this repository's wiki](https://github.com/aponxi/sublime-better-coffeescript/wiki) as well.
 
 # Installation
 
@@ -27,7 +40,7 @@ After installing the package and restarting the editor:
 
 * Open the Command Pallete (`ctrl+shift+P` or `cmd+shift+P`).
 * Type "Install Package" and hit return.
-* Type "Better CoffeeScript" and hit return.
+* Type "sublime-better-coffeescript" and hit return.
 
 ## via Source Control
 
@@ -44,7 +57,7 @@ Sublime stores packages in the following locations:
 Open a Terminal/Console and run the following commands, replacing `PACKAGE_PATH` with the path corresponding to your OS above.
 
 	cd PACKAGE_PATH
-	git clone https://github.com/aponxi/Better-CoffeeScript-Sublime-Plugin.git "Better CoffeeScript"
+	git clone https://github.com/aponxi/sublime-better-coffeescript.git "sublime-better-coffeescript"
 
 ### As a repository outside of the packages directory
 
@@ -53,25 +66,25 @@ If you use Github for Mac/Windows which store repositories in a specific locatio
 If you don't yet have the repository, then grab it via your GUI program or via the command line:
 
 	cd WHEREVER_YOU_WANT
-	git clone https://github.com/aponxi/Better-CoffeeScript-Sublime-Plugin.git
+	git clone https://github.com/aponxi/sublime-better-coffeescript.git
 
 Once that is done, we will create the link:
 
 #### Windows:
 
 	cd PACKAGE_PATH
-	mklink /D CoffeeScript ABSOLUTE_PATH_TO_REPOSITORY
+	mklink /D sublime-better-coffeescript ABSOLUTE_PATH_TO_REPOSITORY
 
 #### Nix/Mac:
 
 	cd PACKAGE_PATH
-	ln -s ABSOLUTE_PATH_TO_REPOSITORY CoffeeScript
+	ln -s ABSOLUTE_PATH_TO_REPOSITORY sublime-better-coffeescript
 
 #### A note on Package Control
 
 When Package Control tries to update your packages, if you have a repository in your packages directory then it will try to pull down and merge any changes. If you don't want this to happen and would rather handle everything yourself, then you can add the following to your settings (Preferences » Package Settings » Package Control » Settings - User):
 
-	"auto_upgrade_ignore": ["CoffeeScript"]
+	"auto_upgrade_ignore": ["sublime-better-coffeescript"]
 
 # Updating
 
@@ -154,7 +167,7 @@ That's what this is for! You would create a `Cakefile` and inside it you would w
 
 Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to change settings.
 
-```JSON
+```Javascript
 {
 	/*
 		The directory containing your coffee binary. Usually
@@ -179,11 +192,16 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 		Put false to disable
 		Put a number of seconds to delay the refresh
 	*/
-,	"watchOnModified": 3
+,	"watchOnModified": 0.5
+	/*
+		Enable Compiling on save. It will compile into the same folder.
+	*/
+,	"compileOnSave": true
 
 
 
 }
+
 
 ```
 
