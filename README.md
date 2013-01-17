@@ -202,12 +202,14 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 		Enable Compiling on save. It will compile into the same folder.
 	*/
 ,	"compileOnSave": true
+	/*
+		Enable outputting the results of the compiled coffeescript in a panel
+	*/
+,	"showOutputOnSave": false
 
 
 
 }
-
-
 ```
 
 # Special Thanks
