@@ -374,6 +374,10 @@ class CaptureEditing(sublime_plugin.EventListener):
         if compile_on_save is True and isCoffee() is True:
             print "Compiling on save..."
             view.run_command("compile")
+        show_compile_output_on_save = settings.get('showOutputOnSave', True)
+        if show_compile_output_on_save is True and isCoffee() is True:
+            print "Updating output panel..."
+            view.run_command("compile_output")
 
         return
 
