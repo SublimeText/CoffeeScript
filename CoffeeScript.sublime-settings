@@ -23,6 +23,14 @@
 		Put a number of seconds to delay the refresh
 	*/
 ,	"watchOnModified": 0.5
+	/*
+		Enable Compiling on save. It will compile into the same folder.
+	*/
+,	"compileOnSave": true
+	/*
+		Enable outputting the results of the compiled coffeescript in a panel
+	*/
+,	"showOutputOnSave": false
 
 
 

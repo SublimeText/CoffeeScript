@@ -35,4 +35,8 @@
 		"caption": "Coffee: Toggle Output Panel"
 	,	"command": "toggle_output_panel"
 	}
+,	{
+		"caption": "Coffee: Show Compiled"
+	,	"command": "compile_output"
+	}
 ]
