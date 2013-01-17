@@ -426,6 +426,7 @@ class CompileOutput(TextCommand):
         panel.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
         panel.set_read_only(False)
         output = panel
+        # print res["err"]
 
         if res["okay"] is True:
             edit = output.begin_edit()
@@ -436,7 +437,7 @@ class CompileOutput(TextCommand):
         else:
             edit = output.begin_edit()
             output.erase(edit, sublime.Region(0, output.size()))
-            output.insert(edit, 0, res["err"].split("\n")[0])
+            output.insert(edit, 0, res["err"])
             output.end_edit(edit)
         output.sel().clear()
         output.set_read_only(True)
