@@ -3,34 +3,84 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
-    <title>CoffeeScript Sublime Plugin by Xavura</title>
+    <title>Better CoffeeScript by aponxi</title>
   </head>
 
   <body>
-    <header>
+    <div id="container">
       <div class="inner">
-        <h1>CoffeeScript Sublime Plugin</h1>
-        <h2></h2>
-        <a href="https://github.com/Xavura/CoffeeScript-Sublime-Plugin" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h1>Installation</h1>
+        <header>
+          <h1>Better CoffeeScript</h1>
+          <h2></h2>
+        </header>
 
-<p><strong>Package Path</strong></p>
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/aponxi/sublime-better-coffeescript/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/aponxi/sublime-better-coffeescript/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/aponxi/sublime-better-coffeescript" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>Jump to Section</h1>
+
+<ul>
+<li><a href="https://github.com/aponxi/sublime-better-coffeescript/blob/master/changelogs/0.6.md">Latest Change Log</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#updating">Updating</a></li>
+<li><a href="#commandsshortcuts">Commands/Shortcuts</a></li>
+<li><a href="#snippets">Snippets</a></li>
+<li><a href="#building">Building</a></li>
+<li><a href="#settings">Settings</a></li>
+<li><a href="#special-thanks">Special Thanks</a></li>
+</ul><h1>Overview</h1>
+
+<h2>Description</h2>
+
+<p>CoffeeScript plugin was originally created by Xavura. As I began writing a lot of code in CoffeeScript I felt the need for side-by-side view for compiled CoffeeScript. Since Xavura's repo haven't been updated for over a year, and my sent pull requests were unresponsive I decided to branch out my own version. The biggest change in my branch is the Watch Mode which updates the compiled JavaScript view whenever you modify the CoffeeScript thus enabling you to view your progress side-by-side.</p>
+
+<p>I use this plugin everyday so whenever I am not developing I am in testing stage. I'll make sure every request or bug will be patched since I'm a frequent user.</p>
+
+<h2>Contributing</h2>
+
+<ul>
+<li>Please use <a href="https://github.com/aponxi/sublime-better-coffeescript/issues">aponxi/issues page</a> to make requests or report bugs.</li>
+<li>It would be best to keep the wiki on <a href="https://github.com/aponxi/sublime-better-coffeescript/wiki">this repository's wiki</a> as well.</li>
+</ul><h1>Installation</h1>
+
+<h2>via Package Control</h2>
+
+<blockquote>
+<p>This is the recommended installation method.</p>
+</blockquote>
+
+<p>If you have Sublime Package Control, you know what to do. If not, well: it's a package manager for Sublime Text 2; it's awesome and you can <a href="http://wbond.net/sublime_packages/package_control">read about it here</a>.</p>
+
+<p>To install Package Control, open the Python Console (<code>ctrl+'</code> or <code>cmd+`</code>) and paste the following into it:</p>
+
+<pre><code>import urllib2,os; pf='Package Control.sublime-package'; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read()); print 'Please restart Sublime Text to finish installation'
+</code></pre>
+
+<p>After installing the package and restarting the editor:</p>
+
+<ul>
+<li>Open the Command Pallete (<code>ctrl+shift+P</code> or <code>cmd+shift+P</code>).</li>
+<li>Type "Install Package" and hit return.</li>
+<li>Type "sublime-better-coffeescript" and hit return.</li>
+</ul><h2>via Source Control</h2>
+
+<blockquote>
+<p>If you plan to contribute, then you should install via this method. Otherwise it is recommended that you install the package via Package Control, see above.</p>
+</blockquote>
 
 <p>Sublime stores packages in the following locations:</p>
 
@@ -39,15 +89,50 @@ Mac: ~/Library/Application\ Support/Sublime\ Text\ 2/Packages
 Win: %APPDATA%\Sublime Text 2\Packages
 </code></pre>
 
-<p>When you see <em>PACKAGE_PATH</em>, replace it with one of the above.</p>
+<h3>As a repository within the packages directory</h3>
 
-<h3>Nix/Mac</h3>
+<p>Open a Terminal/Console and run the following commands, replacing <code>PACKAGE_PATH</code> with the path corresponding to your OS above.</p>
 
 <pre><code>cd PACKAGE_PATH
-git clone git@github.com:Xavura/CoffeeScript-Sublime-Plugin.git CoffeeScript
+git clone https://github.com/aponxi/sublime-better-coffeescript.git "sublime-better-coffeescript"
+</code></pre>
+
+<h3>As a repository outside of the packages directory</h3>
+
+<p>If you use Github for Mac/Windows which store repositories in a specific location, or if you just don't want a repository in your packages directory, then instead you can use a link.</p>
+
+<p>If you don't yet have the repository, then grab it via your GUI program or via the command line:</p>
+
+<pre><code>cd WHEREVER_YOU_WANT
+git clone https://github.com/aponxi/sublime-better-coffeescript.git
+</code></pre>
+
+<p>Once that is done, we will create the link:</p>
+
+<h4>Windows:</h4>
+
+<pre><code>cd PACKAGE_PATH
+mklink /D sublime-better-coffeescript ABSOLUTE_PATH_TO_REPOSITORY
+</code></pre>
+
+<h4>Nix/Mac:</h4>
+
+<pre><code>cd PACKAGE_PATH
+ln -s ABSOLUTE_PATH_TO_REPOSITORY sublime-better-coffeescript
+</code></pre>
+
+<h4>A note on Package Control</h4>
+
+<p>When Package Control tries to update your packages, if you have a repository in your packages directory then it will try to pull down and merge any changes. If you don't want this to happen and would rather handle everything yourself, then you can add the following to your settings (Preferences » Package Settings » Package Control » Settings - User):</p>
+
+<pre><code>"auto_upgrade_ignore": ["sublime-better-coffeescript"]
 </code></pre>
 
 <h1>Updating</h1>
+
+<p>If you are using Package Control, updating will be automatic and you don't have to worry about it.</p>
+
+<p>If using Source Control:</p>
 
 <pre><code>cd PACKAGE_PATH/CoffeeScript
 git fetch origin
@@ -56,26 +141,28 @@ git merge origin/master
 
 <h1>Commands/Shortcuts</h1>
 
-<p>You can access the commands either using the command palette (meta+shift+P) or via shortcuts.</p>
+<p>You can access the commands either using the command palette (<code>ctrl+shift+P</code> or <code>cmd+shift+P</code>) or via shortcuts.</p>
 
 <pre><code>alt+shift+t - Run a Cake task
-alt+shift+r - Run some CoffeeScript (puts/print for output)
+alt+shift+r - Run some CoffeeScript (puts/print is available for output)
 alt+shift+s - Run a syntax check
 alt+shift+c - Compile a file
 alt+shift+d - Display compiled JavaScript
 alt+shift+l - Display lexer tokens
 alt+shift+n - Display parser nodes
 alt+shift+w - Toggle watch mode
-alt+shift+z - Toggle output panel
+alt+shift+p - Toggle output panel
 </code></pre>
 
-<p><strong>Note:</strong> Some of the commands use the status bar for output, so you'll probably want to enable it (Tools - Show Status Bar)</p>
+<p>Context menu has <code>Compile Output</code> that compiles the current CoffeeScript and outputs the javascript code that is run, in a panel.</p>
+
+<p><strong>Note:</strong> Some of the commands use the Status Bar for output, so you'll probably want to enable it (Tools » Show Status Bar).</p>
 
 <h1>Snippets</h1>
 
 <ul>
 <li>Use <code>TAB</code> to run a snippet after typing the trigger.</li>
-<li>Use <code>TAB</code> &amp; <code>shift+TAB</code> to cycle forward/backward through fields.</li>
+<li>Use <code>TAB</code> and <code>shift+TAB</code> to cycle forward/backward through fields.</li>
 <li>Use <code>ESC</code> to exit snippet mode.</li>
 </ul><h3>Snippet Triggers</h3>
 
@@ -113,47 +200,82 @@ Interpolation: #
 
 <h1>Building</h1>
 
-<p>Hitting <code>F7</code> (Tools - Build) will run the Cake task 'sbuild'.</p>
+<blockquote>
+<p>When using the build system, it is assumed that your <code>.sublime-project</code> file lives in your project's base directory (due to limitations with the build system).</p>
+</blockquote>
+
+<p>Hitting <code>F7</code> (Tools » Build) will run the Cake task 'sbuild'.</p>
+
+<p>If you're not quite sure what the point of this is then read on.</p>
+
+<p>Let's say before distributing your project that you would like to combine all of your <code>.js</code> files into one and then minify them them using UglifyJS or something.</p>
+
+<p>That's what this is for! You would create a <code>Cakefile</code> and inside it you would write a task:</p>
+
+<pre><code>task 'sbuild', 'Prepare project for distribution.', -&gt;
+    # ...
+</code></pre>
 
 <h1>Settings</h1>
 
-<p><strong>binDir</strong>
-If your Coffee binary isn't in <code>/usr/local/bin</code> then you can change this.</p>
+<p>Go to <code>Preferences &gt; Package Settings &gt; CoffeeScript &gt; Settings - User</code> to change settings.</p>
 
-<p><strong>noWrapper</strong>
-Compile without the top level function wrapper (<code>coffee --bare</code>).</p>
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="cm">/*</span>
+<span class="cm">        The directory containing your coffee binary. Usually</span>
+<span class="cm">        /usr/local/bin.</span>
+<span class="cm">    */</span>
+    <span class="s2">"binDir"</span><span class="o">:</span> <span class="s2">"/usr/local/bin"</span>
 
-<p><strong>watchEnabled</strong>
-Globally enable/disable watch mode (a wrapper over <code>coffee --watch</code>).</p>
+    <span class="cm">/*</span>
+<span class="cm">        Compile without the top-level function wrapper (coffee -b).</span>
+<span class="cm">    */</span>
 
-<p><strong>watchOutputMode</strong>
-Where output from watch mode will be sent (panel, status, console).</p>
+<span class="p">,</span>   <span class="s2">"noWrapper"</span><span class="o">:</span> <span class="kc">true</span>
 
-<p><strong>watchOutputOnSuccess
-watchOutputOnFailure</strong>
-Useful if you, for instance, only want to show compile errors.</p>
+    <span class="cm">/*</span>
+<span class="cm">        Enable or disable refresh the compiled Output on Save.</span>
+<span class="cm">        Only available for watch mode.</span>
+<span class="cm">    */</span>
+<span class="p">,</span>   <span class="s2">"watchOnSave"</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="cm">/*</span>
+<span class="cm">        Enable refreshing compiled JS when CoffeeScript is modified.</span>
 
-<p><strong>watchHighlightErrors</strong>
-Files will be automagically opened, if they contain an error. Also, your cursor shall of course be placed on the offending line.</p>
+<span class="cm">        Put false to disable</span>
+<span class="cm">        Put a number of seconds to delay the refresh</span>
+<span class="cm">    */</span>
+<span class="p">,</span>   <span class="s2">"watchOnModified"</span><span class="o">:</span> <span class="mf">0.5</span>
+    <span class="cm">/*</span>
+<span class="cm">        Enable Compiling on save. It will compile into the same folder.</span>
+<span class="cm">    */</span>
+<span class="p">,</span>   <span class="s2">"compileOnSave"</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="cm">/*</span>
+<span class="cm">        Enable outputting the results of the compiled coffeescript in a panel</span>
+<span class="cm">    */</span>
+<span class="p">,</span>   <span class="s2">"showOutputOnSave"</span><span class="o">:</span> <span class="kc">false</span>
+
+
+
+<span class="p">}</span>
+</pre></div>
+
+<h1>Special Thanks</h1>
+
+<ul>
+<li>
+<a href="https://github.com/agibsonsw">agibsonsw</a> for his help in writing WatchMode</li>
+<li>
+<a href="https://github.com/Xavura">Xavura</a> for writing the base of this plugin</li>
+</ul>
         </section>
 
-        <aside id="sidebar">
-          <a href="https://github.com/Xavura/CoffeeScript-Sublime-Plugin/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/Xavura/CoffeeScript-Sublime-Plugin/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
+        <footer>
+          Better CoffeeScript is maintained by <a href="https://github.com/aponxi">aponxi</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
 
-          <p class="repo-owner"><a href="https://github.com/Xavura/CoffeeScript-Sublime-Plugin"></a> is maintained by <a href="https://github.com/Xavura">Xavura</a>.</p>
-
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
+        
       </div>
     </div>
-
-  
   </body>
 </html>
