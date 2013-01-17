@@ -18,7 +18,7 @@ def run(cmd, args=[], source="", cwd=None, env=None):
         args = [args]
     if sys.platform == "win32":
         proc = Popen([cmd] + args, env=env, cwd=cwd, stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=True)
-        stat = proc.communicate(input=source)
+        stat = proc.communicate(input=source.encode('utf-8'))
     else:
         if env is None:
             env = {"PATH": settings.get('binDir', '/usr/local/bin')}
@@ -30,7 +30,7 @@ def run(cmd, args=[], source="", cwd=None, env=None):
         proc = Popen(command, env=env, cwd=cwd, stdout=PIPE, stderr=PIPE)
         stat = proc.communicate()
     okay = proc.returncode == 0
-    return {"okay": okay, "out": stat[0], "err": stat[1]}
+    return {"okay": okay, "out": stat[0].decode('utf-8'), "err": stat[1].decode('utf-8')}
 
 
 def brew(args, source):
@@ -426,6 +426,7 @@ class CompileOutput(TextCommand):
         panel.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
         panel.set_read_only(False)
         output = panel
+        # print res["err"]
 
         if res["okay"] is True:
             edit = output.begin_edit()
@@ -436,7 +437,7 @@ class CompileOutput(TextCommand):
         else:
             edit = output.begin_edit()
             output.erase(edit, sublime.Region(0, output.size()))
-            output.insert(edit, 0, res["err"].split("\n")[0])
+            output.insert(edit, 0, res["err"])
             output.end_edit(edit)
         output.sel().clear()
         output.set_read_only(True)
