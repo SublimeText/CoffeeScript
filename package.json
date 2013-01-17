@@ -5,13 +5,13 @@
             "name": "Better CoffeeScript",
             "description": "Syntax highlighting and checking, commands, shortcuts, snippets, watched compilation and more.",
             "author": "aponxi",
-            "homepage": "https://github.com/aponxi/CoffeeScript-Sublime-Plugin",
-            "last_modified": "2011-12-25 20:54:00",
+            "homepage": "https://github.com/aponxi/sublime-better-coffeescript",
+            "last_modified": "2013-01-16 22:54:00",
             "platforms": {
                 "*": [
                     {
-                        "version": "0.5.6",
-                        "url": "https://nodeload.github.com/aponxi/CoffeeScript-Sublime-Plugin/archive/master.zip"
+                        "version": "0.6.2",
+                        "url": "https://github.com/aponxi/sublime-better-coffeescript/archive/master.zip"
                     }
                 ]
             }
