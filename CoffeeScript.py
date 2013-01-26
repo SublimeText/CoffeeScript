@@ -79,7 +79,13 @@ class CompileCommand(TextCommand):
 
     def run(self, *args, **kwargs):
         no_wrapper = settings.get('noWrapper', True)
+        compile_dir = settings.get('compileDir')
+        # print compile_dir
+        # print isinstance(compile_dir, unicode)
+        if compile_dir and isinstance(compile_dir, str) or isinstance(compile_dir, unicode):
+            print "Compile dir specified: " + compile_dir
         args = ['-c', self.view.file_name()]
+        print self.view.file_name()
         if no_wrapper:
             args = ['-b'] + args
         result = run("coffee", args=args)
