@@ -36,7 +36,7 @@
 		if it is a string like 'some/directory' then `-o some/directory` will be added to `coffee` compiler. 
 		if it is false or not string then it will compile your `script.coffee` to the directory it is in.
 	*/
-,	"compileDir": "false"
+,	"compileDir": "tmp"
 
 
 
