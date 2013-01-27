@@ -45,7 +45,7 @@
 			compileDir": "/home/logan/Desktop/out"
 		
 	*/
-,	"compileDir": "out"
+,	"compileDir": false
 
 
 

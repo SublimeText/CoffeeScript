@@ -220,7 +220,7 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 			compileDir": "/home/logan/Desktop/out"
 		
 	*/
-,	"compileDir": "out"
+,	"compileDir": false
 
 
 
