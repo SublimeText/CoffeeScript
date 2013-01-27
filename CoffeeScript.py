@@ -89,6 +89,11 @@ class CompileCommand(TextCommand):
         # print isinstance(compile_dir, unicode)
         if compile_dir and isinstance(compile_dir, str) or isinstance(compile_dir, unicode):
             print "Compile dir specified: " + compile_dir
+            if not os.path.exists(compile_dir):
+                os.makedirs(compile_dir)
+                print "Compile dir did not exist, created folder: " + compile_dir
+            folder, file_nm = os.path.split(self.view.file_name())
+            print folder
             args = ['--output', compile_dir] + args
             # print args
         # print args
