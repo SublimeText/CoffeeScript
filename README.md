@@ -1,8 +1,36 @@
+		                                               
+	                                         __    
+	   __     _____     ___     ___    __  _/\_\   
+	 /'__`\  /\ '__`\  / __`\ /' _ `\ /\ \/'\/\ \  
+	/\ \L\.\_\ \ \L\ \/\ \L\ \/\ \/\ \\/>  </\ \ \ 
+	\ \__/.\_\\ \ ,__/\ \____/\ \_\ \_\/\_/\_\\ \_\
+	 \/__/\/_/ \ \ \/  \/___/  \/_/\/_/\//\/_/ \/_/
+	            \ \_\                              
+	             \/_/                              
 
 
+	 ____            __    __                   
+	/\  _`\         /\ \__/\ \__                
+	\ \ \L\ \     __\ \ ,_\ \ ,_\    __   _ __  
+	 \ \  _ <'  /'__`\ \ \/\ \ \/  /'__`\/\`'__\
+	  \ \ \L\ \/\  __/\ \ \_\ \ \_/\  __/\ \ \/ 
+	   \ \____/\ \____\\ \__\\ \__\ \____\\ \_\ 
+	    \/___/  \/____/ \/__/ \/__/\/____/ \/_/ 
+	                                            
+	             
+			                ___    ___                                                __      
+			              /'___\ /'___\                                    __        /\ \__   
+			  ___    ___ /\ \__//\ \__/   __     __    ____    ___   _ __ /\_\  _____\ \ ,_\  
+			 /'___\ / __`\ \ ,__\ \ ,__\/'__`\ /'__`\ /',__\  /'___\/\`'__\/\ \/\ '__`\ \ \/  
+			/\ \__//\ \L\ \ \ \_/\ \ \_/\  __//\  __//\__, `\/\ \__/\ \ \/ \ \ \ \ \L\ \ \ \_ 
+			\ \____\ \____/\ \_\  \ \_\\ \____\ \____\/\____/\ \____\\ \_\  \ \_\ \ ,__/\ \__\
+			 \/____/\/___/  \/_/   \/_/ \/____/\/____/\/___/  \/____/ \/_/   \/_/\ \ \/  \/__/
+			                                                                      \ \_\       
+			                                                                       \/_/       
+                               
 # Jump to Section
 
-* [Latest Change Log](https://github.com/aponxi/sublime-better-coffeescript/blob/master/changelogs/0.6.md)
+* [Latest Change Log](#latest-changelog)
 * [Installation](#installation)
 * [Updating](#updating)
 * [Commands/Shortcuts](#commandsshortcuts)
@@ -15,7 +43,7 @@
 
 ## Description
 
-CoffeeScript plugin was originally created by Xavura. As I began writing a lot of code in CoffeeScript I felt the need for side-by-side view for compiled CoffeeScript. Since Xavura's repo haven't been updated for over a year, and my sent pull requests were unresponsive I decided to branch out my own version. The biggest change in my branch is the Watch Mode which updates the compiled JavaScript view whenever you modify the CoffeeScript thus enabling you to view your progress side-by-side.
+CoffeeScript plugin was originally created by Xavura. As I began writing a lot of code in CoffeeScript I felt the need for side-by-side view for compiled CoffeeScript. Since Xavura's repo have been inactive I decided to branch out my own version. The biggest change in my branch is the Watch Mode which updates the compiled JavaScript view whenever you modify the CoffeeScript thus enabling you to view your progress side-by-side.
 
 I use this plugin everyday so whenever I am not developing I am in testing stage. I'll make sure every request or bug will be patched since I'm a frequent user.
 
@@ -220,13 +248,47 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 			compileDir": "/home/logan/Desktop/out"
 		
 	*/
-,	"compileDir": "out"
+,	"compileDir": false
 
 
 
 }
 
 ```
+# Latest Changelog
+
+### v0.6.3 25/Jan/2013
+* added compileDir option which specifies `coffee -o` arg when compiling.
+* Fixed settings file name. It was Coffeescript when it should have been CoffeeScript. Fixes #19
+* compileDir path works only if it exists.
+* now also works if it doesn't exist.
+* changed default compileDir option to false thus compiling a coffee script to the same directory as default.
+
+### v0.6.2 16/Jan/2013
+- Updated package.json, bumped up version.
+
+### v0.6.1 16/Jan/2013
+- Added utf-8 encode/decode to prevent unicode decode errors, fixed #17
+- Corrected years in 0.6 changelog... Should get used to it by now.
+- Added error output in panel which fixes #16
+
+### v0.6 Changelog - 16/Jan/2013
+
+- Changed menu name to "Better Coffeescript"
+- Changed menu arguments to be directed to `sublime-better-coffeescript` folders, settings files are still kept as `Coffeescript.sublime-settings`
+- Fixed lint errors
+- if delay is lower than < 0.5 then we are saying that minimum delay should be 0.5
+- added a method that gets the input's filename with .js extension
+- setting the output view's name as filename.js fixes #13
+- added compileOnSave option fixes #14
+- updated readme fixes #6
+- added compile output class
+- added compile_output command, it displays the console.logs and what not in a panel
+- added compile_output command to the context menu (right click). This only works for coffeescripts.
+- Added that it existed in README.
+- Added option for showOutputOnSave
+- Need a way of telling if output is open or closed/hidden #15
+
 
 # Special Thanks
 
