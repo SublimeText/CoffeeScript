@@ -448,7 +448,7 @@ class CompileOutput(TextCommand):
             output.erase(edit, sublime.Region(0, output.size()))
             output.insert(edit, 0, res["out"])
             output.end_edit(edit)
-            print "Refreshed"
+            # print "Refreshed"
         else:
             edit = output.begin_edit()
             output.erase(edit, sublime.Region(0, output.size()))
