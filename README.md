@@ -22,7 +22,7 @@ I use this plugin everyday so whenever I am not developing I am in testing stage
 ## Contributing
 
 - Please use [aponxi/issues page](https://github.com/aponxi/sublime-better-coffeescript/issues) to make requests or report bugs.
-- It would be best to keep the wiki on [this repository's wiki](https://github.com/aponxi/sublime-better-coffeescript/wiki) as well.
+- It would be best to keep the wiki on [SublimeText repository's wiki](https://github.com/SublimeText/sublime-better-coffeescript/wiki).
 
 # Installation
 
@@ -203,13 +203,29 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 	*/
 ,	"compileOnSave": true
 	/*
-		Enable outputting the results of the compiled coffeescript in a panel
+		## Enable outputting the results of the compiled coffeescript in a panel
 	*/
 ,	"showOutputOnSave": false
+	/*
+		## Enable compiling to a specific directory.
+		#### Description
+
+		if it is a string like 'some/directory' then `-o some/directory` will be added to `coffee` compiler. 
+		if it is false or not string then it will compile your `script.coffee` to the directory it is in.
+
+		#### Example:
+		Directory is relative to the file you are editting if specified such as
+			compileDir": "out"
+		Directory is absolute if specified such as
+			compileDir": "/home/logan/Desktop/out"
+		
+	*/
+,	"compileDir": "out"
 
 
 
 }
+
 ```
 
 # Special Thanks
