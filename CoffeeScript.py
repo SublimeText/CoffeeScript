@@ -26,7 +26,8 @@ def run(cmd, args=[], source="", cwd=None, env=None):
             command = [cmd] + args
         else:
             command = [cmd] + args + [source]
-            #print command
+        # print "Debug - coffee command: "
+        # print command
         proc = Popen(command, env=env, cwd=cwd, stdout=PIPE, stderr=PIPE)
         stat = proc.communicate()
     okay = proc.returncode == 0
@@ -79,9 +80,23 @@ class CompileCommand(TextCommand):
 
     def run(self, *args, **kwargs):
         no_wrapper = settings.get('noWrapper', True)
+        compile_dir = settings.get('compileDir')
         args = ['-c', self.view.file_name()]
+        # print self.view.file_name()
         if no_wrapper:
             args = ['-b'] + args
+        # print compile_dir
+        # print isinstance(compile_dir, unicode)
+        if compile_dir and isinstance(compile_dir, str) or isinstance(compile_dir, unicode):
+            print "Compile dir specified: " + compile_dir
+            if not os.path.exists(compile_dir):
+                os.makedirs(compile_dir)
+                print "Compile dir did not exist, created folder: " + compile_dir
+            folder, file_nm = os.path.split(self.view.file_name())
+            print folder
+            args = ['--output', compile_dir] + args
+            # print args
+        # print args
         result = run("coffee", args=args)
 
         if result['okay'] is True:
@@ -433,7 +448,7 @@ class CompileOutput(TextCommand):
             output.erase(edit, sublime.Region(0, output.size()))
             output.insert(edit, 0, res["out"])
             output.end_edit(edit)
-            print "Refreshed"
+            # print "Refreshed"
         else:
             edit = output.begin_edit()
             output.erase(edit, sublime.Region(0, output.size()))

@@ -2,15 +2,15 @@
     "schema_version": "1.2",
     "packages": [
         {
-            "name": "Better CoffeeScript",
+            "name": "sublime-better-coffeescript",
             "description": "Syntax highlighting and checking, commands, shortcuts, snippets, watched compilation and more.",
             "author": "aponxi",
             "homepage": "https://github.com/aponxi/sublime-better-coffeescript",
-            "last_modified": "2013-01-16 22:54:00",
+            "last_modified": "2013-01-26 20:29:00",
             "platforms": {
                 "*": [
                     {
-                        "version": "0.6.2",
+                        "version": "0.6.3",
                         "url": "https://github.com/aponxi/sublime-better-coffeescript/archive/master.zip"
                     }
                 ]
