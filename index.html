@@ -31,10 +31,40 @@
         <hr>
 
         <section id="main_content">
-          <h1>Jump to Section</h1>
+          <pre><code>                                         __    
+   __     _____     ___     ___    __  _/\_\   
+ /'__`\  /\ '__`\  / __`\ /' _ `\ /\ \/'\/\ \  
+/\ \L\.\_\ \ \L\ \/\ \L\ \/\ \/\ \\/&gt;  &lt;/\ \ \ 
+\ \__/.\_\\ \ ,__/\ \____/\ \_\ \_\/\_/\_\\ \_\
+ \/__/\/_/ \ \ \/  \/___/  \/_/\/_/\//\/_/ \/_/
+            \ \_\                              
+             \/_/                              
+
+
+ ____            __    __                   
+/\  _`\         /\ \__/\ \__                
+\ \ \L\ \     __\ \ ,_\ \ ,_\    __   _ __  
+ \ \  _ &lt;'  /'__`\ \ \/\ \ \/  /'__`\/\`'__\
+  \ \ \L\ \/\  __/\ \ \_\ \ \_/\  __/\ \ \/ 
+   \ \____/\ \____\\ \__\\ \__\ \____\\ \_\ 
+    \/___/  \/____/ \/__/ \/__/\/____/ \/_/ 
+
+
+                        ___    ___                                                __      
+                      /'___\ /'___\                                    __        /\ \__   
+          ___    ___ /\ \__//\ \__/   __     __    ____    ___   _ __ /\_\  _____\ \ ,_\  
+         /'___\ / __`\ \ ,__\ \ ,__\/'__`\ /'__`\ /',__\  /'___\/\`'__\/\ \/\ '__`\ \ \/  
+        /\ \__//\ \L\ \ \ \_/\ \ \_/\  __//\  __//\__, `\/\ \__/\ \ \/ \ \ \ \ \L\ \ \ \_ 
+        \ \____\ \____/\ \_\  \ \_\\ \____\ \____\/\____/\ \____\\ \_\  \ \_\ \ ,__/\ \__\
+         \/____/\/___/  \/_/   \/_/ \/____/\/____/\/___/  \/____/ \/_/   \/_/\ \ \/  \/__/
+                                                                              \ \_\       
+                                                                               \/_/       
+</code></pre>
+
+<h1>Jump to Section</h1>
 
 <ul>
-<li><a href="https://github.com/aponxi/sublime-better-coffeescript/blob/master/changelogs/0.6.md">Latest Change Log</a></li>
+<li><a href="#latest-changelog">Latest Change Log</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#updating">Updating</a></li>
 <li><a href="#commandsshortcuts">Commands/Shortcuts</a></li>
@@ -46,7 +76,7 @@
 
 <h2>Description</h2>
 
-<p>CoffeeScript plugin was originally created by Xavura. As I began writing a lot of code in CoffeeScript I felt the need for side-by-side view for compiled CoffeeScript. Since Xavura's repo haven't been updated for over a year, and my sent pull requests were unresponsive I decided to branch out my own version. The biggest change in my branch is the Watch Mode which updates the compiled JavaScript view whenever you modify the CoffeeScript thus enabling you to view your progress side-by-side.</p>
+<p>CoffeeScript plugin was originally created by Xavura. As I began writing a lot of code in CoffeeScript I felt the need for side-by-side view for compiled CoffeeScript. Since Xavura's repo have been inactive I decided to branch out my own version. The biggest change in my branch is the Watch Mode which updates the compiled JavaScript view whenever you modify the CoffeeScript thus enabling you to view your progress side-by-side.</p>
 
 <p>I use this plugin everyday so whenever I am not developing I am in testing stage. I'll make sure every request or bug will be patched since I'm a frequent user.</p>
 
@@ -54,7 +84,7 @@
 
 <ul>
 <li>Please use <a href="https://github.com/aponxi/sublime-better-coffeescript/issues">aponxi/issues page</a> to make requests or report bugs.</li>
-<li>It would be best to keep the wiki on <a href="https://github.com/aponxi/sublime-better-coffeescript/wiki">this repository's wiki</a> as well.</li>
+<li>It would be best to keep the wiki on <a href="https://github.com/SublimeText/sublime-better-coffeescript/wiki">SublimeText repository's wiki</a>.</li>
 </ul><h1>Installation</h1>
 
 <h2>via Package Control</h2>
@@ -250,16 +280,70 @@ Interpolation: #
 <span class="cm">    */</span>
 <span class="p">,</span>   <span class="s2">"compileOnSave"</span><span class="o">:</span> <span class="kc">true</span>
     <span class="cm">/*</span>
-<span class="cm">        Enable outputting the results of the compiled coffeescript in a panel</span>
+<span class="cm">        ## Enable outputting the results of the compiled coffeescript in a panel</span>
 <span class="cm">    */</span>
 <span class="p">,</span>   <span class="s2">"showOutputOnSave"</span><span class="o">:</span> <span class="kc">false</span>
+    <span class="cm">/*</span>
+<span class="cm">        ## Enable compiling to a specific directory.</span>
+<span class="cm">        #### Description</span>
+
+<span class="cm">        if it is a string like 'some/directory' then `-o some/directory` will be added to `coffee` compiler. </span>
+<span class="cm">        if it is false or not string then it will compile your `script.coffee` to the directory it is in.</span>
+
+<span class="cm">        #### Example:</span>
+<span class="cm">        Directory is relative to the file you are editting if specified such as</span>
+<span class="cm">            compileDir": "out"</span>
+<span class="cm">        Directory is absolute if specified such as</span>
+<span class="cm">            compileDir": "/home/logan/Desktop/out"</span>
+
+<span class="cm">    */</span>
+<span class="p">,</span>   <span class="s2">"compileDir"</span><span class="o">:</span> <span class="kc">false</span>
 
 
 
 <span class="p">}</span>
+
 </pre></div>
 
-<h1>Special Thanks</h1>
+<h1>Latest Changelog</h1>
+
+<h3>v0.6.3 25/Jan/2013</h3>
+
+<ul>
+<li>added compileDir option which specifies <code>coffee -o</code> arg when compiling.</li>
+<li>Fixed settings file name. It was Coffeescript when it should have been CoffeeScript. Fixes #19</li>
+<li>compileDir path works only if it exists.</li>
+<li>now also works if it doesn't exist.</li>
+<li>changed default compileDir option to false thus compiling a coffee script to the same directory as default.</li>
+</ul><h3>v0.6.2 16/Jan/2013</h3>
+
+<ul>
+<li>Updated package.json, bumped up version.</li>
+</ul><h3>v0.6.1 16/Jan/2013</h3>
+
+<ul>
+<li>Added utf-8 encode/decode to prevent unicode decode errors, fixed #17</li>
+<li>Corrected years in 0.6 changelog... Should get used to it by now.</li>
+<li>Added error output in panel which fixes #16</li>
+</ul><h3>v0.6 Changelog - 16/Jan/2013</h3>
+
+<ul>
+<li>Changed menu name to "Better Coffeescript"</li>
+<li>Changed menu arguments to be directed to <code>sublime-better-coffeescript</code> folders, settings files are still kept as <code>Coffeescript.sublime-settings</code>
+</li>
+<li>Fixed lint errors</li>
+<li>if delay is lower than &lt; 0.5 then we are saying that minimum delay should be 0.5</li>
+<li>added a method that gets the input's filename with .js extension</li>
+<li>setting the output view's name as filename.js fixes #13</li>
+<li>added compileOnSave option fixes #14</li>
+<li>updated readme fixes #6</li>
+<li>added compile output class</li>
+<li>added compile_output command, it displays the console.logs and what not in a panel</li>
+<li>added compile_output command to the context menu (right click). This only works for coffeescripts.</li>
+<li>Added that it existed in README.</li>
+<li>Added option for showOutputOnSave</li>
+<li>Need a way of telling if output is open or closed/hidden #15</li>
+</ul><h1>Special Thanks</h1>
 
 <ul>
 <li>
