@@ -6,11 +6,11 @@
             "description": "Syntax highlighting and checking, commands, shortcuts, snippets, watched compilation and more.",
             "author": "aponxi",
             "homepage": "https://github.com/aponxi/sublime-better-coffeescript",
-            "last_modified": "2013-01-26 20:29:00",
+            "last_modified": "2013-01-26 20:39:00",
             "platforms": {
                 "*": [
                     {
-                        "version": "0.6.3",
+                        "version": "0.6.31",
                         "url": "https://github.com/aponxi/sublime-better-coffeescript/archive/master.zip"
                     }
                 ]
