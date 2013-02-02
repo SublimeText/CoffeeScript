@@ -102,9 +102,15 @@ class CompileCommand(TextCommand):
         if result['okay'] is True:
             status = 'Compilation Succeeded'
         else:
-            status = 'Compilation Failed'
+            errorFirstLine = result['err'].splitlines()[0]
+            status = 'Compilation FAILED '+errorFirstLine
+            sublime.error_message(errorFirstLine)
 
         sublime.status_message(status)
+
+        # leave 'save message' visible for 300ms
+        later = lambda: sublime.status_message(status);
+        sublime.set_timeout(later, 300)
 
 
 class CompileAndDisplayCommand(TextCommand):
