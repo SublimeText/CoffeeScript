@@ -43,13 +43,14 @@
 
 ## Description
 
-CoffeeScript plugin was originally created by Xavura. As I began writing a lot of code in CoffeeScript I felt the need for side-by-side view for compiled CoffeeScript. Since Xavura's repo have been inactive I decided to branch out my own version. The biggest change in my branch is the Watch Mode which updates the compiled JavaScript view whenever you modify the CoffeeScript thus enabling you to view your progress side-by-side.
+CoffeeScript plugin was originally created by @Xavura. As I began writing a lot of code in CoffeeScript I felt the need for side-by-side view for compiled CoffeeScript. Since Xavura's repo have been inactive I decided to branch out my own version. The biggest change in my branch is the Watch Mode which updates the compiled JavaScript view whenever you modify the CoffeeScript thus enabling you to view your progress side-by-side.
 
 I use this plugin everyday so whenever I am not developing I am in testing stage. I'll make sure every request or bug will be patched since I'm a frequent user.
 
 ## Contributing
 
 - Please use [aponxi/issues page](https://github.com/aponxi/sublime-better-coffeescript/issues) to make requests or report bugs.
+- Please make _pull requests_ to develop branch.
 - It would be best to keep the wiki on [SublimeText repository's wiki](https://github.com/SublimeText/sublime-better-coffeescript/wiki).
 
 # Installation
@@ -256,6 +257,14 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 
 ```
 # Latest Changelog
+
+### v0.6.32 02/Feb/2013
+* with help of @idpsycho fixed #14 once more.
+* added alert message on compile failed which also works with compile on save
+
+### v0.6.31 25/Jan/2013
+
+* hotfixed default compile dir to be `false`
 
 ### v0.6.3 25/Jan/2013
 * added compileDir option which specifies `coffee -o` arg when compiling.
