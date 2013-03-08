@@ -81,7 +81,7 @@ class CompileCommand(TextCommand):
     def run(self, *args, **kwargs):
         no_wrapper = settings.get('noWrapper', True)
         compile_dir = settings.get('compileDir')
-        args = ['-c', self.view.file_name()]
+        args = ['-c', os.path.split(self.view.file_name())[1]]
         # print self.view.file_name()
         if no_wrapper:
             args = ['-b'] + args
