@@ -39,7 +39,7 @@ def brew(args, source):
         args.append("-s")
     else:
         args.append("-e")
-    return run("coffee", args=args, source=source)
+    return run("coffee", args=args, source=source.encode('utf-8'))
 
 
 def cake(task, cwd):
