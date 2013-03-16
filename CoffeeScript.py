@@ -81,19 +81,23 @@ class CompileCommand(TextCommand):
     def run(self, *args, **kwargs):
         no_wrapper = settings.get('noWrapper', True)
         compile_dir = settings.get('compileDir')
-        args = ['-c', self.view.file_name()]
-        # print self.view.file_name()
+        source_file = self.view.file_name()
+        source_dir = os.path.dirname(source_file)
+        # print "Compiling: " + source_file
+        args = ['-c', source_file]
         if no_wrapper:
             args = ['-b'] + args
         # print compile_dir
         # print isinstance(compile_dir, unicode)
         if compile_dir and isinstance(compile_dir, str) or isinstance(compile_dir, unicode):
             print "Compile dir specified: " + compile_dir
+            # Check for absolute path or relative path for compile_dir
+            compile_dir = compile_dir if compile_dir[0] == '/' else (source_dir + '/' + compile_dir)
             if not os.path.exists(compile_dir):
                 os.makedirs(compile_dir)
                 print "Compile dir did not exist, created folder: " + compile_dir
-            folder, file_nm = os.path.split(self.view.file_name())
-            print folder
+            folder, file_nm = os.path.split(source_file)
+            # print folder
             args = ['--output', compile_dir] + args
             # print args
         # print args
