@@ -1,3 +1,6 @@
 [
-    { "command": "compile_output" }
+    {
+      "command": "run_script",
+      "caption": "Run Script / Selection"
+    }
 ]

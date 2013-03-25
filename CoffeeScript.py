@@ -19,9 +19,9 @@ def run(cmd, args=[], source="", cwd=None, env=None):
     if sys.platform == "win32":
         source_file = args[-1]
         if path.isfile(source_file):
-          source_dir, source_file = path.split(source_file)
-          args[-1] = source_file
-          cmd = "cd /D " + source_dir + " && " + cmd
+            source_dir, source_file = path.split(source_file)
+            args[-1] = source_file
+            cmd = "cd /D " + source_dir + " && " + cmd
         proc = Popen([cmd] + args, env=env, cwd=cwd, stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=True)
         stat = proc.communicate(input=source.encode('utf-8'))
     else:
@@ -118,7 +118,7 @@ class CompileCommand(TextCommand):
         sublime.status_message(status)
 
         # leave 'save message' visible for 300ms
-        later = lambda: sublime.status_message(status);
+        later = lambda: sublime.status_message(status)
         sublime.set_timeout(later, 300)
 
 
@@ -159,7 +159,7 @@ class CheckSyntaxCommand(TextCommand):
         sublime.status_message('Syntax %s' % status)
 
 
-class RunScriptCommand(WindowCommand):
+class QuickRunBarCommand(WindowCommand):
     def finish(self, text):
         if text == '':
             return
@@ -175,13 +175,7 @@ class RunScriptCommand(WindowCommand):
             sublime.status_message('Syntax %s' % res["err"].split("\n")[0])
 
     def run(self):
-        sel = Text.sel(sublime.active_window().active_view())
-        if len(sel) > 0:
-            if not isCoffee():
-                return
-            self.finish(sel)
-        else:
-            self.window.show_input_panel('Coffee >', '', self.finish, None, None)
+        self.window.show_input_panel('Coffee >', '', self.finish, None, None)
 
 
 class RunCakeTaskCommand(WindowCommand):
@@ -336,7 +330,7 @@ def isView(view_id):
     if not view_id:
         return False
     window = sublime.active_window()
-    view = window.active_view() if window != None else None
+    view = window.active_view() if window is not None else None
     return (view is not None and view.id() == view_id)
 
 
@@ -405,9 +399,9 @@ class CaptureEditing(sublime_plugin.EventListener):
             print "Compiling on save..."
             view.run_command("compile")
         show_compile_output_on_save = settings.get('showOutputOnSave', True)
-        if show_compile_output_on_save is True and isCoffee() is True and CompileOutput.IS_OPEN is True:
+        if show_compile_output_on_save is True and isCoffee() is True and RunScriptCommand.PANEL_IS_OPEN is True:
             print "Updating output panel..."
-            view.run_command("compile_output")
+            view.run_command("run_script")
 
         return
 
@@ -434,9 +428,9 @@ class CaptureEditing(sublime_plugin.EventListener):
         return
 
 
-class CompileOutput(TextCommand):
+class RunScriptCommand(TextCommand):
     PANEL_NAME = 'coffee_compile_output'
-    IS_OPEN = False
+    PANEL_IS_OPEN = False
 
     def is_enabled(self):
         return isCoffee(self.view)
@@ -473,5 +467,5 @@ class CompileOutput(TextCommand):
         output.set_read_only(True)
 
         window.run_command('show_panel', {'panel': 'output.%s' % self.PANEL_NAME})
-        self.IS_OPEN = True
+        self.PANEL_IS_OPEN = True
         return

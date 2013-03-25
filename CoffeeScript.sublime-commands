@@ -4,8 +4,8 @@
 	,	"command": "check_syntax"
 	}
 ,	{
-		"caption": "Coffee: Run Script"
-	,	"command": "run_script"
+		"caption": "Coffee: Quick Run Bar"
+	,	"command": "quick_run_bar"
 	}
 ,	{
 		"caption": "Coffee: Run Cake Task"
@@ -32,11 +32,7 @@
 	,	"command": "toggle_watch"
 	}
 ,	{
-		"caption": "Coffee: Toggle Output Panel"
-	,	"command": "toggle_output_panel"
-	}
-,	{
-		"caption": "Coffee: Show Compiled"
-	,	"command": "compile_output"
+		"caption": "Coffee: Run Script / Selection"
+	,	"command": "run_script"
 	}
 ]
