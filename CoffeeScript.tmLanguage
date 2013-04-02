@@ -355,7 +355,7 @@
             <key>name</key>
             <string>meta.function.symbols.coffee</string>
             <key>begin</key>
-            <string>^\s*(describe|it|app\.(get|post|put|all|del|delete))</string>
+            <string>^\s*(describe|it|app\.(get|post|put|all|del|delete))[^\w]</string>
             <key>end</key>
             <string>$</string>
             <key>patterns</key>
