@@ -10,8 +10,8 @@
             "platforms": {
                 "*": [
                     {
-                        "version": "0.6.32",
-                        "url": "https://github.com/aponxi/sublime-better-coffeescript/archive/master.zip"
+                        "version": "0.6.33",
+                        "url": "http://www.github.com/aponxi/sublime-better-coffeescript/archive/master.zip"
                     }
                 ]
             }
