@@ -1,5 +1,6 @@
 {
     "schema_version": "1.2",
+    "renamed_packages": { "sublime-better-coffeescript": "Better CoffeeScript" },
     "packages": [
         {
             "name": "Better CoffeeScript",
@@ -7,12 +8,11 @@
             "author": "aponxi",
             "homepage": "https://github.com/aponxi/sublime-better-coffeescript",
             "last_modified": "2013-05-18 19:10:00",
-            "renamed_packages": { "sublime-better-coffeescript": "Better CoffeeScript" },
             "platforms": {
                 "*": [
                     {
-                        "version": "0.6.35",
-                        "url": "https://github.com/aponxi/sublime-better-coffeescript/archive/master.zip"
+                        "version": "0.6.36",
+                        "url": "https://nodeload.github.com/aponxi/sublime-better-coffeescript/zip/master"
                     }
                 ]
             }
