@@ -17,7 +17,7 @@
                         [
                             {
                                 "command": "open_file",
-                                "args": {"file": "${packages}/sublime-better-coffeescript/CoffeeScript.sublime-settings"},
+                                "args": {"file": "${packages}/Better CoffeeScript/CoffeeScript.sublime-settings"},
                                 "caption": "Settings – Default"
                             },
                             {
@@ -28,7 +28,7 @@
                             {
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/sublime-better-coffeescript/Keymaps/Default (Windows).sublime-keymap",
+                                    "file": "${packages}/Better CoffeeScript/Keymaps/Default (Windows).sublime-keymap",
                                     "platform": "Windows"
                                 },
                                 "caption": "Key Bindings – Default"
@@ -36,7 +36,7 @@
                             {
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/sublime-better-coffeescript/Keymaps/Default (OSX).sublime-keymap",
+                                    "file": "${packages}/Better CoffeeScript/Keymaps/Default (OSX).sublime-keymap",
                                     "platform": "OSX"
                                 },
                                 "caption": "Key Bindings – Default"
@@ -44,7 +44,7 @@
                             {
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/sublime-better-coffeescript/Keymaps/Default (Linux).sublime-keymap",
+                                    "file": "${packages}/Better CoffeeScript/Keymaps/Default (Linux).sublime-keymap",
                                     "platform": "Linux"
                                 },
                                 "caption": "Key Bindings – Default"
