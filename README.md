@@ -38,6 +38,7 @@
 * [Building](#building)
 * [Settings](#settings)
 * [Special Thanks](#special-thanks)
+* Support this Project: [![](https://www.gittip.com/assets/widgets/heart.gif) Tip Me!](https://www.gittip.com/aponxi/)
 
 # Overview
 
@@ -203,6 +204,15 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 ```Javascript
 {
 	/*
+		The directories you would like to include in $PATH environment variable.
+		Use this if your node installation is at a seperate location and getting errors such as `cannot find node executable`
+
+		example:
+		"envPATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+	*/
+	"envPATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+	/*
 		The directory containing your coffee binary. Usually
 		/usr/local/bin.
 	*/
@@ -254,12 +264,13 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 
 }
 
+
 ```
 # Latest Changelog
 ### v0.6.40
 * added environment PATH settings, to add additional paths to find homebrew node and such
 * fixed an issue with the compile and display the output in panel (alt shift R) It was getting the text of the file and running it- thus not finding `required` modules in nodejs. I made it so that it runs the coffee command in the cwd and runs the filename instead of the whole script. In example: `coffee -b -e "my/script.coffee"` but this is run in `/home/projects/my`.
-
+* fixed #41 by adding settings into the command pallet
 
 ### v0.6.32 02/Feb/2013
 * with help of @idpsycho fixed #14 once more.
