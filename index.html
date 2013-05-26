@@ -3,35 +3,50 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
     <title>Better CoffeeScript by aponxi</title>
   </head>
 
   <body>
-    <div id="container">
-      <div class="inner">
+    <a id="forkme_banner" href="https://github.com/aponxi/sublime-better-coffeescript">View on GitHub</a>
+    <div class="shell">
 
-        <header>
-          <h1>Better CoffeeScript</h1>
-          <h2></h2>
-        </header>
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Better CoffeeScript</h1>
+            <h2>Syntax highlighting and checking, commands, shortcuts, snippets, watched compilation and more.</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/aponxi/sublime-better-coffeescript/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/aponxi/sublime-better-coffeescript/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/aponxi/sublime-better-coffeescript" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/aponxi/sublime-better-coffeescript/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/aponxi/sublime-better-coffeescript/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
 
-        <hr>
 
-        <section id="main_content">
-          <pre><code>                                         __    
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <pre><code>                                         __    
    __     _____     ___     ___    __  _/\_\   
  /'__`\  /\ '__`\  / __`\ /' _ `\ /\ \/'\/\ \  
 /\ \L\.\_\ \ \L\ \/\ \L\ \/\ \/\ \\/&gt;  &lt;/\ \ \ 
@@ -72,11 +87,12 @@
 <li><a href="#building">Building</a></li>
 <li><a href="#settings">Settings</a></li>
 <li><a href="#special-thanks">Special Thanks</a></li>
+<li><a href="https://www.gittip.com/aponxi/">Support this Project: <img src="https://www.gittip.com/assets/widgets/heart.gif" alt=""> Tip Me!</a></li>
 </ul><h1>Overview</h1>
 
 <h2>Description</h2>
 
-<p>CoffeeScript plugin was originally created by Xavura. As I began writing a lot of code in CoffeeScript I felt the need for side-by-side view for compiled CoffeeScript. Since Xavura's repo have been inactive I decided to branch out my own version. The biggest change in my branch is the Watch Mode which updates the compiled JavaScript view whenever you modify the CoffeeScript thus enabling you to view your progress side-by-side.</p>
+<p>CoffeeScript plugin was originally created by <a href="https://github.com/Xavura" class="user-mention">@Xavura</a>. As I began writing a lot of code in CoffeeScript I felt the need for side-by-side view for compiled CoffeeScript. Since Xavura's repo have been inactive I decided to branch out my own version. The biggest change in my branch is the Watch Mode which updates the compiled JavaScript view whenever you modify the CoffeeScript thus enabling you to view your progress side-by-side.</p>
 
 <p>I use this plugin everyday so whenever I am not developing I am in testing stage. I'll make sure every request or bug will be patched since I'm a frequent user.</p>
 
@@ -84,7 +100,7 @@
 
 <ul>
 <li>Please use <a href="https://github.com/aponxi/sublime-better-coffeescript/issues">aponxi/issues page</a> to make requests or report bugs.</li>
-<li>It would be best to keep the wiki on <a href="https://github.com/SublimeText/sublime-better-coffeescript/wiki">SublimeText repository's wiki</a>.</li>
+<li>Please make <em>pull requests</em> to develop branch.</li>
 </ul><h1>Installation</h1>
 
 <h2>via Package Control</h2>
@@ -105,7 +121,7 @@
 <ul>
 <li>Open the Command Pallete (<code>ctrl+shift+P</code> or <code>cmd+shift+P</code>).</li>
 <li>Type "Install Package" and hit return.</li>
-<li>Type "sublime-better-coffeescript" and hit return.</li>
+<li>Type "Better CoffeeScript" and hit return.</li>
 </ul><h2>via Source Control</h2>
 
 <blockquote>
@@ -124,7 +140,7 @@ Win: %APPDATA%\Sublime Text 2\Packages
 <p>Open a Terminal/Console and run the following commands, replacing <code>PACKAGE_PATH</code> with the path corresponding to your OS above.</p>
 
 <pre><code>cd PACKAGE_PATH
-git clone https://github.com/aponxi/sublime-better-coffeescript.git "sublime-better-coffeescript"
+git clone https://github.com/aponxi/sublime-better-coffeescript.git "Better CoffeeScript"
 </code></pre>
 
 <h3>As a repository outside of the packages directory</h3>
@@ -142,20 +158,20 @@ git clone https://github.com/aponxi/sublime-better-coffeescript.git
 <h4>Windows:</h4>
 
 <pre><code>cd PACKAGE_PATH
-mklink /D sublime-better-coffeescript ABSOLUTE_PATH_TO_REPOSITORY
+mklink /D "Better CoffeeScript" ABSOLUTE_PATH_TO_REPOSITORY
 </code></pre>
 
 <h4>Nix/Mac:</h4>
 
 <pre><code>cd PACKAGE_PATH
-ln -s ABSOLUTE_PATH_TO_REPOSITORY sublime-better-coffeescript
+ln -s ABSOLUTE_PATH_TO_REPOSITORY "Better CoffeeScript"
 </code></pre>
 
 <h4>A note on Package Control</h4>
 
 <p>When Package Control tries to update your packages, if you have a repository in your packages directory then it will try to pull down and merge any changes. If you don't want this to happen and would rather handle everything yourself, then you can add the following to your settings (Preferences » Package Settings » Package Control » Settings - User):</p>
 
-<pre><code>"auto_upgrade_ignore": ["sublime-better-coffeescript"]
+<pre><code>"auto_upgrade_ignore": ["Better CoffeeScript"]
 </code></pre>
 
 <h1>Updating</h1>
@@ -164,7 +180,7 @@ ln -s ABSOLUTE_PATH_TO_REPOSITORY sublime-better-coffeescript
 
 <p>If using Source Control:</p>
 
-<pre><code>cd PACKAGE_PATH/CoffeeScript
+<pre><code>cd "PACKAGE_PATH/Better CoffeeScript"
 git fetch origin
 git merge origin/master
 </code></pre>
@@ -174,7 +190,7 @@ git merge origin/master
 <p>You can access the commands either using the command palette (<code>ctrl+shift+P</code> or <code>cmd+shift+P</code>) or via shortcuts.</p>
 
 <pre><code>alt+shift+t - Run a Cake task
-alt+shift+r - Run some CoffeeScript (puts/print is available for output)
+alt+shift+r - Run some CoffeeScript (prints output to a panel on the bottom)
 alt+shift+s - Run a syntax check
 alt+shift+c - Compile a file
 alt+shift+d - Display compiled JavaScript
@@ -252,6 +268,15 @@ Interpolation: #
 
 <div class="highlight"><pre><span class="p">{</span>
     <span class="cm">/*</span>
+<span class="cm">        The directories you would like to include in $PATH environment variable.</span>
+<span class="cm">        Use this if your node installation is at a seperate location and getting errors such as `cannot find node executable`</span>
+
+<span class="cm">        example:</span>
+<span class="cm">        "envPATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"</span>
+
+<span class="cm">    */</span>
+    <span class="s2">"envPATH"</span><span class="o">:</span> <span class="s2">"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"</span><span class="p">,</span>
+    <span class="cm">/*</span>
 <span class="cm">        The directory containing your coffee binary. Usually</span>
 <span class="cm">        /usr/local/bin.</span>
 <span class="cm">    */</span>
@@ -303,11 +328,28 @@ Interpolation: #
 
 <span class="p">}</span>
 
+
 </pre></div>
 
 <h1>Latest Changelog</h1>
 
-<h3>v0.6.3 25/Jan/2013</h3>
+<h3>v0.6.40 26/May/2013</h3>
+
+<ul>
+<li>added environment PATH settings, to add additional paths to find homebrew node and such</li>
+<li>fixed an issue with the compile and display the output in panel (alt shift R) It was getting the text of the file and running it- thus not finding <code>required</code> modules in nodejs. I made it so that it runs the coffee command in the cwd and runs the filename instead of the whole script. In example: <code>coffee -b -e "my/script.coffee"</code> but this is run in <code>/home/projects/my</code>.</li>
+<li>fixed #41 by adding settings into the command pallet</li>
+</ul><h3>v0.6.32 02/Feb/2013</h3>
+
+<ul>
+<li>with help of <a href="https://github.com/idpsycho" class="user-mention">@idpsycho</a> fixed #14 once more.</li>
+<li>added alert message on compile failed which also works with compile on save</li>
+</ul><h3>v0.6.31 25/Jan/2013</h3>
+
+<ul>
+<li>hotfixed default compile dir to be <code>false</code>
+</li>
+</ul><h3>v0.6.3 25/Jan/2013</h3>
 
 <ul>
 <li>added compileDir option which specifies <code>coffee -o</code> arg when compiling.</li>
@@ -351,15 +393,22 @@ Interpolation: #
 <li>
 <a href="https://github.com/Xavura">Xavura</a> for writing the base of this plugin</li>
 </ul>
-        </section>
+      </section>
 
-        <footer>
-          Better CoffeeScript is maintained by <a href="https://github.com/aponxi">aponxi</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/aponxi">aponxi</a> can be found on <a href="https://github.com/aponxi/sublime-better-coffeescript">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
 
-        
-      </div>
     </div>
+
+    
   </body>
 </html>
