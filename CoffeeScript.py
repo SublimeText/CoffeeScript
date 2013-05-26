@@ -25,26 +25,40 @@ def run(cmd, args=[], source="", cwd=None, env=None):
         proc = Popen([cmd] + args, env=env, cwd=cwd, stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=True)
         stat = proc.communicate(input=source.encode('utf-8'))
     else:
-        if env is None:
+        if env is None:            
             env = {"PATH": settings.get('binDir', '/usr/local/bin')}
+
+        # adding custom PATHs from settings
+        customEnv = settings.get('envPATH', "")
+        # print "debug"
+        # print customEnv
+        if customEnv:
+            env["PATH"] = env["PATH"]+":"+customEnv
+        # else:
+            
+            # print "customEnv is empty"
+        # print env
+
         if source == "":
             command = [cmd] + args
         else:
             command = [cmd] + args + [source]
         # print "Debug - coffee command: "
         # print command
+        # print cwd
         proc = Popen(command, env=env, cwd=cwd, stdout=PIPE, stderr=PIPE)
         stat = proc.communicate()
     okay = proc.returncode == 0
     return {"okay": okay, "out": stat[0].decode('utf-8'), "err": stat[1].decode('utf-8')}
 
 
-def brew(args, source):
+def brew(args, source, cwd=None):
     if sys.platform == "win32":
         args.append("-s")
     else:
         args.append("-e")
-    return run("coffee", args=args, source=source)
+
+    return run("coffee", args=args, source=source, cwd=cwd)
 
 
 def cake(task, cwd):
@@ -135,7 +149,7 @@ class CompileAndDisplayCommand(TextCommand):
         no_wrapper = settings.get('noWrapper', True)
 
         args = [opt]
-        print args
+        # print args
         if no_wrapper:
             args = ['-b'] + args
 
@@ -238,7 +252,8 @@ class ToggleWatch(TextCommand):
             views = ToggleWatch.views
             views[myvid] = {'watched': True, 'modified': True, 'input_closed': False}
             views[myvid]["input_obj"] = self.view
-            print "Now watching", watched_filename(myvid)
+            # print "Now watching", watched_filename(myvid)
+            status = "Now watching", watched_filename(myvid)
             createOut(myvid)
 
         else:
@@ -276,7 +291,7 @@ def createOut(input_view_id):
     outputs = ToggleWatch.outputs
     #print this_view
     input_filename = watched_filename(input_view_id)
-    print input_filename
+    # print input_filename
 
     output = this_view["input_obj"].window().new_file()
     output.set_scratch(True)
@@ -316,7 +331,7 @@ def refreshOut(view_id):
         output.erase(edit, sublime.Region(0, output.size()))
         output.insert(edit, 0, res["out"])
         output.end_edit(edit)
-        print "Refreshed"
+        # print "Refreshed"
     else:
         edit = output.begin_edit()
         output.erase(edit, sublime.Region(0, output.size()))
@@ -396,11 +411,11 @@ class CaptureEditing(sublime_plugin.EventListener):
                     refreshOut(save_id)
         compile_on_save = settings.get('compileOnSave', True)
         if compile_on_save is True and isCoffee() is True:
-            print "Compiling on save..."
+            # print "Compiling on save..."
             view.run_command("compile")
         show_compile_output_on_save = settings.get('showOutputOnSave', True)
         if show_compile_output_on_save is True and isCoffee() is True and RunScriptCommand.PANEL_IS_OPEN is True:
-            print "Updating output panel..."
+            # print "Updating output panel..."
             view.run_command("run_script")
 
         return
@@ -441,11 +456,18 @@ class RunScriptCommand(TextCommand):
         #refresh the output view
         no_wrapper = settings.get('noWrapper', True)
 
-        # args = ['-p']
-        if no_wrapper:
-            args = ['-b']
+        source_dir, source_file = path.split(self.view.file_name())
+        # print "debug: SourceFolder " + source_dir
+        # print "debug: SourceFile "+source_file
 
-        res = brew(args, Text.get(self.view))
+        cwd = source_dir
+
+        args = [self.view.file_name()]
+        if no_wrapper:
+            args = args + ['-b']
+
+
+        res = brew(args, "", cwd)
         panel = window.get_output_panel(self.PANEL_NAME)
         panel.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
         panel.set_read_only(False)

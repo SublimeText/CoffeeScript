@@ -51,7 +51,6 @@ I use this plugin everyday so whenever I am not developing I am in testing stage
 
 - Please use [aponxi/issues page](https://github.com/aponxi/sublime-better-coffeescript/issues) to make requests or report bugs.
 - Please make _pull requests_ to develop branch.
-- It would be best to keep the wiki on [SublimeText repository's wiki](https://github.com/SublimeText/sublime-better-coffeescript/wiki).
 
 # Installation
 
@@ -69,7 +68,7 @@ After installing the package and restarting the editor:
 
 * Open the Command Pallete (`ctrl+shift+P` or `cmd+shift+P`).
 * Type "Install Package" and hit return.
-* Type "sublime-better-coffeescript" and hit return.
+* Type "Better CoffeeScript" and hit return.
 
 ## via Source Control
 
@@ -86,7 +85,7 @@ Sublime stores packages in the following locations:
 Open a Terminal/Console and run the following commands, replacing `PACKAGE_PATH` with the path corresponding to your OS above.
 
 	cd PACKAGE_PATH
-	git clone https://github.com/aponxi/sublime-better-coffeescript.git "sublime-better-coffeescript"
+	git clone https://github.com/aponxi/sublime-better-coffeescript.git "Better CoffeeScript"
 
 ### As a repository outside of the packages directory
 
@@ -102,18 +101,18 @@ Once that is done, we will create the link:
 #### Windows:
 
 	cd PACKAGE_PATH
-	mklink /D sublime-better-coffeescript ABSOLUTE_PATH_TO_REPOSITORY
+	mklink /D "Better CoffeeScript" ABSOLUTE_PATH_TO_REPOSITORY
 
 #### Nix/Mac:
 
 	cd PACKAGE_PATH
-	ln -s ABSOLUTE_PATH_TO_REPOSITORY sublime-better-coffeescript
+	ln -s ABSOLUTE_PATH_TO_REPOSITORY "Better CoffeeScript"
 
 #### A note on Package Control
 
 When Package Control tries to update your packages, if you have a repository in your packages directory then it will try to pull down and merge any changes. If you don't want this to happen and would rather handle everything yourself, then you can add the following to your settings (Preferences » Package Settings » Package Control » Settings - User):
 
-	"auto_upgrade_ignore": ["sublime-better-coffeescript"]
+	"auto_upgrade_ignore": ["Better CoffeeScript"]
 
 # Updating
 
@@ -121,7 +120,7 @@ If you are using Package Control, updating will be automatic and you don't have 
 
 If using Source Control:
 
-	cd PACKAGE_PATH/CoffeeScript
+	cd "PACKAGE_PATH/Better CoffeeScript"
 	git fetch origin
 	git merge origin/master
 
@@ -130,7 +129,7 @@ If using Source Control:
 You can access the commands either using the command palette (`ctrl+shift+P` or `cmd+shift+P`) or via shortcuts.
 
 	alt+shift+t - Run a Cake task
-	alt+shift+r - Run some CoffeeScript (puts/print is available for output)
+	alt+shift+r - Run some CoffeeScript (prints output to a panel on the bottom)
 	alt+shift+s - Run a syntax check
 	alt+shift+c - Compile a file
 	alt+shift+d - Display compiled JavaScript
@@ -257,6 +256,8 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 
 ```
 # Latest Changelog
+### v0.6.40
+* added environment settings
 
 ### v0.6.32 02/Feb/2013
 * with help of @idpsycho fixed #14 once more.
