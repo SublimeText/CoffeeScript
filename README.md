@@ -38,7 +38,7 @@
 * [Building](#building)
 * [Settings](#settings)
 * [Special Thanks](#special-thanks)
-* Support this Project: [![](https://www.gittip.com/assets/widgets/heart.gif) Tip Me!](https://www.gittip.com/aponxi/)
+* [Support this Project: ![](https://www.gittip.com/assets/widgets/heart.gif) Tip Me!](https://www.gittip.com/aponxi/)
 
 # Overview
 
