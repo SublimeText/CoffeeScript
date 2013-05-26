@@ -267,7 +267,7 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 
 ```
 # Latest Changelog
-### v0.6.40
+### v0.6.40 26/May/2013
 * added environment PATH settings, to add additional paths to find homebrew node and such
 * fixed an issue with the compile and display the output in panel (alt shift R) It was getting the text of the file and running it- thus not finding `required` modules in nodejs. I made it so that it runs the coffee command in the cwd and runs the filename instead of the whole script. In example: `coffee -b -e "my/script.coffee"` but this is run in `/home/projects/my`.
 * fixed #41 by adding settings into the command pallet
