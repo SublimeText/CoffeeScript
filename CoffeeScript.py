@@ -108,13 +108,13 @@ class CompileCommand(TextCommand):
             args = ['-b'] + args
         # print compile_dir
         # print isinstance(compile_dir, unicode)
-        if compile_dir and isinstance(compile_dir, str) or isinstance(compile_dir, unicode):
-            print "Compile dir specified: " + compile_dir
+        if compile_dir and isinstance(compile_dir, str):
+            print("Compile dir specified: " + compile_dir)
             # Check for absolute path or relative path for compile_dir
             compile_dir = compile_dir if compile_dir[0] == '/' else (source_dir + '/' + compile_dir)
             if not os.path.exists(compile_dir):
                 os.makedirs(compile_dir)
-                print "Compile dir did not exist, created folder: " + compile_dir
+                print("Compile dir did not exist, created folder: " + compile_dir)
             folder, file_nm = os.path.split(source_file)
             # print folder
             args = ['--output', compile_dir] + args
@@ -182,9 +182,7 @@ class QuickRunBarCommand(WindowCommand):
         if res["okay"] is True:
             output = self.window.new_file()
             output.set_scratch(True)
-            edit = output.begin_edit()
-            output.insert(edit, 0, res["out"])
-            output.end_edit(edit)
+            output.run_command('append', {'characters':res["out"]})
         else:
             sublime.status_message('Syntax %s' % res["err"].split("\n")[0])
 
@@ -246,7 +244,6 @@ class ToggleWatch(TextCommand):
 
     def run(self, edit):
         myvid = self.view.id()
-
         if not myvid in ToggleWatch.views:
 
             views = ToggleWatch.views
@@ -261,14 +258,14 @@ class ToggleWatch(TextCommand):
 
             views[myvid]['watched'] = not views[myvid]['watched']
             if not views[myvid]['watched']:
-                print "Stopped watching", watched_filename(myvid)
+                print("Stopped watching", watched_filename(myvid))
 
             if views[myvid]['output_open'] is False:
-                print "Openning output and watching", watched_filename(myvid)
+                print("Openning output and watching", watched_filename(myvid))
                 createOut(myvid)
 
             elif views[myvid]['watched'] is True:
-                print "Resuming watching", watched_filename(myvid)
+                print("Resuming watching", watched_filename(myvid))
                 refreshOut(myvid)
 
 
@@ -325,18 +322,10 @@ def refreshOut(view_id):
     res = brew(args, Text.get(this_view['input_obj']))
     output = this_view['output_obj']
     this_view['modified'] = False
-
     if res["okay"] is True:
-        edit = output.begin_edit()
-        output.erase(edit, sublime.Region(0, output.size()))
-        output.insert(edit, 0, res["out"])
-        output.end_edit(edit)
-        # print "Refreshed"
+        output.run_command('append', {'characters':res["out"]})
     else:
-        edit = output.begin_edit()
-        output.erase(edit, sublime.Region(0, output.size()))
-        output.insert(edit, 0, res["err"].split("\n")[0])
-        output.end_edit(edit)
+        output.run_command('append', {'characters':res["err"].split("\n")[0]})
     return
 
 
@@ -359,7 +348,7 @@ def close_output(input_id):
         #print "the output is open so we should attempt to close it"
         output.window().focus_view(output)
         output.window().run_command("close")
-        print watched_filename(input_id), "was closed. Closing the Output"
+        print(watched_filename(input_id), "was closed. Closing the Output")
         #v['output_open'] = False
         cleanUp(input_id)
 
@@ -438,7 +427,7 @@ class CaptureEditing(sublime_plugin.EventListener):
             thatview['watched'] = False
 
             filename = watched_filename(boundview)
-            print "The output was closed. No longer watching", filename
+            print("The output was closed. No longer watching", filename)
 
         return
 
