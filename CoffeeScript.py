@@ -10,10 +10,9 @@ import sublime_plugin
 import time
 import functools
 
-settings = sublime.load_settings('CoffeeScript.sublime-settings')
-
 
 def run(cmd, args=[], source="", cwd=None, env=None):
+    settings = sublime.load_settings('CoffeeScript.sublime-settings')
     if not type(args) is list:
         args = [args]
     if sys.platform == "win32":
@@ -46,6 +45,7 @@ def run(cmd, args=[], source="", cwd=None, env=None):
         # print "Debug - coffee command: "
         # print command
         # print cwd
+        
         proc = Popen(command, env=env, cwd=cwd, stdout=PIPE, stderr=PIPE)
         stat = proc.communicate()
     okay = proc.returncode == 0
@@ -98,6 +98,7 @@ class CompileCommand(TextCommand):
         return isCoffee(self.view)
 
     def run(self, *args, **kwargs):
+        settings = sublime.load_settings('CoffeeScript.sublime-settings')
         no_wrapper = settings.get('noWrapper', True)
         compile_dir = settings.get('compileDir')
         source_file = self.view.file_name()
@@ -141,6 +142,7 @@ class CompileAndDisplayCommand(TextCommand):
         return isCoffee(self.view)
 
     def run(self, edit, **kwargs):
+        settings = sublime.load_settings('CoffeeScript.sublime-settings')
         output = self.view.window().new_file()
         output.set_scratch(True)
         opt = kwargs["opt"]
@@ -309,7 +311,7 @@ def createOut(input_view_id):
 
 
 def refreshOut(view_id):
-
+    settings = sublime.load_settings('CoffeeScript.sublime-settings')
     this_view = ToggleWatch.views[view_id]
     this_view['last_modified'] = time.mktime(time.gmtime())
     #refresh the output view
@@ -366,6 +368,7 @@ class CaptureEditing(sublime_plugin.EventListener):
             refreshOut(vid)
 
     def on_modified(self, view):
+        settings = sublime.load_settings('CoffeeScript.sublime-settings')
         vid = view.id()
         watch_modified = settings.get('watchOnModified')
 
@@ -387,6 +390,7 @@ class CaptureEditing(sublime_plugin.EventListener):
             return
 
     def on_post_save(self, view):
+        settings = sublime.load_settings('CoffeeScript.sublime-settings')
         # print "isCoffee " + str(isCoffee())
         watch_save = settings.get('watchOnSave', True)
         if watch_save:
@@ -440,6 +444,7 @@ class RunScriptCommand(TextCommand):
         return isCoffee(self.view)
 
     def run(self, edit):
+        settings = sublime.load_settings('CoffeeScript.sublime-settings')
         window = self.view.window()
 
         #refresh the output view
