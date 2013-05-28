@@ -17,10 +17,6 @@ def run(cmd, args=[], source="", cwd=None, env=None):
         args = [args]
     if sys.platform == "win32":
         source_file = args[-1]
-        if path.isfile(source_file):
-            source_dir, source_file = path.split(source_file)
-            args[-1] = source_file
-            cmd = "cd /D " + source_dir + " && " + cmd
         proc = Popen([cmd] + args, env=env, cwd=cwd, stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=True)
         stat = proc.communicate(input=source.encode('utf-8'))
     else:
