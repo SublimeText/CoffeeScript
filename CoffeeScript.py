@@ -111,7 +111,10 @@ class CompileCommand(TextCommand):
         no_wrapper = get_setting('noWrapper', True)
         compile_dir = get_setting('compileDir')
         source_file = self.view.file_name()
-        source_dir = os.path.dirname(source_file)
+        # source_dir = os.path.dirname(source_file)
+        source_dir = os.path.normcase(os.path.dirname(source_file))
+        relative_div = get_setting('relativeDir')
+        relative_div = os.path.normcase(relative_div) if relative_div else False
         # print "Compiling: " + source_file
         args = ['-c', source_file]
         if no_wrapper:
@@ -121,10 +124,34 @@ class CompileCommand(TextCommand):
         if compile_dir and isinstance(compile_dir, str) or isinstance(compile_dir, unicode):
             print "Compile dir specified: " + compile_dir
             # Check for absolute path or relative path for compile_dir
-            compile_dir = compile_dir if os.path.isabs(compile_dir) else os.path.join(source_dir, compile_dir)
+            if not relative_div:
+                compile_dir = compile_dir if os.path.isabs(compile_dir) else os.path.join(source_dir, compile_dir)
+                # compile_dir = os.path.join(source_dir, compile_dir)
+            else:
+                adds = source_dir.replace(relative_div, "")
+                # print()
+                # print(path.split(adds)[0])
+                if path.split(adds)[0] == "":
+                    adds = path.split(adds)[1]
+                else:
+                    adds = path.join(*list(path.split(adds)[1:]))
+                    print(adds)
+                if os.path.isabs(compile_dir):
+                    compile_dir = path.join(compile_dir, adds)
+                else:
+                    compile_dir = path.join(relative_div, compile_dir, adds)
+                #     pass
+                # else:
+                #     compile_dir = compile_dir if os.path.isabs(compile_dir) else source_dir.replace(relative_div, compile_dir, 1)
+            # if not os.path.isabs(compile_dir):
+                # compile_dir = os.path.join(source_dir, compile_dir)
+            # elif relative_div:
+                # print(relative_div,compile_dir,source_dir)
+                # compile_dir = source_dir.replace(relative_div, compile_dir, 1)
             if not os.path.exists(compile_dir):
                 os.makedirs(compile_dir)
                 print "Compile dir did not exist, created folder: " + compile_dir
+            print(compile_dir)
             folder, file_nm = os.path.split(source_file)
             # print folder
             args = ['--output', compile_dir] + args
