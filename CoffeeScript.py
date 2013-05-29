@@ -10,18 +10,13 @@ import sublime_plugin
 import time
 import functools
 
-settings = sublime.load_settings('CoffeeScript.sublime-settings')
-
 
 def run(cmd, args=[], source="", cwd=None, env=None):
+    settings = sublime.load_settings('CoffeeScript.sublime-settings')
     if not type(args) is list:
         args = [args]
     if sys.platform == "win32":
         source_file = args[-1]
-        if path.isfile(source_file):
-            source_dir, source_file = path.split(source_file)
-            args[-1] = source_file
-            cmd = "cd /D " + source_dir + " && " + cmd
         proc = Popen([cmd] + args, env=env, cwd=cwd, stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=True)
         stat = proc.communicate(input=source.encode('utf-8'))
     else:
@@ -46,6 +41,7 @@ def run(cmd, args=[], source="", cwd=None, env=None):
         # print "Debug - coffee command: "
         # print command
         # print cwd
+        
         proc = Popen(command, env=env, cwd=cwd, stdout=PIPE, stderr=PIPE)
         stat = proc.communicate()
     okay = proc.returncode == 0
@@ -98,6 +94,7 @@ class CompileCommand(TextCommand):
         return isCoffee(self.view)
 
     def run(self, *args, **kwargs):
+        settings = sublime.load_settings('CoffeeScript.sublime-settings')
         no_wrapper = settings.get('noWrapper', True)
         compile_dir = settings.get('compileDir')
 
@@ -111,13 +108,15 @@ class CompileCommand(TextCommand):
         # print compile_dir
         # print isinstance(compile_dir, unicode)
 
-        if compile_dir and isinstance(compile_dir, str) or isinstance(compile_dir, str):
+        if compile_dir and isinstance(compile_dir, str):
             print("Compile dir specified: " + compile_dir)
+            # Check for absolute path or relative path for compile_dir
+            compile_dir = compile_dir if compile_dir[0] == '/' else (source_dir + '/' + compile_dir)
             if not os.path.exists(compile_dir):
                 os.makedirs(compile_dir)
                 print("Compile dir did not exist, created folder: " + compile_dir)
-            folder, file_nm = os.path.split(self.view.file_name())
-            print(folder)
+            folder, file_nm = os.path.split(source_file)
+            # print folder
             args = ['--output', compile_dir] + args
         result = run("coffee", args=args)
 
@@ -140,6 +139,7 @@ class CompileAndDisplayCommand(TextCommand):
         return isCoffee(self.view)
 
     def run(self, edit, **kwargs):
+        settings = sublime.load_settings('CoffeeScript.sublime-settings')
         output = self.view.window().new_file()
         output.set_scratch(True)
         opt = kwargs["opt"]
@@ -182,9 +182,7 @@ class QuickRunBarCommand(WindowCommand):
         if res["okay"] is True:
             output = self.window.new_file()
             output.set_scratch(True)
-            edit = output.begin_edit()
-            output.insert(edit, 0, res["out"])
-            output.end_edit(edit)
+            output.run_command('append', {'characters':res["out"]})
         else:
             sublime.status_message('Syntax %s' % res["err"].split("\n")[0])
 
@@ -246,7 +244,6 @@ class ToggleWatch(TextCommand):
 
     def run(self, edit):
         myvid = self.view.id()
-
         if not myvid in ToggleWatch.views:
 
             views = ToggleWatch.views
@@ -313,7 +310,7 @@ def createOut(input_view_id):
 
 
 def refreshOut(view_id):
-
+    settings = sublime.load_settings('CoffeeScript.sublime-settings')
     this_view = ToggleWatch.views[view_id]
     this_view['last_modified'] = time.mktime(time.gmtime())
     #refresh the output view
@@ -326,19 +323,11 @@ def refreshOut(view_id):
     res = brew(args, Text.get(this_view['input_obj']))
     output = this_view['output_obj']
     this_view['modified'] = False
-
     if res["okay"] is True:
-        edit = output.begin_edit()
-        output.erase(edit, sublime.Region(0, output.size()))
-        output.insert(edit, 0, res["out"])
-        output.end_edit(edit)
 
-        print("Refreshed")
+        output.run_command('append', {'characters':res["out"]})
     else:
-        edit = output.begin_edit()
-        output.erase(edit, sublime.Region(0, output.size()))
-        output.insert(edit, 0, res["err"].split("\n")[0])
-        output.end_edit(edit)
+        output.run_command('append', {'characters':res["err"].split("\n")[0]})
     return
 
 
@@ -379,6 +368,7 @@ class CaptureEditing(sublime_plugin.EventListener):
             refreshOut(vid)
 
     def on_modified(self, view):
+        settings = sublime.load_settings('CoffeeScript.sublime-settings')
         vid = view.id()
         watch_modified = settings.get('watchOnModified')
 
@@ -400,6 +390,7 @@ class CaptureEditing(sublime_plugin.EventListener):
             return
 
     def on_post_save(self, view):
+        settings = sublime.load_settings('CoffeeScript.sublime-settings')
         # print "isCoffee " + str(isCoffee())
         watch_save = settings.get('watchOnSave', True)
         if watch_save:
@@ -454,6 +445,7 @@ class RunScriptCommand(TextCommand):
         return isCoffee(self.view)
 
     def run(self, edit):
+        settings = sublime.load_settings('CoffeeScript.sublime-settings')
         window = self.view.window()
 
         #refresh the output view
