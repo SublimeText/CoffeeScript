@@ -266,6 +266,30 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 
 
 ```
+
+## Project settings
+
+Go to `Project > Edit Project` to change project settings.
+
+```Javascript
+{
+	"folders":
+	[
+		...
+	],
+	"settings":
+	{
+		"CoffeeScript":
+		{
+			"noWrapper": true,
+			"compileOnSave": true,
+			"compileDir": "out"
+		}
+	}
+}
+
+
+```
 # Latest Changelog
 ### v0.6.40 26/May/2013
 * added environment PATH settings, to add additional paths to find homebrew node and such
