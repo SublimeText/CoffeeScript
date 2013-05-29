@@ -54,7 +54,7 @@ def brew(args, source, cwd=None):
     else:
         args.append("-e")
 
-    return run("coffee", args=args, source=source, cwd=cwd)
+    return run("coffee", args=args, source=source.encode('utf-8'))
 
 
 def cake(task, cwd):
@@ -97,14 +97,17 @@ class CompileCommand(TextCommand):
         settings = sublime.load_settings('CoffeeScript.sublime-settings')
         no_wrapper = settings.get('noWrapper', True)
         compile_dir = settings.get('compileDir')
-        source_file = self.view.file_name()
-        source_dir = os.path.dirname(source_file)
-        # print "Compiling: " + source_file
-        args = ['-c', source_file]
+
+        if compile_dir:
+            args = ['-c', os.path.split(self.view.file_name())[1]]
+        else:
+            args = ['-c', self.view.file_name()]
+        # print self.view.file_name()
         if no_wrapper:
             args = ['-b'] + args
         # print compile_dir
         # print isinstance(compile_dir, unicode)
+
         if compile_dir and isinstance(compile_dir, str):
             print("Compile dir specified: " + compile_dir)
             # Check for absolute path or relative path for compile_dir
@@ -115,8 +118,6 @@ class CompileCommand(TextCommand):
             folder, file_nm = os.path.split(source_file)
             # print folder
             args = ['--output', compile_dir] + args
-            # print args
-        # print args
         result = run("coffee", args=args)
 
         if result['okay'] is True:
@@ -147,7 +148,8 @@ class CompileAndDisplayCommand(TextCommand):
         no_wrapper = settings.get('noWrapper', True)
 
         args = [opt]
-        # print args
+
+        print(args)
         if no_wrapper:
             args = ['-b'] + args
 
@@ -247,8 +249,8 @@ class ToggleWatch(TextCommand):
             views = ToggleWatch.views
             views[myvid] = {'watched': True, 'modified': True, 'input_closed': False}
             views[myvid]["input_obj"] = self.view
-            # print "Now watching", watched_filename(myvid)
-            status = "Now watching", watched_filename(myvid)
+
+            print("Now watching", watched_filename(myvid))
             createOut(myvid)
 
         else:
@@ -286,7 +288,8 @@ def createOut(input_view_id):
     outputs = ToggleWatch.outputs
     #print this_view
     input_filename = watched_filename(input_view_id)
-    # print input_filename
+
+    print(input_filename)
 
     output = this_view["input_obj"].window().new_file()
     output.set_scratch(True)
@@ -321,6 +324,7 @@ def refreshOut(view_id):
     output = this_view['output_obj']
     this_view['modified'] = False
     if res["okay"] is True:
+
         output.run_command('append', {'characters':res["out"]})
     else:
         output.run_command('append', {'characters':res["err"].split("\n")[0]})
@@ -400,12 +404,13 @@ class CaptureEditing(sublime_plugin.EventListener):
                     refreshOut(save_id)
         compile_on_save = settings.get('compileOnSave', True)
         if compile_on_save is True and isCoffee() is True:
-            # print "Compiling on save..."
+
+            print("Compiling on save...")
             view.run_command("compile")
         show_compile_output_on_save = settings.get('showOutputOnSave', True)
-        if show_compile_output_on_save is True and isCoffee() is True and RunScriptCommand.PANEL_IS_OPEN is True:
-            # print "Updating output panel..."
-            view.run_command("run_script")
+        if show_compile_output_on_save is True and isCoffee() is True and CompileOutput.IS_OPEN is True:
+            print("Updating output panel...")
+            view.run_command("compile_output")
 
         return
 
