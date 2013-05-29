@@ -58,7 +58,7 @@ def brew(args, source, cwd=None):
     else:
         args.append("-e")
 
-    return run("coffee", args=args, source=source, cwd=cwd)
+    return run("coffee", args=args, source=source.encode('utf-8'))
 
 
 def cake(task, cwd):
@@ -100,26 +100,25 @@ class CompileCommand(TextCommand):
     def run(self, *args, **kwargs):
         no_wrapper = settings.get('noWrapper', True)
         compile_dir = settings.get('compileDir')
-        source_file = self.view.file_name()
-        source_dir = os.path.dirname(source_file)
-        # print "Compiling: " + source_file
-        args = ['-c', source_file]
+
+        if compile_dir:
+            args = ['-c', os.path.split(self.view.file_name())[1]]
+        else:
+            args = ['-c', self.view.file_name()]
+        # print self.view.file_name()
         if no_wrapper:
             args = ['-b'] + args
         # print compile_dir
         # print isinstance(compile_dir, unicode)
-        if compile_dir and isinstance(compile_dir, str) or isinstance(compile_dir, unicode):
-            print "Compile dir specified: " + compile_dir
-            # Check for absolute path or relative path for compile_dir
-            compile_dir = compile_dir if compile_dir[0] == '/' else (source_dir + '/' + compile_dir)
+
+        if compile_dir and isinstance(compile_dir, str) or isinstance(compile_dir, str):
+            print("Compile dir specified: " + compile_dir)
             if not os.path.exists(compile_dir):
                 os.makedirs(compile_dir)
-                print "Compile dir did not exist, created folder: " + compile_dir
-            folder, file_nm = os.path.split(source_file)
-            # print folder
+                print("Compile dir did not exist, created folder: " + compile_dir)
+            folder, file_nm = os.path.split(self.view.file_name())
+            print(folder)
             args = ['--output', compile_dir] + args
-            # print args
-        # print args
         result = run("coffee", args=args)
 
         if result['okay'] is True:
@@ -149,7 +148,8 @@ class CompileAndDisplayCommand(TextCommand):
         no_wrapper = settings.get('noWrapper', True)
 
         args = [opt]
-        # print args
+
+        print(args)
         if no_wrapper:
             args = ['-b'] + args
 
@@ -252,8 +252,8 @@ class ToggleWatch(TextCommand):
             views = ToggleWatch.views
             views[myvid] = {'watched': True, 'modified': True, 'input_closed': False}
             views[myvid]["input_obj"] = self.view
-            # print "Now watching", watched_filename(myvid)
-            status = "Now watching", watched_filename(myvid)
+
+            print("Now watching", watched_filename(myvid))
             createOut(myvid)
 
         else:
@@ -261,14 +261,14 @@ class ToggleWatch(TextCommand):
 
             views[myvid]['watched'] = not views[myvid]['watched']
             if not views[myvid]['watched']:
-                print "Stopped watching", watched_filename(myvid)
+                print("Stopped watching", watched_filename(myvid))
 
             if views[myvid]['output_open'] is False:
-                print "Openning output and watching", watched_filename(myvid)
+                print("Openning output and watching", watched_filename(myvid))
                 createOut(myvid)
 
             elif views[myvid]['watched'] is True:
-                print "Resuming watching", watched_filename(myvid)
+                print("Resuming watching", watched_filename(myvid))
                 refreshOut(myvid)
 
 
@@ -291,7 +291,8 @@ def createOut(input_view_id):
     outputs = ToggleWatch.outputs
     #print this_view
     input_filename = watched_filename(input_view_id)
-    # print input_filename
+
+    print(input_filename)
 
     output = this_view["input_obj"].window().new_file()
     output.set_scratch(True)
@@ -331,7 +332,8 @@ def refreshOut(view_id):
         output.erase(edit, sublime.Region(0, output.size()))
         output.insert(edit, 0, res["out"])
         output.end_edit(edit)
-        # print "Refreshed"
+
+        print("Refreshed")
     else:
         edit = output.begin_edit()
         output.erase(edit, sublime.Region(0, output.size()))
@@ -359,7 +361,7 @@ def close_output(input_id):
         #print "the output is open so we should attempt to close it"
         output.window().focus_view(output)
         output.window().run_command("close")
-        print watched_filename(input_id), "was closed. Closing the Output"
+        print(watched_filename(input_id), "was closed. Closing the Output")
         #v['output_open'] = False
         cleanUp(input_id)
 
@@ -411,12 +413,13 @@ class CaptureEditing(sublime_plugin.EventListener):
                     refreshOut(save_id)
         compile_on_save = settings.get('compileOnSave', True)
         if compile_on_save is True and isCoffee() is True:
-            # print "Compiling on save..."
+
+            print("Compiling on save...")
             view.run_command("compile")
         show_compile_output_on_save = settings.get('showOutputOnSave', True)
-        if show_compile_output_on_save is True and isCoffee() is True and RunScriptCommand.PANEL_IS_OPEN is True:
-            # print "Updating output panel..."
-            view.run_command("run_script")
+        if show_compile_output_on_save is True and isCoffee() is True and CompileOutput.IS_OPEN is True:
+            print("Updating output panel...")
+            view.run_command("compile_output")
 
         return
 
@@ -438,7 +441,7 @@ class CaptureEditing(sublime_plugin.EventListener):
             thatview['watched'] = False
 
             filename = watched_filename(boundview)
-            print "The output was closed. No longer watching", filename
+            print("The output was closed. No longer watching", filename)
 
         return
 
