@@ -129,8 +129,6 @@ class CompileCommand(TextCommand):
                 # compile_dir = os.path.join(source_dir, compile_dir)
             else:
                 adds = source_dir.replace(relative_div, "")
-                # print()
-                # print(path.split(adds)[0])
                 if path.split(adds)[0] == "":
                     adds = path.split(adds)[1]
                 else:
@@ -140,18 +138,9 @@ class CompileCommand(TextCommand):
                     compile_dir = path.join(compile_dir, adds)
                 else:
                     compile_dir = path.join(relative_div, compile_dir, adds)
-                #     pass
-                # else:
-                #     compile_dir = compile_dir if os.path.isabs(compile_dir) else source_dir.replace(relative_div, compile_dir, 1)
-            # if not os.path.isabs(compile_dir):
-                # compile_dir = os.path.join(source_dir, compile_dir)
-            # elif relative_div:
-                # print(relative_div,compile_dir,source_dir)
-                # compile_dir = source_dir.replace(relative_div, compile_dir, 1)
             if not os.path.exists(compile_dir):
                 os.makedirs(compile_dir)
                 print "Compile dir did not exist, created folder: " + compile_dir
-            print(compile_dir)
             folder, file_nm = os.path.split(source_file)
             # print folder
             args = ['--output', compile_dir] + args
