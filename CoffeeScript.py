@@ -102,7 +102,9 @@ class CompileCommand(TextCommand):
         no_wrapper = project_settings.get('noWrapper', settings.get('noWrapper', True))
         compile_dir = project_settings.get('compileDir', settings.get('compileDir'))
         source_file = self.view.file_name()
-        source_dir = os.path.dirname(source_file)
+        source_dir = os.path.normcase(os.path.dirname(source_file))
+        relative_div = project_settings.get('relativeDir', settings.get('relativeDir'))
+        relative_div = os.path.normcase(relative_div) if relative_div else False
         # print "Compiling: " + source_file
         args = ['-c', source_file]
         if no_wrapper:
@@ -112,7 +114,11 @@ class CompileCommand(TextCommand):
         if compile_dir and isinstance(compile_dir, str) or isinstance(compile_dir, unicode):
             print "Compile dir specified: " + compile_dir
             # Check for absolute path or relative path for compile_dir
-            compile_dir = compile_dir if os.path.isabs(compile_dir) else os.path.join(source_dir, compile_dir)
+            if not os.path.isabs(compile_dir):
+                compile_dir = os.path.join(source_dir, compile_dir)
+            elif relative_div and source_dir.startswith(relative_div):
+                compile_dir = source_dir.replace(relative_div, compile_dir, 1)
+            # create folder if not exist
             if not os.path.exists(compile_dir):
                 os.makedirs(compile_dir)
                 print "Compile dir did not exist, created folder: " + compile_dir
