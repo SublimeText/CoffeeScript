@@ -112,7 +112,7 @@ class CompileCommand(TextCommand):
         if compile_dir and isinstance(compile_dir, str) or isinstance(compile_dir, unicode):
             print "Compile dir specified: " + compile_dir
             # Check for absolute path or relative path for compile_dir
-            compile_dir = compile_dir if compile_dir[0] == '/' or (sys.platform == "win32" and compile_dir[1] == ':') else (source_dir + '/' + compile_dir)
+            compile_dir = compile_dir if os.path.isabs(compile_dir) else os.path.join(source_dir, compile_dir)
             if not os.path.exists(compile_dir):
                 os.makedirs(compile_dir)
                 print "Compile dir did not exist, created folder: " + compile_dir
