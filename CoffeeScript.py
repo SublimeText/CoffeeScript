@@ -10,8 +10,17 @@ import sublime_plugin
 import time
 import functools
 
-settings = sublime.load_settings('CoffeeScript.sublime-settings')
-project_settings = sublime.active_window().active_view().settings().get('CoffeeScript', settings)
+# load up the plugin settings
+plugin_settings = sublime.load_settings('CoffeeScript.sublime-settings')
+
+
+def settings_get(name, default=None):
+    # project plugin settings? sweet! no project plugin settings? ok, well promote plugin_settings up then
+    project_plugin_settings = sublime.active_window().active_view().settings().get('CoffeeScript', plugin_settings)
+    # get a plugin settings and fallback on plugin_settings if there's no value in project
+    # or if there are no project settings at all, it'll check itself twice
+    setting = project_plugin_settings.get(name, plugin_settings.get(name, default))
+    return setting
 
 
 def run(cmd, args=[], source="", cwd=None, env=None):
@@ -27,10 +36,10 @@ def run(cmd, args=[], source="", cwd=None, env=None):
         stat = proc.communicate(input=source.encode('utf-8'))
     else:
         if env is None:
-            env = {"PATH": project_settings.get('binDir', settings.get('binDir', '/usr/local/bin'))}
+            env = {"PATH": settings_get('binDir', '/usr/local/bin')}
 
         # adding custom PATHs from settings
-        customEnv = project_settings.get('envPATH', settings.get('envPATH', ""))
+        customEnv = settings_get('envPATH', "")
         # print "debug"
         # print customEnv
         if customEnv:
@@ -99,11 +108,11 @@ class CompileCommand(TextCommand):
         return isCoffee(self.view)
 
     def run(self, *args, **kwargs):
-        no_wrapper = project_settings.get('noWrapper', settings.get('noWrapper', True))
-        compile_dir = project_settings.get('compileDir', settings.get('compileDir'))
+        no_wrapper = settings_get('noWrapper', True)
+        compile_dir = settings_get('compileDir')
         source_file = self.view.file_name()
         source_dir = os.path.normcase(os.path.dirname(source_file))
-        relative_div = project_settings.get('relativeDir', settings.get('relativeDir'))
+        relative_div = settings_get('relativeDir')
         relative_div = os.path.normcase(relative_div) if relative_div else False
         # print "Compiling: " + source_file
         args = ['-c', source_file]
@@ -153,7 +162,7 @@ class CompileAndDisplayCommand(TextCommand):
         opt = kwargs["opt"]
         if opt == '-p':
             output.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
-        no_wrapper = project_settings.get('noWrapper', settings.get('noWrapper', True))
+        no_wrapper = settings_get('noWrapper', True)
 
         args = [opt]
         # print args
@@ -323,7 +332,7 @@ def refreshOut(view_id):
     this_view = ToggleWatch.views[view_id]
     this_view['last_modified'] = time.mktime(time.gmtime())
     #refresh the output view
-    no_wrapper = project_settings.get('noWrapper', settings.get('noWrapper', True))
+    no_wrapper = settings_get('noWrapper', True)
 
     args = ['-p']
     if no_wrapper:
@@ -385,7 +394,7 @@ class CaptureEditing(sublime_plugin.EventListener):
 
     def on_modified(self, view):
         vid = view.id()
-        watch_modified = project_settings.get('watchOnModified', settings.get('watchOnModified'))
+        watch_modified = settings_get('watchOnModified')
 
         if watch_modified is not False and vid in ToggleWatch.views:
             if watch_modified is True:
@@ -406,7 +415,7 @@ class CaptureEditing(sublime_plugin.EventListener):
 
     def on_post_save(self, view):
         # print "isCoffee " + str(isCoffee())
-        watch_save = project_settings.get('watchOnSave', settings.get('watchOnSave', True))
+        watch_save = settings_get('watchOnSave', True)
         if watch_save:
             save_id = view.id()
             views = ToggleWatch.views
@@ -416,11 +425,11 @@ class CaptureEditing(sublime_plugin.EventListener):
                 # check if modified
                 if save_view['modified'] is True:
                     refreshOut(save_id)
-        compile_on_save = project_settings.get('compileOnSave', settings.get('compileOnSave', True))
+        compile_on_save = settings_get('compileOnSave', True)
         if compile_on_save is True and isCoffee() is True:
             # print "Compiling on save..."
             view.run_command("compile")
-        show_compile_output_on_save = project_settings.get('showOutputOnSave', settings.get('showOutputOnSave', True))
+        show_compile_output_on_save = settings_get('showOutputOnSave', True)
         if show_compile_output_on_save is True and isCoffee() is True and RunScriptCommand.PANEL_IS_OPEN is True:
             # print "Updating output panel..."
             view.run_command("run_script")
@@ -461,7 +470,7 @@ class RunScriptCommand(TextCommand):
         window = self.view.window()
 
         #refresh the output view
-        no_wrapper = project_settings.get('noWrapper', settings.get('noWrapper', True))
+        no_wrapper = settings_get('noWrapper', True)
 
         source_dir, source_file = path.split(self.view.file_name())
         # print "debug: SourceFolder " + source_dir
