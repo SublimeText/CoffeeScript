@@ -10,9 +10,9 @@
 	"envPATH": "",
 	/*
 		The directory containing your coffee binary. Usually
-		/usr/local/bin.
+		/usr/local/bin or /usr/bin.
 	*/
-	"binDir": "/usr/local/bin"
+	"binDir": "/usr/bin"
 
 	/*
 		Compile without the top-level function wrapper (coffee -b).
