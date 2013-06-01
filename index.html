@@ -89,22 +89,25 @@
 <li><a href="#settings">Settings</a></li>
 <li><a href="#special-thanks">Special Thanks</a></li>
 <li><a href="https://www.gittip.com/aponxi/">Support this Project: <img src="https://www.gittip.com/assets/widgets/heart.gif" alt=""> Tip Me!</a></li>
+<li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=VBUW4M9LKTR62">Donate Me as little as you want!</a></li>
 </ul><h1>
 <a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h1>
+
+<p><strong>This package is for Sublime Text 3</strong>. If you are looking for Sublime Text 2, then please refer to <a href="https://github.com/aponxi/sublime-better-coffeescript/tree/st2">st2 branch here</a>.</p>
 
 <h2>
 <a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h2>
 
-<p>CoffeeScript plugin was originally created by <a href="https://github.com/Xavura" class="user-mention">@Xavura</a>. As I began writing a lot of code in CoffeeScript I felt the need for side-by-side view for compiled CoffeeScript. Since Xavura's repo have been inactive I decided to branch out my own version. The biggest change in my branch is the Watch Mode which updates the compiled JavaScript view whenever you modify the CoffeeScript thus enabling you to view your progress side-by-side.</p>
+<p>CoffeeScript plug-in was originally created by <a href="https://github.com/Xavura" class="user-mention">@Xavura</a>. As I began writing a lot of code in CoffeeScript, I felt the need for side-by-side view for compiled CoffeeScript. Since Xavura's repository have been inactive I decided to branch out my own version. The biggest change in my branch is the Watch Mode which updates the compiled JavaScript view whenever you modify the CoffeeScript thus enabling you to view your progress side-by-side.</p>
 
-<p>I use this plugin everyday so whenever I am not developing I am in testing stage. I'll make sure every request or bug will be patched since I'm a frequent user.</p>
+<p>I use this plug-in almost everyday! Therefore, whenever I am not developing I am in testing. I'll do my best to make sure every request or bug will be answered since I'm a frequent user.</p>
 
 <h2>
 <a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
 
 <ul>
 <li>Please use <a href="https://github.com/aponxi/sublime-better-coffeescript/issues">aponxi/issues page</a> to make requests or report bugs.</li>
-<li>Please make <em>pull requests</em> to develop branch.</li>
+<li>Please make <em>pull requests</em> to the respective branch (<code>master</code> branch is for Sublime Text 3, <code>st2</code> branch is for Sublime Text 2.)</li>
 </ul><h1>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h1>
 
@@ -115,14 +118,19 @@
 <p>This is the recommended installation method.</p>
 </blockquote>
 
-<p>If you have Sublime Package Control, you know what to do. If not, well: it's a package manager for Sublime Text 2; it's awesome and you can <a href="http://wbond.net/sublime_packages/package_control">read about it here</a>.</p>
+<p>If you have Sublime Package Control, you know what to do. If not, well: it's a package manager for Sublime Text 2; it's awesome and you can <a href="http://wbond.net/sublime_packages/package_control">read about it here</a>. It is in Alpha stage for Sublime Text 3 and installation guide is <a href="http://wbond.net/sublime_packages/package_control/installation#ST3">at this page</a>.</p>
 
-<p>To install Package Control, open the Python Console (<code>ctrl+'</code> or <code>cmd+`</code>) and paste the following into it:</p>
+<p>To install Package Control by Git:</p>
 
-<pre><code>import urllib2,os; pf='Package Control.sublime-package'; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read()); print 'Please restart Sublime Text to finish installation'
+<p>The Packages/ folder listed below refers to the folder that opens when you use the <code>Preferences &gt; Browse Packages…</code> menu.</p>
+
+<pre><code>cd Packages/
+git clone https://github.com/wbond/sublime_package_control.git "Package Control"
+cd "Package Control"
+git checkout python3
 </code></pre>
 
-<p>After installing the package and restarting the editor:</p>
+<p>After installing the package manager:</p>
 
 <ul>
 <li>Open the Command Pallete (<code>ctrl+shift+P</code> or <code>cmd+shift+P</code>).</li>
@@ -137,9 +145,9 @@
 
 <p>Sublime stores packages in the following locations:</p>
 
-<pre><code>Nix: ~/.config/sublime-text-2/packages
-Mac: ~/Library/Application\ Support/Sublime\ Text\ 2/Packages
-Win: %APPDATA%\Sublime Text 2\Packages
+<pre><code>Nix: ~/.config/sublime-text-3/packages
+Mac: ~/Library/Application\ Support/Sublime\ Text\ 3/Packages
+Win: %APPDATA%\Sublime Text 3\Packages
 </code></pre>
 
 <h3>
@@ -341,9 +349,48 @@ Interpolation: #
 
 <span class="cm">    */</span>
 <span class="p">,</span>   <span class="s2">"compileDir"</span><span class="o">:</span> <span class="kc">false</span>
+    <span class="cm">/*</span>
+<span class="cm">        ## Enable compiling to a specific relative directory.</span>
+
+<span class="cm">        #### Example:</span>
+<span class="cm">        Set absolute path for compile dir:</span>
+<span class="cm">            "compileDir": "/home/user/projects/js"</span>
+<span class="cm">        And relative folder</span>
+<span class="cm">            "relativeDir": "/home/user/projects/coffee"</span>
+
+<span class="cm">        So</span>
+<span class="cm">            "/home/user/projects/coffee/app.coffee" will compile to "/home/user/projects/js/app.js"</span>
+<span class="cm">            "/home/user/projects/coffee/models/prod.coffee" will compile to "/home/user/projects/js/models/prod.js"</span>
+
+<span class="cm">    */</span>
+<span class="p">,</span>   <span class="s2">"relativeDir"</span><span class="o">:</span> <span class="kc">false</span>
 
 
 
+<span class="p">}</span>
+
+
+</pre></div>
+
+<h2>
+<a name="project-settings" class="anchor" href="#project-settings"><span class="octicon octicon-link"></span></a>Project settings</h2>
+
+<p>Go to <code>Project &gt; Edit Project</code> to change project settings.</p>
+
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">"folders"</span><span class="o">:</span>
+    <span class="p">[</span>
+        <span class="p">...</span>
+    <span class="p">],</span>
+    <span class="s2">"settings"</span><span class="o">:</span>
+    <span class="p">{</span>
+        <span class="s2">"CoffeeScript"</span><span class="o">:</span>
+        <span class="p">{</span>
+            <span class="s2">"noWrapper"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s2">"compileOnSave"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s2">"compileDir"</span><span class="o">:</span> <span class="s2">"out"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 
 
@@ -353,64 +400,13 @@ Interpolation: #
 <a name="latest-changelog" class="anchor" href="#latest-changelog"><span class="octicon octicon-link"></span></a>Latest Changelog</h1>
 
 <h3>
-<a name="v0640-26may2013" class="anchor" href="#v0640-26may2013"><span class="octicon octicon-link"></span></a>v0.6.40 26/May/2013</h3>
+<a name="v070-01june2013" class="anchor" href="#v070-01june2013"><span class="octicon octicon-link"></span></a>v0.7.0 01/June/2013</h3>
 
 <ul>
-<li>added environment PATH settings, to add additional paths to find homebrew node and such</li>
-<li>fixed an issue with the compile and display the output in panel (alt shift R) It was getting the text of the file and running it- thus not finding <code>required</code> modules in nodejs. I made it so that it runs the coffee command in the cwd and runs the filename instead of the whole script. In example: <code>coffee -b -e "my/script.coffee"</code> but this is run in <code>/home/projects/my</code>.</li>
-<li>fixed #41 by adding settings into the command pallet</li>
-</ul><h3>
-<a name="v0632-02feb2013" class="anchor" href="#v0632-02feb2013"><span class="octicon octicon-link"></span></a>v0.6.32 02/Feb/2013</h3>
-
-<ul>
-<li>with help of <a href="https://github.com/idpsycho" class="user-mention">@idpsycho</a> fixed #14 once more.</li>
-<li>added alert message on compile failed which also works with compile on save</li>
-</ul><h3>
-<a name="v0631-25jan2013" class="anchor" href="#v0631-25jan2013"><span class="octicon octicon-link"></span></a>v0.6.31 25/Jan/2013</h3>
-
-<ul>
-<li>hotfixed default compile dir to be <code>false</code>
-</li>
-</ul><h3>
-<a name="v063-25jan2013" class="anchor" href="#v063-25jan2013"><span class="octicon octicon-link"></span></a>v0.6.3 25/Jan/2013</h3>
-
-<ul>
-<li>added compileDir option which specifies <code>coffee -o</code> arg when compiling.</li>
-<li>Fixed settings file name. It was Coffeescript when it should have been CoffeeScript. Fixes #19</li>
-<li>compileDir path works only if it exists.</li>
-<li>now also works if it doesn't exist.</li>
-<li>changed default compileDir option to false thus compiling a coffee script to the same directory as default.</li>
-</ul><h3>
-<a name="v062-16jan2013" class="anchor" href="#v062-16jan2013"><span class="octicon octicon-link"></span></a>v0.6.2 16/Jan/2013</h3>
-
-<ul>
-<li>Updated package.json, bumped up version.</li>
-</ul><h3>
-<a name="v061-16jan2013" class="anchor" href="#v061-16jan2013"><span class="octicon octicon-link"></span></a>v0.6.1 16/Jan/2013</h3>
-
-<ul>
-<li>Added utf-8 encode/decode to prevent unicode decode errors, fixed #17</li>
-<li>Corrected years in 0.6 changelog... Should get used to it by now.</li>
-<li>Added error output in panel which fixes #16</li>
-</ul><h3>
-<a name="v06-changelog---16jan2013" class="anchor" href="#v06-changelog---16jan2013"><span class="octicon octicon-link"></span></a>v0.6 Changelog - 16/Jan/2013</h3>
-
-<ul>
-<li>Changed menu name to "Better Coffeescript"</li>
-<li>Changed menu arguments to be directed to <code>sublime-better-coffeescript</code> folders, settings files are still kept as <code>Coffeescript.sublime-settings</code>
-</li>
-<li>Fixed lint errors</li>
-<li>if delay is lower than &lt; 0.5 then we are saying that minimum delay should be 0.5</li>
-<li>added a method that gets the input's filename with .js extension</li>
-<li>setting the output view's name as filename.js fixes #13</li>
-<li>added compileOnSave option fixes #14</li>
-<li>updated readme fixes #6</li>
-<li>added compile output class</li>
-<li>added compile_output command, it displays the console.logs and what not in a panel</li>
-<li>added compile_output command to the context menu (right click). This only works for coffeescripts.</li>
-<li>Added that it existed in README.</li>
-<li>Added option for showOutputOnSave</li>
-<li>Need a way of telling if output is open or closed/hidden #15</li>
+<li>merged st3 with master branch</li>
+<li>now the sublime text 2 support is in st2 branch</li>
+<li>fixed the @ highlight in language definitions</li>
+<li>fixed an error you would get when it was looking for project settings when it wasn't a project we were editing</li>
 </ul><h1>
 <a name="special-thanks" class="anchor" href="#special-thanks"><span class="octicon octicon-link"></span></a>Special Thanks</h1>
 
@@ -419,6 +415,8 @@ Interpolation: #
 <a href="https://github.com/agibsonsw">agibsonsw</a> for his help in writing WatchMode</li>
 <li>
 <a href="https://github.com/Xavura">Xavura</a> for writing the base of this plugin</li>
+<li>
+<a href="https://github.com/lavrton">lavrton</a> for his contributions </li>
 </ul>
       </section>
 
