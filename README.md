@@ -259,6 +259,21 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 		
 	*/
 ,	"compileDir": false
+	/*
+		## Enable compiling to a specific relative directory.
+
+		#### Example:
+		Set absolute path for compile dir:
+			"compileDir": "/home/user/projects/js"
+		And relative folder
+			"relativeDir": "/home/user/projects/coffee"
+
+		So
+			"/home/user/projects/coffee/app.coffee" will compile to "/home/user/projects/js/app.js"
+			"/home/user/projects/coffee/models/prod.coffee" will compile to "/home/user/projects/js/models/prod.js"
+		
+	*/
+,	"relativeDir": false
 
 
 
