@@ -3,7 +3,7 @@
     "renamed_packages": { "sublime-better-coffeescript": "Better CoffeeScript" },
     "packages": [
         {
-            "name": "Better CoffeeScript",
+            "name": "Better CoffeeScript ST2",
             "description": "Syntax highlighting and checking, commands, shortcuts, snippets, watched compilation and more.",
             "author": "aponxi",
             "homepage": "https://github.com/aponxi/sublime-better-coffeescript",
@@ -11,7 +11,7 @@
             "platforms": {
                 "*": [
                     {
-                        "version": "0.6.41",
+                        "version": "0.6.42",
                         "url": "https://nodeload.github.com/aponxi/sublime-better-coffeescript/zip/master"
                     }
                 ]
