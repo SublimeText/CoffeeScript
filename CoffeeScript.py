@@ -9,7 +9,8 @@ from sublime_plugin import WindowCommand
 import sublime_plugin
 import time
 import functools
-
+import sys
+import locale
 
 def settings_get(name, default=None):
     # load up the plugin settings
@@ -27,8 +28,15 @@ def run(cmd, args=[], source="", cwd=None, env=None):
     if not type(args) is list:
         args = [args]
     if sys.platform == "win32":
-        proc = Popen([cmd] + args, env=env, cwd=cwd, stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=True)
-        stat = proc.communicate(input=source.encode('utf-8'))
+        args = [cmd] + args
+        if sys.version_info[0] == 2:
+            for i in range(len(args)):
+                args[i] = args[i].encode(locale.getdefaultlocale()[1])
+        proc = Popen(args, env=env, cwd=cwd, stdout=PIPE, stdin=PIPE, stderr=PIPE, shell = True)
+        try:
+            stat = proc.communicate(input=source)
+        except:
+            stat = proc.communicate(input=source.encode("utf8"))
     else:
         if env is None:
             env = {"PATH": settings_get('binDir', '/usr/local/bin')}
@@ -43,7 +51,6 @@ def run(cmd, args=[], source="", cwd=None, env=None):
             command = [cmd] + args
         else:
             command = [cmd] + args + [source]
-        print(settings_get('envPATH', ""))
         proc = Popen(command, env=env, cwd=cwd, stdout=PIPE, stderr=PIPE)
         stat = proc.communicate()
     okay = proc.returncode == 0
@@ -102,6 +109,9 @@ class CompileCommand(TextCommand):
         source_dir = os.path.normcase(os.path.dirname(source_file))
         relative_div = settings_get('relativeDir')
         relative_div = os.path.normcase(relative_div) if relative_div else False
+        # if sys.platform == "win32":
+        #     args = ['-c', source_file.encode('utf8')]
+        # else:
         args = ['-c', source_file]
         if no_wrapper:
             args = ['-b'] + args
@@ -139,16 +149,15 @@ class CompileAndDisplayCommand(TextCommand):
         return isCoffee(self.view)
 
     def run(self, edit, **kwargs):
+        no_wrapper = settings_get('noWrapper', True)
         output = self.view.window().new_file()
         output.set_scratch(True)
         opt = kwargs["opt"]
         if opt == '-p':
             output.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
-        no_wrapper = settings_get('noWrapper', True)
-
+        
         args = [opt]
 
-        print(args)
         if no_wrapper:
             args = ['-b'] + args
 
@@ -181,7 +190,7 @@ class QuickRunBarCommand(WindowCommand):
         if res["okay"] is True:
             output = self.window.new_file()
             output.set_scratch(True)
-            output.run_command('append', {'characters': res["out"]})
+            output.run_command('insert', {'characters': res["out"]})
         else:
             sublime.status_message('Syntax %s' % res["err"].split("\n")[0])
 
@@ -250,7 +259,7 @@ class ToggleWatch(TextCommand):
             views[myvid]["input_obj"] = self.view
 
             print("Now watching", watched_filename(myvid))
-            createOut(myvid)
+            createOut(myvid,edit)
 
         else:
             views = ToggleWatch.views
@@ -261,11 +270,11 @@ class ToggleWatch(TextCommand):
 
             if views[myvid]['output_open'] is False:
                 print("Openning output and watching", watched_filename(myvid))
-                createOut(myvid)
+                createOut(myvid, edit)
 
             elif views[myvid]['watched'] is True:
                 print("Resuming watching", watched_filename(myvid))
-                refreshOut(myvid)
+                refreshOut(myvid, edit)
 
 
 def cleanUp(input_view_id):
@@ -281,28 +290,28 @@ def get_output_filename(input_view_id):
     return output_filename
 
 
-def createOut(input_view_id):
+def createOut(input_view_id,edit):
     #create output panel and save
     this_view = ToggleWatch.views[input_view_id]
     outputs = ToggleWatch.outputs
-    #print this_view
     output = this_view["input_obj"].window().new_file()
     output.set_scratch(True)
     output.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
     this_view['output_id'] = output.id()
     this_view["output_obj"] = output
     this_view["output_open"] = True
+    this_view["edit"] = edit
     # Getting file extension
     output_filename = get_output_filename(input_view_id)
     output.set_name(output_filename)
 
     if not output.id() in outputs:
         outputs[output.id()] = {'boundto': input_view_id}
-    refreshOut(input_view_id)
+    refreshOut(input_view_id, edit)
     return output
 
 
-def refreshOut(view_id):
+def refreshOut(view_id, edit):
     this_view = ToggleWatch.views[view_id]
     this_view['last_modified'] = time.mktime(time.gmtime())
     #refresh the output view
@@ -315,10 +324,15 @@ def refreshOut(view_id):
     res = brew(args, Text.get(this_view['input_obj']))
     output = this_view['output_obj']
     this_view['modified'] = False
+    current_auto_indent = output.settings().get("auto_indent")
+    output.settings().set("auto_indent", False)
     if res["okay"] is True:
-        output.run_command('append', {'characters': res["out"]})
+        output.run_command('select_all')
+        output.run_command('insert', {'characters': res["out"]})
     else:
-        output.run_command('append', {'characters': res["err"].split("\n")[0]})
+        output.run_command('insert', {'characters': res["err"].split("\n")[0]})
+    output.settings().set("auto_indent", current_auto_indent)
+
     return
 
 
@@ -335,14 +349,10 @@ def close_output(input_id):
     views = ToggleWatch.views
     v = views[input_id]
     output = v['output_obj']
-    # output_id = v['output_id']
-    # print "close output"
     if v['output_open'] is True:
-        #print "the output is open so we should attempt to close it"
         output.window().focus_view(output)
         output.window().run_command("close")
         print(watched_filename(input_id), "was closed. Closing the Output")
-        #v['output_open'] = False
         cleanUp(input_id)
 
     return
@@ -355,7 +365,7 @@ class CaptureEditing(sublime_plugin.EventListener):
         modified = this_view['modified']
         if modified is True:
             # been 1000ms since the last modification
-            refreshOut(vid)
+            refreshOut(vid,this_view["edit"])
 
     def on_modified(self, view):
         vid = view.id()
@@ -370,10 +380,8 @@ class CaptureEditing(sublime_plugin.EventListener):
                 delay = watch_modified
             #then we have a watched input.
             this_view = ToggleWatch.views[vid]
-            #print " this view is ", this_view
             if this_view['modified'] is False:
                 this_view['modified'] = True
-                #print " trigger "
                 if this_view['watched'] is True:
                     sublime.set_timeout(functools.partial(self.handleTimeout, vid), int(delay * 1000))
             return
@@ -388,7 +396,7 @@ class CaptureEditing(sublime_plugin.EventListener):
                 save_view = ToggleWatch.views[save_id]
                 # check if modified
                 if save_view['modified'] is True:
-                    refreshOut(save_id)
+                    refreshOut(save_id,save_view['edit'])
         compile_on_save = settings_get('compileOnSave', True)
         if compile_on_save is True and isCoffee() is True:
 
