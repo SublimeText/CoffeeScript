@@ -324,10 +324,9 @@ def refreshOut(view_id):
     output = this_view['output_obj']
     this_view['modified'] = False
     if res["okay"] is True:
-
-        output.run_command('append', {'characters':res["out"]})
+        output.run_command('append', {'characters': res["out"]})
     else:
-        output.run_command('append', {'characters':res["err"].split("\n")[0]})
+        output.run_command('append', {'characters': res["err"].split("\n")[0]})
     return
 
 
@@ -461,7 +460,6 @@ class RunScriptCommand(TextCommand):
         if no_wrapper:
             args = args + ['-b']
 
-
         res = brew(args, "", cwd)
         panel = window.get_output_panel(self.PANEL_NAME)
         panel.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
@@ -470,16 +468,9 @@ class RunScriptCommand(TextCommand):
         # print res["err"]
 
         if res["okay"] is True:
-            edit = output.begin_edit()
-            output.erase(edit, sublime.Region(0, output.size()))
-            output.insert(edit, 0, res["out"])
-            output.end_edit(edit)
-            # print "Refreshed"
+            output.run_command('append', {'characters': res["out"]})
         else:
-            edit = output.begin_edit()
-            output.erase(edit, sublime.Region(0, output.size()))
-            output.insert(edit, 0, res["err"])
-            output.end_edit(edit)
+            output.run_command('append', {'characters': res["err"].split("\n")[0]})
         output.sel().clear()
         output.set_read_only(True)
 
