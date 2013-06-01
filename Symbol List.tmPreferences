@@ -5,7 +5,7 @@
     <key>name</key>
     <string>Symbol List</string>
     <key>scope</key>
-    <string>source.coffee meta.class.coffee, meta.function</string>
+    <string>source.coffee meta.class.coffee,source.coffee meta.function</string>
     <key>settings</key>
     <dict>
         <key>showInSymbolList</key>
