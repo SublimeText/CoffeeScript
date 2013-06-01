@@ -39,21 +39,22 @@
 * [Settings](#settings)
 * [Special Thanks](#special-thanks)
 * [Support this Project: ![](https://www.gittip.com/assets/widgets/heart.gif) Tip Me!](https://www.gittip.com/aponxi/)
+* [Donate Me as little as you want!](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VBUW4M9LKTR62)
 
 # Overview
 
-This package is for Sublime Text 3. If you are looking for Sublime Text 2, then please refer to st2 branch.
+**This package is for Sublime Text 3**. If you are looking for Sublime Text 2, then please refer to [st2 branch here](https://github.com/aponxi/sublime-better-coffeescript/tree/st2).
 
 ## Description
 
-CoffeeScript plugin was originally created by @Xavura. As I began writing a lot of code in CoffeeScript I felt the need for side-by-side view for compiled CoffeeScript. Since Xavura's repo have been inactive I decided to branch out my own version. The biggest change in my branch is the Watch Mode which updates the compiled JavaScript view whenever you modify the CoffeeScript thus enabling you to view your progress side-by-side.
+CoffeeScript plug-in was originally created by @Xavura. As I began writing a lot of code in CoffeeScript, I felt the need for side-by-side view for compiled CoffeeScript. Since Xavura's repository have been inactive I decided to branch out my own version. The biggest change in my branch is the Watch Mode which updates the compiled JavaScript view whenever you modify the CoffeeScript thus enabling you to view your progress side-by-side.
 
-I use this plugin everyday so whenever I am not developing I am in testing stage. I'll make sure every request or bug will be patched since I'm a frequent user.
+I use this plug-in almost everyday! Therefore, whenever I am not developing I am in testing. I'll do my best to make sure every request or bug will be answered since I'm a frequent user.
 
 ## Contributing
 
 - Please use [aponxi/issues page](https://github.com/aponxi/sublime-better-coffeescript/issues) to make requests or report bugs.
-- Please make _pull requests_ to develop branch.
+- Please make _pull requests_ to the respective branch (`master` branch is for Sublime Text 3, `st2` branch is for Sublime Text 2.)
 
 # Installation
 
@@ -61,11 +62,11 @@ I use this plugin everyday so whenever I am not developing I am in testing stage
 
 > This is the recommended installation method.
 
-If you have Sublime Package Control, you know what to do. If not, well: it's a package manager for Sublime Text 2; it's awesome and you can [read about it here](http://wbond.net/sublime_packages/package_control).
+If you have Sublime Package Control, you know what to do. If not, well: it's a package manager for Sublime Text 2; it's awesome and you can [read about it here](http://wbond.net/sublime_packages/package_control). It is in Alpha stage for Sublime Text 3 and installation guide is [at this page](http://wbond.net/sublime_packages/package_control/installation#ST3).
 
 To install Package Control by Git:
 
-The Packages/ folder listed below refers to the folder that opens when you use the Preferences > Browse Packages… menu.
+The Packages/ folder listed below refers to the folder that opens when you use the `Preferences > Browse Packages…` menu.
 ```
 cd Packages/
 git clone https://github.com/wbond/sublime_package_control.git "Package Control"
