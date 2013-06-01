@@ -76,7 +76,8 @@
                                                                                \/_/       
 </code></pre>
 
-<h1>Jump to Section</h1>
+<h1>
+<a name="jump-to-section" class="anchor" href="#jump-to-section"><span class="octicon octicon-link"></span></a>Jump to Section</h1>
 
 <ul>
 <li><a href="#latest-changelog">Latest Change Log</a></li>
@@ -88,22 +89,27 @@
 <li><a href="#settings">Settings</a></li>
 <li><a href="#special-thanks">Special Thanks</a></li>
 <li><a href="https://www.gittip.com/aponxi/">Support this Project: <img src="https://www.gittip.com/assets/widgets/heart.gif" alt=""> Tip Me!</a></li>
-</ul><h1>Overview</h1>
+</ul><h1>
+<a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h1>
 
-<h2>Description</h2>
+<h2>
+<a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h2>
 
 <p>CoffeeScript plugin was originally created by <a href="https://github.com/Xavura" class="user-mention">@Xavura</a>. As I began writing a lot of code in CoffeeScript I felt the need for side-by-side view for compiled CoffeeScript. Since Xavura's repo have been inactive I decided to branch out my own version. The biggest change in my branch is the Watch Mode which updates the compiled JavaScript view whenever you modify the CoffeeScript thus enabling you to view your progress side-by-side.</p>
 
 <p>I use this plugin everyday so whenever I am not developing I am in testing stage. I'll make sure every request or bug will be patched since I'm a frequent user.</p>
 
-<h2>Contributing</h2>
+<h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
 
 <ul>
 <li>Please use <a href="https://github.com/aponxi/sublime-better-coffeescript/issues">aponxi/issues page</a> to make requests or report bugs.</li>
 <li>Please make <em>pull requests</em> to develop branch.</li>
-</ul><h1>Installation</h1>
+</ul><h1>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h1>
 
-<h2>via Package Control</h2>
+<h2>
+<a name="via-package-control" class="anchor" href="#via-package-control"><span class="octicon octicon-link"></span></a>via Package Control</h2>
 
 <blockquote>
 <p>This is the recommended installation method.</p>
@@ -122,7 +128,8 @@
 <li>Open the Command Pallete (<code>ctrl+shift+P</code> or <code>cmd+shift+P</code>).</li>
 <li>Type "Install Package" and hit return.</li>
 <li>Type "Better CoffeeScript" and hit return.</li>
-</ul><h2>via Source Control</h2>
+</ul><h2>
+<a name="via-source-control" class="anchor" href="#via-source-control"><span class="octicon octicon-link"></span></a>via Source Control</h2>
 
 <blockquote>
 <p>If you plan to contribute, then you should install via this method. Otherwise it is recommended that you install the package via Package Control, see above.</p>
@@ -135,7 +142,8 @@ Mac: ~/Library/Application\ Support/Sublime\ Text\ 2/Packages
 Win: %APPDATA%\Sublime Text 2\Packages
 </code></pre>
 
-<h3>As a repository within the packages directory</h3>
+<h3>
+<a name="as-a-repository-within-the-packages-directory" class="anchor" href="#as-a-repository-within-the-packages-directory"><span class="octicon octicon-link"></span></a>As a repository within the packages directory</h3>
 
 <p>Open a Terminal/Console and run the following commands, replacing <code>PACKAGE_PATH</code> with the path corresponding to your OS above.</p>
 
@@ -143,7 +151,8 @@ Win: %APPDATA%\Sublime Text 2\Packages
 git clone https://github.com/aponxi/sublime-better-coffeescript.git "Better CoffeeScript"
 </code></pre>
 
-<h3>As a repository outside of the packages directory</h3>
+<h3>
+<a name="as-a-repository-outside-of-the-packages-directory" class="anchor" href="#as-a-repository-outside-of-the-packages-directory"><span class="octicon octicon-link"></span></a>As a repository outside of the packages directory</h3>
 
 <p>If you use Github for Mac/Windows which store repositories in a specific location, or if you just don't want a repository in your packages directory, then instead you can use a link.</p>
 
@@ -155,26 +164,30 @@ git clone https://github.com/aponxi/sublime-better-coffeescript.git
 
 <p>Once that is done, we will create the link:</p>
 
-<h4>Windows:</h4>
+<h4>
+<a name="windows" class="anchor" href="#windows"><span class="octicon octicon-link"></span></a>Windows:</h4>
 
 <pre><code>cd PACKAGE_PATH
 mklink /D "Better CoffeeScript" ABSOLUTE_PATH_TO_REPOSITORY
 </code></pre>
 
-<h4>Nix/Mac:</h4>
+<h4>
+<a name="nixmac" class="anchor" href="#nixmac"><span class="octicon octicon-link"></span></a>Nix/Mac:</h4>
 
 <pre><code>cd PACKAGE_PATH
 ln -s ABSOLUTE_PATH_TO_REPOSITORY "Better CoffeeScript"
 </code></pre>
 
-<h4>A note on Package Control</h4>
+<h4>
+<a name="a-note-on-package-control" class="anchor" href="#a-note-on-package-control"><span class="octicon octicon-link"></span></a>A note on Package Control</h4>
 
 <p>When Package Control tries to update your packages, if you have a repository in your packages directory then it will try to pull down and merge any changes. If you don't want this to happen and would rather handle everything yourself, then you can add the following to your settings (Preferences » Package Settings » Package Control » Settings - User):</p>
 
 <pre><code>"auto_upgrade_ignore": ["Better CoffeeScript"]
 </code></pre>
 
-<h1>Updating</h1>
+<h1>
+<a name="updating" class="anchor" href="#updating"><span class="octicon octicon-link"></span></a>Updating</h1>
 
 <p>If you are using Package Control, updating will be automatic and you don't have to worry about it.</p>
 
@@ -185,7 +198,8 @@ git fetch origin
 git merge origin/master
 </code></pre>
 
-<h1>Commands/Shortcuts</h1>
+<h1>
+<a name="commandsshortcuts" class="anchor" href="#commandsshortcuts"><span class="octicon octicon-link"></span></a>Commands/Shortcuts</h1>
 
 <p>You can access the commands either using the command palette (<code>ctrl+shift+P</code> or <code>cmd+shift+P</code>) or via shortcuts.</p>
 
@@ -204,13 +218,15 @@ alt+shift+p - Toggle output panel
 
 <p><strong>Note:</strong> Some of the commands use the Status Bar for output, so you'll probably want to enable it (Tools » Show Status Bar).</p>
 
-<h1>Snippets</h1>
+<h1>
+<a name="snippets" class="anchor" href="#snippets"><span class="octicon octicon-link"></span></a>Snippets</h1>
 
 <ul>
 <li>Use <code>TAB</code> to run a snippet after typing the trigger.</li>
 <li>Use <code>TAB</code> and <code>shift+TAB</code> to cycle forward/backward through fields.</li>
 <li>Use <code>ESC</code> to exit snippet mode.</li>
-</ul><h3>Snippet Triggers</h3>
+</ul><h3>
+<a name="snippet-triggers" class="anchor" href="#snippet-triggers"><span class="octicon octicon-link"></span></a>Snippet Triggers</h3>
 
 <p><strong>Comprehension</strong></p>
 
@@ -244,7 +260,8 @@ Function:      = (bound)
 Interpolation: #
 </code></pre>
 
-<h1>Building</h1>
+<h1>
+<a name="building" class="anchor" href="#building"><span class="octicon octicon-link"></span></a>Building</h1>
 
 <blockquote>
 <p>When using the build system, it is assumed that your <code>.sublime-project</code> file lives in your project's base directory (due to limitations with the build system).</p>
@@ -262,7 +279,8 @@ Interpolation: #
     # ...
 </code></pre>
 
-<h1>Settings</h1>
+<h1>
+<a name="settings" class="anchor" href="#settings"><span class="octicon octicon-link"></span></a>Settings</h1>
 
 <p>Go to <code>Preferences &gt; Package Settings &gt; CoffeeScript &gt; Settings - User</code> to change settings.</p>
 
@@ -331,25 +349,30 @@ Interpolation: #
 
 </pre></div>
 
-<h1>Latest Changelog</h1>
+<h1>
+<a name="latest-changelog" class="anchor" href="#latest-changelog"><span class="octicon octicon-link"></span></a>Latest Changelog</h1>
 
-<h3>v0.6.40 26/May/2013</h3>
+<h3>
+<a name="v0640-26may2013" class="anchor" href="#v0640-26may2013"><span class="octicon octicon-link"></span></a>v0.6.40 26/May/2013</h3>
 
 <ul>
 <li>added environment PATH settings, to add additional paths to find homebrew node and such</li>
 <li>fixed an issue with the compile and display the output in panel (alt shift R) It was getting the text of the file and running it- thus not finding <code>required</code> modules in nodejs. I made it so that it runs the coffee command in the cwd and runs the filename instead of the whole script. In example: <code>coffee -b -e "my/script.coffee"</code> but this is run in <code>/home/projects/my</code>.</li>
 <li>fixed #41 by adding settings into the command pallet</li>
-</ul><h3>v0.6.32 02/Feb/2013</h3>
+</ul><h3>
+<a name="v0632-02feb2013" class="anchor" href="#v0632-02feb2013"><span class="octicon octicon-link"></span></a>v0.6.32 02/Feb/2013</h3>
 
 <ul>
 <li>with help of <a href="https://github.com/idpsycho" class="user-mention">@idpsycho</a> fixed #14 once more.</li>
 <li>added alert message on compile failed which also works with compile on save</li>
-</ul><h3>v0.6.31 25/Jan/2013</h3>
+</ul><h3>
+<a name="v0631-25jan2013" class="anchor" href="#v0631-25jan2013"><span class="octicon octicon-link"></span></a>v0.6.31 25/Jan/2013</h3>
 
 <ul>
 <li>hotfixed default compile dir to be <code>false</code>
 </li>
-</ul><h3>v0.6.3 25/Jan/2013</h3>
+</ul><h3>
+<a name="v063-25jan2013" class="anchor" href="#v063-25jan2013"><span class="octicon octicon-link"></span></a>v0.6.3 25/Jan/2013</h3>
 
 <ul>
 <li>added compileDir option which specifies <code>coffee -o</code> arg when compiling.</li>
@@ -357,17 +380,20 @@ Interpolation: #
 <li>compileDir path works only if it exists.</li>
 <li>now also works if it doesn't exist.</li>
 <li>changed default compileDir option to false thus compiling a coffee script to the same directory as default.</li>
-</ul><h3>v0.6.2 16/Jan/2013</h3>
+</ul><h3>
+<a name="v062-16jan2013" class="anchor" href="#v062-16jan2013"><span class="octicon octicon-link"></span></a>v0.6.2 16/Jan/2013</h3>
 
 <ul>
 <li>Updated package.json, bumped up version.</li>
-</ul><h3>v0.6.1 16/Jan/2013</h3>
+</ul><h3>
+<a name="v061-16jan2013" class="anchor" href="#v061-16jan2013"><span class="octicon octicon-link"></span></a>v0.6.1 16/Jan/2013</h3>
 
 <ul>
 <li>Added utf-8 encode/decode to prevent unicode decode errors, fixed #17</li>
 <li>Corrected years in 0.6 changelog... Should get used to it by now.</li>
 <li>Added error output in panel which fixes #16</li>
-</ul><h3>v0.6 Changelog - 16/Jan/2013</h3>
+</ul><h3>
+<a name="v06-changelog---16jan2013" class="anchor" href="#v06-changelog---16jan2013"><span class="octicon octicon-link"></span></a>v0.6 Changelog - 16/Jan/2013</h3>
 
 <ul>
 <li>Changed menu name to "Better Coffeescript"</li>
@@ -385,7 +411,8 @@ Interpolation: #
 <li>Added that it existed in README.</li>
 <li>Added option for showOutputOnSave</li>
 <li>Need a way of telling if output is open or closed/hidden #15</li>
-</ul><h1>Special Thanks</h1>
+</ul><h1>
+<a name="special-thanks" class="anchor" href="#special-thanks"><span class="octicon octicon-link"></span></a>Special Thanks</h1>
 
 <ul>
 <li>
