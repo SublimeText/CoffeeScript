@@ -1,4 +1,4 @@
-		                                               
+
 	                                         __    
 	   __     _____     ___     ___    __  _/\_\   
 	 /'__`\  /\ '__`\  / __`\ /' _ `\ /\ \/'\/\ \  
@@ -42,6 +42,8 @@
 
 # Overview
 
+This package is for Sublime Text 3. If you are looking for Sublime Text 2, then please refer to st2 branch.
+
 ## Description
 
 CoffeeScript plugin was originally created by @Xavura. As I began writing a lot of code in CoffeeScript I felt the need for side-by-side view for compiled CoffeeScript. Since Xavura's repo have been inactive I decided to branch out my own version. The biggest change in my branch is the Watch Mode which updates the compiled JavaScript view whenever you modify the CoffeeScript thus enabling you to view your progress side-by-side.
@@ -61,11 +63,17 @@ I use this plugin everyday so whenever I am not developing I am in testing stage
 
 If you have Sublime Package Control, you know what to do. If not, well: it's a package manager for Sublime Text 2; it's awesome and you can [read about it here](http://wbond.net/sublime_packages/package_control).
 
-To install Package Control, open the Python Console (`ctrl+'` or ``cmd+` ``) and paste the following into it:
+To install Package Control by Git:
 
-    import urllib2,os; pf='Package Control.sublime-package'; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read()); print 'Please restart Sublime Text to finish installation'
+The Packages/ folder listed below refers to the folder that opens when you use the Preferences > Browse Packages… menu.
+```
+cd Packages/
+git clone https://github.com/wbond/sublime_package_control.git "Package Control"
+cd "Package Control"
+git checkout python3
+```
 
-After installing the package and restarting the editor:
+After installing the package manager:
 
 * Open the Command Pallete (`ctrl+shift+P` or `cmd+shift+P`).
 * Type "Install Package" and hit return.
@@ -77,9 +85,9 @@ After installing the package and restarting the editor:
 
 Sublime stores packages in the following locations:
 
-	Nix: ~/.config/sublime-text-2/packages
-	Mac: ~/Library/Application\ Support/Sublime\ Text\ 2/Packages
-	Win: %APPDATA%\Sublime Text 2\Packages
+	Nix: ~/.config/sublime-text-3/packages
+	Mac: ~/Library/Application\ Support/Sublime\ Text\ 3/Packages
+	Win: %APPDATA%\Sublime Text 3\Packages
 
 ### As a repository within the packages directory
 
@@ -306,53 +314,15 @@ Go to `Project > Edit Project` to change project settings.
 
 ```
 # Latest Changelog
-### v0.6.40 26/May/2013
-* added environment PATH settings, to add additional paths to find homebrew node and such
-* fixed an issue with the compile and display the output in panel (alt shift R) It was getting the text of the file and running it- thus not finding `required` modules in nodejs. I made it so that it runs the coffee command in the cwd and runs the filename instead of the whole script. In example: `coffee -b -e "my/script.coffee"` but this is run in `/home/projects/my`.
-* fixed #41 by adding settings into the command pallet
+### v0.7.0 01/June/2013
 
-### v0.6.32 02/Feb/2013
-* with help of @idpsycho fixed #14 once more.
-* added alert message on compile failed which also works with compile on save
-
-### v0.6.31 25/Jan/2013
-
-* hotfixed default compile dir to be `false`
-
-### v0.6.3 25/Jan/2013
-* added compileDir option which specifies `coffee -o` arg when compiling.
-* Fixed settings file name. It was Coffeescript when it should have been CoffeeScript. Fixes #19
-* compileDir path works only if it exists.
-* now also works if it doesn't exist.
-* changed default compileDir option to false thus compiling a coffee script to the same directory as default.
-
-### v0.6.2 16/Jan/2013
-- Updated package.json, bumped up version.
-
-### v0.6.1 16/Jan/2013
-- Added utf-8 encode/decode to prevent unicode decode errors, fixed #17
-- Corrected years in 0.6 changelog... Should get used to it by now.
-- Added error output in panel which fixes #16
-
-### v0.6 Changelog - 16/Jan/2013
-
-- Changed menu name to "Better Coffeescript"
-- Changed menu arguments to be directed to `sublime-better-coffeescript` folders, settings files are still kept as `Coffeescript.sublime-settings`
-- Fixed lint errors
-- if delay is lower than < 0.5 then we are saying that minimum delay should be 0.5
-- added a method that gets the input's filename with .js extension
-- setting the output view's name as filename.js fixes #13
-- added compileOnSave option fixes #14
-- updated readme fixes #6
-- added compile output class
-- added compile_output command, it displays the console.logs and what not in a panel
-- added compile_output command to the context menu (right click). This only works for coffeescripts.
-- Added that it existed in README.
-- Added option for showOutputOnSave
-- Need a way of telling if output is open or closed/hidden #15
-
+- merged st3 with master branch
+- now the sublime text 2 support is in st2 branch
+- fixed the @ highlight in language definitions
+- fixed an error you would get when it was looking for project settings when it wasn't a project we were editing
 
 # Special Thanks
 
 * [agibsonsw](https://github.com/agibsonsw) for his help in writing WatchMode
 * [Xavura](https://github.com/Xavura) for writing the base of this plugin
+* [lavrton](https://github.com/lavrton) for his contributions 
