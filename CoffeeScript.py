@@ -9,39 +9,48 @@ from sublime_plugin import WindowCommand
 import sublime_plugin
 import time
 import functools
+import sys
+import locale
+
+def settings_get(name, default=None):
+    # load up the plugin settings
+    plugin_settings = sublime.load_settings('CoffeeScript.sublime-settings')
+    # project plugin settings? sweet! no project plugin settings? ok, well promote plugin_settings up then
+    if sublime.active_window() and sublime.active_window().active_view():
+        project_settings = sublime.active_window().active_view().settings().get("CoffeeScript")
+    else:
+        project_settings = {}
+    setting = project_settings.get(name, plugin_settings.get(name, default))
+    return setting
 
 
 def run(cmd, args=[], source="", cwd=None, env=None):
-    settings = sublime.load_settings('CoffeeScript.sublime-settings')
     if not type(args) is list:
         args = [args]
     if sys.platform == "win32":
-        source_file = args[-1]
-        proc = Popen([cmd] + args, env=env, cwd=cwd, stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=True)
-        stat = proc.communicate(input=source.encode('utf-8'))
+        args = [cmd] + args
+        if sys.version_info[0] == 2:
+            for i in range(len(args)):
+                args[i] = args[i].encode(locale.getdefaultlocale()[1])
+        proc = Popen(args, env=env, cwd=cwd, stdout=PIPE, stdin=PIPE, stderr=PIPE, shell = True)
+        try:
+            stat = proc.communicate(input=source)
+        except:
+            stat = proc.communicate(input=source.encode("utf8"))
     else:
-        if env is None:            
-            env = {"PATH": settings.get('binDir', '/usr/local/bin')}
+        if env is None:
+            env = {"PATH": settings_get('binDir', '/usr/local/bin')}
 
         # adding custom PATHs from settings
-        customEnv = settings.get('envPATH', "")
-        # print "debug"
-        # print customEnv
+        customEnv = settings_get('envPATH', "")
+
         if customEnv:
             env["PATH"] = env["PATH"]+":"+customEnv
-        # else:
-            
-            # print "customEnv is empty"
-        # print env
 
         if source == "":
             command = [cmd] + args
         else:
             command = [cmd] + args + [source]
-        # print "Debug - coffee command: "
-        # print command
-        # print cwd
-        
         proc = Popen(command, env=env, cwd=cwd, stdout=PIPE, stderr=PIPE)
         stat = proc.communicate()
     okay = proc.returncode == 0
@@ -94,30 +103,32 @@ class CompileCommand(TextCommand):
         return isCoffee(self.view)
 
     def run(self, *args, **kwargs):
-        settings = sublime.load_settings('CoffeeScript.sublime-settings')
-        no_wrapper = settings.get('noWrapper', True)
-        compile_dir = settings.get('compileDir')
-
-        if compile_dir:
-            args = ['-c', os.path.split(self.view.file_name())[1]]
-        else:
-            args = ['-c', self.view.file_name()]
-        # print self.view.file_name()
+        no_wrapper = settings_get('noWrapper', True)
+        compile_dir = settings_get('compileDir')
+        source_file = self.view.file_name()
+        source_dir = os.path.normcase(os.path.dirname(source_file))
+        relative_div = settings_get('relativeDir')
+        relative_div = os.path.normcase(relative_div) if relative_div else False
+        # if sys.platform == "win32":
+        #     args = ['-c', source_file.encode('utf8')]
+        # else:
+        args = ['-c', source_file]
         if no_wrapper:
             args = ['-b'] + args
-        # print compile_dir
-        # print isinstance(compile_dir, unicode)
-
-        if compile_dir and isinstance(compile_dir, str):
+        if compile_dir and (isinstance(compile_dir, str) or isinstance(compile_dir, unicode)):
             print("Compile dir specified: " + compile_dir)
             # Check for absolute path or relative path for compile_dir
-            compile_dir = compile_dir if compile_dir[0] == '/' else (source_dir + '/' + compile_dir)
+            if not os.path.isabs(compile_dir):
+                compile_dir = os.path.join(source_dir, compile_dir)
+            elif relative_div and source_dir.startswith(relative_div):
+                compile_dir = source_dir.replace(relative_div, compile_dir, 1)
+            # create folder if not exist
             if not os.path.exists(compile_dir):
                 os.makedirs(compile_dir)
                 print("Compile dir did not exist, created folder: " + compile_dir)
             folder, file_nm = os.path.split(source_file)
-            # print folder
             args = ['--output', compile_dir] + args
+
         result = run("coffee", args=args)
 
         if result['okay'] is True:
@@ -129,7 +140,6 @@ class CompileCommand(TextCommand):
 
         sublime.status_message(status)
 
-        # leave 'save message' visible for 300ms
         later = lambda: sublime.status_message(status)
         sublime.set_timeout(later, 300)
 
@@ -139,17 +149,15 @@ class CompileAndDisplayCommand(TextCommand):
         return isCoffee(self.view)
 
     def run(self, edit, **kwargs):
-        settings = sublime.load_settings('CoffeeScript.sublime-settings')
+        no_wrapper = settings_get('noWrapper', True)
         output = self.view.window().new_file()
         output.set_scratch(True)
         opt = kwargs["opt"]
         if opt == '-p':
             output.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
-        no_wrapper = settings.get('noWrapper', True)
-
+        
         args = [opt]
 
-        print(args)
         if no_wrapper:
             args = ['-b'] + args
 
@@ -182,7 +190,7 @@ class QuickRunBarCommand(WindowCommand):
         if res["okay"] is True:
             output = self.window.new_file()
             output.set_scratch(True)
-            output.run_command('append', {'characters':res["out"]})
+            output.run_command('insert', {'characters': res["out"]})
         else:
             sublime.status_message('Syntax %s' % res["err"].split("\n")[0])
 
@@ -251,7 +259,7 @@ class ToggleWatch(TextCommand):
             views[myvid]["input_obj"] = self.view
 
             print("Now watching", watched_filename(myvid))
-            createOut(myvid)
+            createOut(myvid,edit)
 
         else:
             views = ToggleWatch.views
@@ -262,11 +270,11 @@ class ToggleWatch(TextCommand):
 
             if views[myvid]['output_open'] is False:
                 print("Openning output and watching", watched_filename(myvid))
-                createOut(myvid)
+                createOut(myvid, edit)
 
             elif views[myvid]['watched'] is True:
                 print("Resuming watching", watched_filename(myvid))
-                refreshOut(myvid)
+                refreshOut(myvid, edit)
 
 
 def cleanUp(input_view_id):
@@ -282,39 +290,32 @@ def get_output_filename(input_view_id):
     return output_filename
 
 
-def createOut(input_view_id):
+def createOut(input_view_id,edit):
     #create output panel and save
     this_view = ToggleWatch.views[input_view_id]
     outputs = ToggleWatch.outputs
-    #print this_view
-    input_filename = watched_filename(input_view_id)
-
-    print(input_filename)
-
     output = this_view["input_obj"].window().new_file()
     output.set_scratch(True)
     output.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
     this_view['output_id'] = output.id()
     this_view["output_obj"] = output
     this_view["output_open"] = True
-    # setting output filename
-    # print output.settings().set('filename', '[Compiled]' + input_filename)
+    this_view["edit"] = edit
     # Getting file extension
     output_filename = get_output_filename(input_view_id)
     output.set_name(output_filename)
 
     if not output.id() in outputs:
         outputs[output.id()] = {'boundto': input_view_id}
-    refreshOut(input_view_id)
+    refreshOut(input_view_id, edit)
     return output
 
 
-def refreshOut(view_id):
-    settings = sublime.load_settings('CoffeeScript.sublime-settings')
+def refreshOut(view_id, edit):
     this_view = ToggleWatch.views[view_id]
     this_view['last_modified'] = time.mktime(time.gmtime())
     #refresh the output view
-    no_wrapper = settings.get('noWrapper', True)
+    no_wrapper = settings_get('noWrapper', True)
 
     args = ['-p']
     if no_wrapper:
@@ -323,11 +324,15 @@ def refreshOut(view_id):
     res = brew(args, Text.get(this_view['input_obj']))
     output = this_view['output_obj']
     this_view['modified'] = False
+    current_auto_indent = output.settings().get("auto_indent")
+    output.settings().set("auto_indent", False)
     if res["okay"] is True:
-
-        output.run_command('append', {'characters':res["out"]})
+        output.run_command('select_all')
+        output.run_command('insert', {'characters': res["out"]})
     else:
-        output.run_command('append', {'characters':res["err"].split("\n")[0]})
+        output.run_command('insert', {'characters': res["err"].split("\n")[0]})
+    output.settings().set("auto_indent", current_auto_indent)
+
     return
 
 
@@ -344,14 +349,10 @@ def close_output(input_id):
     views = ToggleWatch.views
     v = views[input_id]
     output = v['output_obj']
-    # output_id = v['output_id']
-    # print "close output"
     if v['output_open'] is True:
-        #print "the output is open so we should attempt to close it"
         output.window().focus_view(output)
         output.window().run_command("close")
         print(watched_filename(input_id), "was closed. Closing the Output")
-        #v['output_open'] = False
         cleanUp(input_id)
 
     return
@@ -364,13 +365,11 @@ class CaptureEditing(sublime_plugin.EventListener):
         modified = this_view['modified']
         if modified is True:
             # been 1000ms since the last modification
-            #print "handling"
-            refreshOut(vid)
+            refreshOut(vid,this_view["edit"])
 
     def on_modified(self, view):
-        settings = sublime.load_settings('CoffeeScript.sublime-settings')
         vid = view.id()
-        watch_modified = settings.get('watchOnModified')
+        watch_modified = settings_get('watchOnModified')
 
         if watch_modified is not False and vid in ToggleWatch.views:
             if watch_modified is True:
@@ -381,18 +380,14 @@ class CaptureEditing(sublime_plugin.EventListener):
                 delay = watch_modified
             #then we have a watched input.
             this_view = ToggleWatch.views[vid]
-            #print " this view is ", this_view
             if this_view['modified'] is False:
                 this_view['modified'] = True
-                #print " trigger "
                 if this_view['watched'] is True:
                     sublime.set_timeout(functools.partial(self.handleTimeout, vid), int(delay * 1000))
             return
 
     def on_post_save(self, view):
-        settings = sublime.load_settings('CoffeeScript.sublime-settings')
-        # print "isCoffee " + str(isCoffee())
-        watch_save = settings.get('watchOnSave', True)
+        watch_save = settings_get('watchOnSave', True)
         if watch_save:
             save_id = view.id()
             views = ToggleWatch.views
@@ -401,14 +396,14 @@ class CaptureEditing(sublime_plugin.EventListener):
                 save_view = ToggleWatch.views[save_id]
                 # check if modified
                 if save_view['modified'] is True:
-                    refreshOut(save_id)
-        compile_on_save = settings.get('compileOnSave', True)
+                    refreshOut(save_id,save_view['edit'])
+        compile_on_save = settings_get('compileOnSave', True)
         if compile_on_save is True and isCoffee() is True:
 
             print("Compiling on save...")
             view.run_command("compile")
-        show_compile_output_on_save = settings.get('showOutputOnSave', True)
-        if show_compile_output_on_save is True and isCoffee() is True and CompileOutput.IS_OPEN is True:
+        show_compile_output_on_save = settings_get('showOutputOnSave', True)
+        if show_compile_output_on_save is True and isCoffee() is True and RunScriptCommand.PANEL_IS_OPEN is True:
             print("Updating output panel...")
             view.run_command("compile_output")
 
@@ -419,13 +414,11 @@ class CaptureEditing(sublime_plugin.EventListener):
         views = ToggleWatch.views
         if close_id in views:
             #this is an input
-            #print "input was closed"
             views[close_id]['input_closed'] = True
             close_output(close_id)
 
         if close_id in ToggleWatch.outputs and views[ToggleWatch.outputs[close_id]['boundto']]['input_closed'] is not True:
             #this is an output
-            #print "an output was closed!"
             boundview = ToggleWatch.outputs[close_id]['boundto']
             thatview = views[boundview]
             thatview['output_open'] = False
@@ -445,15 +438,12 @@ class RunScriptCommand(TextCommand):
         return isCoffee(self.view)
 
     def run(self, edit):
-        settings = sublime.load_settings('CoffeeScript.sublime-settings')
         window = self.view.window()
 
         #refresh the output view
-        no_wrapper = settings.get('noWrapper', True)
+        no_wrapper = settings_get('noWrapper', True)
 
         source_dir, source_file = path.split(self.view.file_name())
-        # print "debug: SourceFolder " + source_dir
-        # print "debug: SourceFile "+source_file
 
         cwd = source_dir
 
@@ -461,25 +451,16 @@ class RunScriptCommand(TextCommand):
         if no_wrapper:
             args = args + ['-b']
 
-
         res = brew(args, "", cwd)
         panel = window.get_output_panel(self.PANEL_NAME)
         panel.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
         panel.set_read_only(False)
         output = panel
-        # print res["err"]
 
         if res["okay"] is True:
-            edit = output.begin_edit()
-            output.erase(edit, sublime.Region(0, output.size()))
-            output.insert(edit, 0, res["out"])
-            output.end_edit(edit)
-            # print "Refreshed"
+            output.run_command('append', {'characters': res["out"]})
         else:
-            edit = output.begin_edit()
-            output.erase(edit, sublime.Region(0, output.size()))
-            output.insert(edit, 0, res["err"])
-            output.end_edit(edit)
+            output.run_command('append', {'characters': res["err"].split("\n")[0]})
         output.sel().clear()
         output.set_read_only(True)
 
