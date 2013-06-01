@@ -20,6 +20,12 @@ def settings_get(name, default=None):
         project_settings = sublime.active_window().active_view().settings().get("CoffeeScript")
     else:
         project_settings = {}
+
+    # what if this isn't a project?
+    # the project_settings would return None (?)
+    if project_settings is None:
+        project_settings = {}
+        
     setting = project_settings.get(name, plugin_settings.get(name, default))
     return setting
 
