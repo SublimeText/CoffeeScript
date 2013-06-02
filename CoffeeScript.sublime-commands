@@ -35,20 +35,4 @@
 		"caption": "Coffee: Run Script / Selection"
 	,	"command": "run_script"
 	}
-,
-	{
-        "caption": "Preferences: Better CoffeeScript Settings – Default",
-        "command": "open_file", "args":
-        {
-            "file": "${packages}/Better CoffeeScript/CoffeeScript.sublime-settings"
-        }
-    }
- ,
-    {
-        "caption": "Preferences: Better CoffeeScript Settings – User",
-        "command": "open_file", "args":
-        {
-            "file": "${packages}/User/CoffeeScript.sublime-settings"
-        }
-    }
 ]
