@@ -25,7 +25,7 @@ def settings_get(name, default=None):
     # the project_settings would return None (?)
     if project_settings is None:
         project_settings = {}
-        
+
     setting = project_settings.get(name, plugin_settings.get(name, default))
     return setting
 
@@ -113,6 +113,7 @@ class CompileCommand(TextCommand):
         source_dir = os.path.normcase(os.path.dirname(source_file))
         relative_div = settings_get('relativeDir')
         relative_div = os.path.normcase(relative_div) if relative_div else False
+        sourcemaps = settings_get('sourceMaps', True)
 
         # print "Compiling: " + source_file
         # if sys.platform == "win32":
@@ -121,6 +122,8 @@ class CompileCommand(TextCommand):
         args = ['-c', source_file]
         if no_wrapper:
             args = ['-b'] + args
+        if sourcemaps:
+            args = ['-m'] + args
         if compile_dir and (isinstance(compile_dir, str) or isinstance(compile_dir, unicode)):
             print("Compile dir specified: " + compile_dir)
             # Check for absolute path or relative path for compile_dir
