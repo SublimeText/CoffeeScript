@@ -151,7 +151,7 @@ You can access the commands either using the command palette (`ctrl+shift+P` or 
 
 Context menu has `Compile Output` that compiles the current CoffeeScript and outputs the javascript code that is run, in a panel.
 
-**Note:** Some of the commands use the Status Bar for output, so you'll probably want to enable it (Tools » Show Status Bar).
+**Note:** Some of the commands use the Status Bar for output, so you'll probably want to enable it (View » Show Status Bar).
 
 
 
