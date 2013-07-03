@@ -48,7 +48,7 @@
 		if it is false or not string then it will compile your `script.coffee` to the directory it is in.
 
 		#### Example:
-		Directory is relative to the file you are editting if specified such as
+		Directory is relative to the file you are editing if specified such as
 			compileDir": "out"
 		Directory is absolute if specified such as
 			compileDir": "/home/logan/Desktop/out"
@@ -75,7 +75,7 @@
 		## Enable source maps support
   		CoffeeScript 1.6.1 and above include support for better coffeescript debugging.
   		Browsers that support it can trace your bugs to your original coffeescript source code,
-  		instead of the javascript that's being evalutated
+  		instead of the javascript that's being evaluated
 	*/
 , "sourceMaps":false
 

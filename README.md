@@ -151,7 +151,7 @@ You can access the commands either using the command palette (`ctrl+shift+P` or 
 
 Context menu has `Compile Output` that compiles the current CoffeeScript and outputs the javascript code that is run, in a panel.
 
-**Note:** Some of the commands use the Status Bar for output, so you'll probably want to enable it (Tools » Show Status Bar).
+**Note:** Some of the commands use the Status Bar for output, so you'll probably want to enable it (View » Show Status Bar).
 
 
 
@@ -214,7 +214,7 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 {
 	/*
 		The directories you would like to include in $PATH environment variable.
-		Use this if your node installation is at a seperate location and getting errors such as `cannot find node executable`
+		Use this if your node installation is at a separate location and getting errors such as `cannot find node executable`
 
 		example:
 		"envPATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
@@ -261,7 +261,7 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 		if it is false or not string then it will compile your `script.coffee` to the directory it is in.
 
 		#### Example:
-		Directory is relative to the file you are editting if specified such as
+		Directory is relative to the file you are editing if specified such as
 			compileDir": "out"
 		Directory is absolute if specified such as
 			compileDir": "/home/logan/Desktop/out"
