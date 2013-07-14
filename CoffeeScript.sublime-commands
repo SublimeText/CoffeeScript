@@ -4,6 +4,10 @@
 	,	"command": "check_syntax"
 	}
 ,	{
+		"caption": "Coffee: Run Script"
+	,	"command": "run_script"
+	}
+,	{
 		"caption": "Coffee: Quick Run Bar"
 	,	"command": "quick_run_bar"
 	}
