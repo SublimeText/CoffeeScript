@@ -125,16 +125,17 @@ class CompileCommand(TextCommand):
             args = ['-m'] + args
 
         # check instance of compile_paths
-        appendix_len = None
-        for key_path in compile_paths:
-            norm_path = os.path.normcase(key_path)
-            appendix = os.path.relpath(source_dir, norm_path)
-            if not appendix.startswith('..') and (appendix_len is None or len(appendix) < appendix_len):
-                appendix_len = len(appendix)
-                compile_dir = compile_paths[key_path]
-                if not os.path.isabs(compile_dir):
-                    compile_dir = os.path.join(norm_path, compile_dir)
-                compile_dir = os.path.join(compile_dir, appendix)
+        if isinstance(compile_paths, dict):
+            appendix_len = None
+            for key_path in compile_paths:
+                norm_path = os.path.normcase(key_path)
+                appendix = os.path.relpath(source_dir, norm_path)
+                if not appendix.startswith('..') and (appendix_len is None or len(appendix) < appendix_len):
+                    appendix_len = len(appendix)
+                    compile_dir = compile_paths[key_path]
+                    if not os.path.isabs(compile_dir):
+                        compile_dir = os.path.join(norm_path, compile_dir)
+                    compile_dir = os.path.join(compile_dir, appendix)
 
         if compile_dir and (isinstance(compile_dir, str) or isinstance(compile_dir, unicode)):
             # Check for absolute path or relative path for compile_dir

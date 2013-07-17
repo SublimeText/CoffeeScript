@@ -1,33 +1,33 @@
 
-	                                         __    
-	   __     _____     ___     ___    __  _/\_\   
-	 /'__`\  /\ '__`\  / __`\ /' _ `\ /\ \/'\/\ \  
-	/\ \L\.\_\ \ \L\ \/\ \L\ \/\ \/\ \\/>  </\ \ \ 
+	                                         __
+	   __     _____     ___     ___    __  _/\_\
+	 /'__`\  /\ '__`\  / __`\ /' _ `\ /\ \/'\/\ \
+	/\ \L\.\_\ \ \L\ \/\ \L\ \/\ \/\ \\/>  </\ \ \
 	\ \__/.\_\\ \ ,__/\ \____/\ \_\ \_\/\_/\_\\ \_\
 	 \/__/\/_/ \ \ \/  \/___/  \/_/\/_/\//\/_/ \/_/
-	            \ \_\                              
-	             \/_/                              
+	            \ \_\
+	             \/_/
 
 
-	 ____            __    __                   
-	/\  _`\         /\ \__/\ \__                
-	\ \ \L\ \     __\ \ ,_\ \ ,_\    __   _ __  
+	 ____            __    __
+	/\  _`\         /\ \__/\ \__
+	\ \ \L\ \     __\ \ ,_\ \ ,_\    __   _ __
 	 \ \  _ <'  /'__`\ \ \/\ \ \/  /'__`\/\`'__\
-	  \ \ \L\ \/\  __/\ \ \_\ \ \_/\  __/\ \ \/ 
-	   \ \____/\ \____\\ \__\\ \__\ \____\\ \_\ 
-	    \/___/  \/____/ \/__/ \/__/\/____/ \/_/ 
-	                                            
-	             
-			                ___    ___                                                __      
-			              /'___\ /'___\                                    __        /\ \__   
-			  ___    ___ /\ \__//\ \__/   __     __    ____    ___   _ __ /\_\  _____\ \ ,_\  
-			 /'___\ / __`\ \ ,__\ \ ,__\/'__`\ /'__`\ /',__\  /'___\/\`'__\/\ \/\ '__`\ \ \/  
-			/\ \__//\ \L\ \ \ \_/\ \ \_/\  __//\  __//\__, `\/\ \__/\ \ \/ \ \ \ \ \L\ \ \ \_ 
+	  \ \ \L\ \/\  __/\ \ \_\ \ \_/\  __/\ \ \/
+	   \ \____/\ \____\\ \__\\ \__\ \____\\ \_\
+	    \/___/  \/____/ \/__/ \/__/\/____/ \/_/
+
+
+			                ___    ___                                                __
+			              /'___\ /'___\                                    __        /\ \__
+			  ___    ___ /\ \__//\ \__/   __     __    ____    ___   _ __ /\_\  _____\ \ ,_\
+			 /'___\ / __`\ \ ,__\ \ ,__\/'__`\ /'__`\ /',__\  /'___\/\`'__\/\ \/\ '__`\ \ \/
+			/\ \__//\ \L\ \ \ \_/\ \ \_/\  __//\  __//\__, `\/\ \__/\ \ \/ \ \ \ \ \L\ \ \ \_
 			\ \____\ \____/\ \_\  \ \_\\ \____\ \____\/\____/\ \____\\ \_\  \ \_\ \ ,__/\ \__\
 			 \/____/\/___/  \/_/   \/_/ \/____/\/____/\/___/  \/____/ \/_/   \/_/\ \ \/  \/__/
-			                                                                      \ \_\       
-			                                                                       \/_/       
-                               
+			                                                                      \ \_\
+			                                                                       \/_/
+
 # Jump to Section
 
 * [Latest Change Log](#latest-changelog)
@@ -257,7 +257,7 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 		## Enable compiling to a specific directory.
 		#### Description
 
-		if it is a string like 'some/directory' then `-o some/directory` will be added to `coffee` compiler. 
+		if it is a string like 'some/directory' then `-o some/directory` will be added to `coffee` compiler.
 		if it is false or not string then it will compile your `script.coffee` to the directory it is in.
 
 		#### Example:
@@ -265,24 +265,31 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 			compileDir": "out"
 		Directory is absolute if specified such as
 			compileDir": "/home/logan/Desktop/out"
-		
+
 	*/
 ,	"compileDir": false
 	/*
-		## Enable compiling to a specific relative directory.
+		## Enable compiling to a specific relative directories.
 
 		#### Example:
 		Set absolute path for compile dir:
 			"compileDir": "/home/user/projects/js"
-		And relative folder
+		And specified folders
 			"relativeDir": "/home/user/projects/coffee"
+			"compilePaths":
+			{
+				"/home/user/projects/coffee": "/home/user/projects/first/js",
+				"/home/user/projects/second/coffee": "../js",
+			}
 
 		So
-			"/home/user/projects/coffee/app.coffee" will compile to "/home/user/projects/js/app.js"
-			"/home/user/projects/coffee/models/prod.coffee" will compile to "/home/user/projects/js/models/prod.js"
-		
+			"/home/user/projects/coffee/app.coffee" will compile to "/home/user/projects/first/js/app.js"
+			"/home/user/projects/coffee/models/prod.coffee" will compile to "/home/user/projects/first/js/models/prod.js"
+			"/home/user/projects/coffee/second/coffee/app2.coffee" will compile to "/home/user/projects/second/js/app2.js"
+			"/home/user/projects/main.coffee" will compile to "/home/user/projects/js/main.js"
+
 	*/
-,	"relativeDir": false
+,	"compilePaths": false
 
 
 
@@ -326,4 +333,4 @@ Go to `Project > Edit Project` to change project settings.
 
 * [agibsonsw](https://github.com/agibsonsw) for his help in writing WatchMode
 * [Xavura](https://github.com/Xavura) for writing the base of this plugin
-* [lavrton](https://github.com/lavrton) for his contributions 
+* [lavrton](https://github.com/lavrton) for his contributions
