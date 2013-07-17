@@ -112,9 +112,6 @@ class CompileCommand(TextCommand):
         source_file = self.view.file_name()
         source_dir = os.path.normcase(os.path.dirname(source_file))
         compile_paths = settings_get('compilePaths')
-
-        relative_div = settings_get('relativeDir')
-        relative_div = os.path.normcase(relative_div) if relative_div else False
         sourcemaps = settings_get('sourceMaps', True)
 
         # print "Compiling: " + source_file
@@ -143,8 +140,6 @@ class CompileCommand(TextCommand):
             # Check for absolute path or relative path for compile_dir
             if not os.path.isabs(compile_dir):
                 compile_dir = os.path.join(source_dir, compile_dir)
-            elif relative_div and source_dir.startswith(relative_div):
-                compile_dir = source_dir.replace(relative_div, compile_dir, 1)
             print("Compile to:" + compile_dir)
             # create folder if not exist
             if not os.path.exists(compile_dir):
