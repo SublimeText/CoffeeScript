@@ -111,8 +111,7 @@ class CompileCommand(TextCommand):
         compile_dir = settings_get('compileDir')
         source_file = self.view.file_name()
         source_dir = os.path.normcase(os.path.dirname(source_file))
-        relative_div = settings_get('relativeDir')
-        relative_div = os.path.normcase(relative_div) if relative_div else False
+        compile_paths = settings_get('compilePaths')
         sourcemaps = settings_get('sourceMaps', True)
 
         # print "Compiling: " + source_file
@@ -124,19 +123,33 @@ class CompileCommand(TextCommand):
             args = ['-b'] + args
         if sourcemaps:
             args = ['-m'] + args
+
+        # check instance of compile_paths
+        if isinstance(compile_paths, dict):
+            appendix_len = None
+            for key_path in compile_paths:
+                norm_path = os.path.normcase(key_path)
+                appendix = os.path.relpath(source_dir, norm_path)
+                if not appendix.startswith('..') and (appendix_len is None or len(appendix) < appendix_len):
+                    appendix_len = len(appendix)
+                    compile_dir = compile_paths[key_path]
+                    if not os.path.isabs(compile_dir):
+                        compile_dir = os.path.join(norm_path, compile_dir)
+                    compile_dir = os.path.join(compile_dir, appendix)
+
         if compile_dir and (isinstance(compile_dir, str) or isinstance(compile_dir, unicode)):
-            print("Compile dir specified: " + compile_dir)
             # Check for absolute path or relative path for compile_dir
             if not os.path.isabs(compile_dir):
                 compile_dir = os.path.join(source_dir, compile_dir)
-            elif relative_div and source_dir.startswith(relative_div):
-                compile_dir = source_dir.replace(relative_div, compile_dir, 1)
+            print("Compile to:" + compile_dir)
             # create folder if not exist
             if not os.path.exists(compile_dir):
                 os.makedirs(compile_dir)
                 print("Compile dir did not exist, created folder: " + compile_dir)
             folder, file_nm = os.path.split(source_file)
             args = ['--output', compile_dir] + args
+        else:
+            print("Compile to same directory")
 
         result = run("coffee", args=args)
 

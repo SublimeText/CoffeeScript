@@ -56,20 +56,27 @@
 	*/
 ,	"compileDir": false
 	/*
-		## Enable compiling to a specific relative directory.
+		## Enable compiling to a specific relative directories.
 
 		#### Example:
 		Set absolute path for compile dir:
 			"compileDir": "/home/user/projects/js"
-		And relative folder
+		And specified folders
 			"relativeDir": "/home/user/projects/coffee"
+			"compilePaths":
+			{
+				"/home/user/projects/coffee": "/home/user/projects/first/js",
+				"/home/user/projects/second/coffee": "../js",
+			}
 
 		So
-			"/home/user/projects/coffee/app.coffee" will compile to "/home/user/projects/js/app.js"
-			"/home/user/projects/coffee/models/prod.coffee" will compile to "/home/user/projects/js/models/prod.js"
+			"/home/user/projects/coffee/app.coffee" will compile to "/home/user/projects/first/js/app.js"
+			"/home/user/projects/coffee/models/prod.coffee" will compile to "/home/user/projects/first/js/models/prod.js"
+			"/home/user/projects/coffee/second/coffee/app2.coffee" will compile to "/home/user/projects/second/js/app2.js"
+			"/home/user/projects/main.coffee" will compile to "/home/user/projects/js/main.js"
 
 	*/
-,	"relativeDir": false
+,	"compilePaths": false
 
 	/*
 		## Enable source maps support
