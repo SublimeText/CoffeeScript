@@ -7,7 +7,7 @@
 		"envPATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 	*/
-	"envPATH": "",
+	"envPATH": "$PATH",
 	/*
 		The directory containing your coffee binary. Usually
 		/usr/local/bin.
