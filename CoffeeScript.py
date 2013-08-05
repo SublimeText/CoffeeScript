@@ -49,6 +49,8 @@ def run(cmd, args=[], source="", cwd=None, env=None):
             # print "customEnv is empty"
         # print env
 
+        env["PATH"] = env["PATH"].replace("$PATH", os.getenv("PATH"))
+
         if source == "":
             command = [cmd] + args
         else:
