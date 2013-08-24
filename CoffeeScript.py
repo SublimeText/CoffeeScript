@@ -292,6 +292,12 @@ class ToggleWatch(TextCommand):
             views[myvid]["input_obj"] = self.view
 
             print("Now watching", watched_filename(myvid))
+            self.view.window().run_command('set_layout', {
+                "cols": [0.0, 0.5, 1.0],
+                "rows": [0.0, 1.0],
+                "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
+            })
+            # return
             createOut(myvid, edit)
 
         else:
@@ -311,8 +317,11 @@ class ToggleWatch(TextCommand):
 
 
 def cleanUp(input_view_id):
+    # print(ToggleWatch.views[input_view_id])
+    # window = ToggleWatch.views[input_view_id]["input_obj"].window()
     del ToggleWatch.outputs[ToggleWatch.views[input_view_id]['output_id']]
     del ToggleWatch.views[input_view_id]
+
     return
 
 
@@ -328,6 +337,9 @@ def createOut(input_view_id, edit):
     this_view = ToggleWatch.views[input_view_id]
     outputs = ToggleWatch.outputs
     output = this_view["input_obj"].window().new_file()
+    output.window().focus_group(1)
+    output.window().set_view_index(output, output.window().active_group(), 0)
+    # print(output.index)
     output.set_scratch(True)
     output.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
     this_view['output_id'] = output.id()
@@ -384,6 +396,12 @@ def close_output(input_id):
     output = v['output_obj']
     if v['output_open'] is True:
         output.window().focus_view(output)
+        if len(ToggleWatch.views) == 1:
+            output.window().run_command('set_layout', {
+                "cols": [0.0, 1.0],
+                "rows": [0.0, 1.0],
+                "cells": [[0, 0, 1, 1]]
+            })
         output.window().run_command("close")
         print(watched_filename(input_id), "was closed. Closing the Output")
         cleanUp(input_id)
@@ -459,6 +477,13 @@ class CaptureEditing(sublime_plugin.EventListener):
             thatview['watched'] = False
 
             filename = watched_filename(boundview)
+            cleanUp(ToggleWatch.outputs[close_id]['boundto'])
+            if len(ToggleWatch.views) == 0:
+                thatview['input_obj'].window().run_command('set_layout', {
+                    "cols": [0.0, 1.0],
+                    "rows": [0.0, 1.0],
+                    "cells": [[0, 0, 1, 1]]
+                })
             print("The output was closed. No longer watching", filename)
 
         return
