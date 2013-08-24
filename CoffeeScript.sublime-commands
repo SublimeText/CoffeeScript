@@ -35,4 +35,8 @@
 		"caption": "Coffee: Run Script / Selection"
 	,	"command": "run_script"
 	}
+,	{
+		"caption": "Coffee: Lint"
+	,	"command": "lint"
+	}
 ]

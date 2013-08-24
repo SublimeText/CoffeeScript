@@ -9,8 +9,8 @@ from sublime_plugin import WindowCommand
 import sublime_plugin
 import time
 import functools
-import sys
 import locale
+
 
 def settings_get(name, default=None):
     # load up the plugin settings
@@ -38,7 +38,7 @@ def run(cmd, args=[], source="", cwd=None, env=None):
         if sys.version_info[0] == 2:
             for i in range(len(args)):
                 args[i] = args[i].encode(locale.getdefaultlocale()[1])
-        proc = Popen(args, env=env, cwd=cwd, stdout=PIPE, stdin=PIPE, stderr=PIPE, shell = True)
+        proc = Popen(args, env=env, cwd=cwd, stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=True)
         try:
             stat = proc.communicate(input=source)
         except:
@@ -137,7 +137,7 @@ class CompileCommand(TextCommand):
                         compile_dir = os.path.join(norm_path, compile_dir)
                     compile_dir = os.path.join(compile_dir, appendix)
 
-        if compile_dir and (isinstance(compile_dir, str) or isinstance(compile_dir, unicode)):
+        if compile_dir and (isinstance(compile_dir, str)):
             # Check for absolute path or relative path for compile_dir
             if not os.path.isabs(compile_dir):
                 compile_dir = os.path.join(source_dir, compile_dir)
@@ -280,7 +280,7 @@ class ToggleWatch(TextCommand):
             views[myvid]["input_obj"] = self.view
 
             print("Now watching", watched_filename(myvid))
-            createOut(myvid,edit)
+            createOut(myvid, edit)
 
         else:
             views = ToggleWatch.views
@@ -311,7 +311,7 @@ def get_output_filename(input_view_id):
     return output_filename
 
 
-def createOut(input_view_id,edit):
+def createOut(input_view_id, edit):
     #create output panel and save
     this_view = ToggleWatch.views[input_view_id]
     outputs = ToggleWatch.outputs
@@ -386,7 +386,7 @@ class CaptureEditing(sublime_plugin.EventListener):
         modified = this_view['modified']
         if modified is True:
             # been 1000ms since the last modification
-            refreshOut(vid,this_view["edit"])
+            refreshOut(vid, this_view["edit"])
 
     def on_modified(self, view):
         vid = view.id()
@@ -418,7 +418,7 @@ class CaptureEditing(sublime_plugin.EventListener):
                 save_view = ToggleWatch.views[save_id]
                 # check if modified
                 if save_view['modified'] is True:
-                    refreshOut(save_id,save_view['edit'])
+                    refreshOut(save_id, save_view['edit'])
         compile_on_save = settings_get('compileOnSave', True)
         if compile_on_save is True and isCoffee() is True:
 
@@ -450,6 +450,50 @@ class CaptureEditing(sublime_plugin.EventListener):
             print("The output was closed. No longer watching", filename)
 
         return
+
+
+class LintCommand(TextCommand):
+
+    def is_enabled(self):
+        return isCoffee(self.view)
+
+    def run(self, edit):
+        filepath = self.view.file_name()
+        res = run("coffeelint", args=[filepath, "--csv"])
+        error_list = []
+        for line in res["out"].split('\n'):
+            if not len(line.split(","))-1:
+                continue
+            file, line, type, message = line.split(",")
+            error_list.append({"message": message, "line": int(line)-1})
+        self.popup_error_list(error_list)
+
+    def popup_error_list(self, error_list):
+
+        panel_items = []
+
+        for error in error_list:
+            line_text = self.view.substr(self.view.full_line(self.view.text_point(error['line'], 0)))
+            item = [error['message'], '{0}: {1}'.format(error['line'] + 1, line_text.strip())]
+            panel_items.append(item)
+
+        def on_done(selected_item):
+            if selected_item == -1:
+                return
+
+            selected = self.view.sel()
+            selected.clear()
+
+            error = error_list[selected_item]
+            region_begin = self.view.text_point(error['line'], 0)
+
+            selected.add(sublime.Region(region_begin, region_begin))
+            # We have to force a move to update the cursor position
+            self.view.run_command('move', {'by': 'characters', 'forward': True})
+            self.view.run_command('move', {'by': 'characters', 'forward': False})
+            self.view.show_at_center(region_begin)
+
+        self.view.window().show_quick_panel(panel_items, on_done)
 
 
 class RunScriptCommand(TextCommand):
