@@ -10,6 +10,7 @@ import sublime_plugin
 import time
 import functools
 import locale
+import threading
 
 
 def settings_get(name, default=None):
@@ -30,7 +31,15 @@ def settings_get(name, default=None):
     return setting
 
 
-def run(cmd, args=[], source="", cwd=None, env=None):
+def run(cmd, args=[], source="", cwd=None, env=None, callback=None):
+    if callback:
+        threading.Thread(target=lambda cb: cb(_run(cmd, args=args, source=source, cwd=cwd, env=env)), args=(callback,)).start()
+    else:
+        res = _run(cmd, args=args, source=source, cwd=cwd, env=env)
+        return res
+
+
+def _run(cmd, args=[], source="", cwd=None, env=None):
     if not type(args) is list:
         args = [args]
     if sys.platform == "win32":
@@ -61,23 +70,24 @@ def run(cmd, args=[], source="", cwd=None, env=None):
     return {"okay": okay, "out": stat[0].decode('utf-8'), "err": stat[1].decode('utf-8')}
 
 
-def brew(args, source, cwd=None):
+def brew(args, source, cwd=None, callback=None):
     if sys.platform == "win32":
         args.append("-s")
     else:
         args.append("-e")
 
-    return run("coffee", args=args, source=source.encode('utf-8'))
+    return run("coffee", args=args, source=source.encode('utf-8'), callback=callback)
 
 
-def cake(task, cwd):
-    return run("cake", args=task, cwd=cwd)
+def cake(task, cwd, callback = None):
+    return run("cake", args=task, cwd=cwd, callback=callback)
 
 
 def isCoffee(view=None):
     if view is None:
         view = sublime.active_window().active_view()
     return 'source.coffee' in view.scope_name(0)
+
 
 def isLitCoffee(view=None):
     if view is None:
@@ -183,9 +193,14 @@ class CompileAndDisplayCommand(TextCommand):
     def is_enabled(self):
         return isCoffee(self.view) or isLitCoffee(self.view)
 
+    def on_done(self, edit,res):
+        if res["okay"] is True:
+            self.output.set_scratch(True)
+            self.output.run_command('insert', {'characters': res["out"]})
+
     def run(self, edit, **kwargs):
         no_wrapper = settings_get('noWrapper', True)
-        output = self.view.window().new_file()
+        self.output = output = self.view.window().new_file()
         output.set_scratch(True)
         opt = kwargs["opt"]
         if opt == '-p':
@@ -197,6 +212,7 @@ class CompileAndDisplayCommand(TextCommand):
         if isLitCoffee(self.view):
             args = ['-l'] + args
 
+        # res = brew(args, Text.get(self.view), callback= lambda res: self.on_done(edit,res))
         res = brew(args, Text.get(self.view))
         if res["okay"] is True:
             output.insert(edit, 0, res["out"])
@@ -252,15 +268,18 @@ class RunCakeTaskCommand(WindowCommand):
         if not path.exists(cakepath):
             return sublime.status_message("Cakefile not found.")
 
-        res = cake(task, cakepath)
-        if res["okay"] is True:
-            if "No such task" in res["out"]:
-                msg = "doesn't exist"
+        def on_done(res):
+            if res["okay"] is True:
+                if "No such task" in res["out"]:
+                    msg = "doesn't exist"
+                else:
+                    msg = "suceeded"
             else:
-                msg = "suceeded"
-        else:
-            msg = "failed"
-        sublime.status_message("Task %s - %s." % (task, msg))
+                print(res["err"])
+                msg = "failed"
+            sublime.status_message("Task %s - %s." % (task, msg))
+
+        res = cake(task, cakepath, on_done)
 
     def run(self):
         self.window.show_input_panel('Cake >', '', self.finish, None, None)
@@ -375,14 +394,13 @@ def refreshOut(view_id, edit):
     res = brew(args, Text.get(this_view['input_obj']))
     output = this_view['output_obj']
     this_view['modified'] = False
-    current_auto_indent = output.settings().get("auto_indent")
-    output.settings().set("auto_indent", False)
-    if res["okay"] is True:
+    def update():
+        current_auto_indent = output.settings().get("auto_indent")
+        output.settings().set("auto_indent", False)
         output.run_command('select_all')
         output.run_command('insert', {'characters': res["out"]})
-    else:
-        output.run_command('insert', {'characters': res["err"].split("\n")[0]})
-    output.settings().set("auto_indent", current_auto_indent)
+        output.settings().set("auto_indent", current_auto_indent)
+    threading.Thread(target=update, args=()).start()
 
     return
 
