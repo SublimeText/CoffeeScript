@@ -301,6 +301,12 @@ def watched_filename(view_id):
     return filename
 
 
+class UpdateWatchCommand(sublime_plugin.TextCommand):
+    def run(self, edit, pos, text):
+        region = sublime.Region(0, self.view.size())
+        self.view.erase(edit, region)
+        self.view.insert(edit, pos, text)
+
 class ToggleWatch(TextCommand):
     views = {}
     outputs = {}
@@ -394,13 +400,7 @@ def refreshOut(view_id, edit):
     res = brew(args, Text.get(this_view['input_obj']))
     output = this_view['output_obj']
     this_view['modified'] = False
-    def update():
-        current_auto_indent = output.settings().get("auto_indent")
-        output.settings().set("auto_indent", False)
-        output.run_command('select_all')
-        output.run_command('insert', {'characters': res["out"]})
-        output.settings().set("auto_indent", current_auto_indent)
-    threading.Thread(target=update, args=()).start()
+    output.run_command('update_watch', {'pos': 0, 'text': res["out"] or res["err"]})
 
     return
 
