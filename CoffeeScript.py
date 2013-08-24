@@ -10,11 +10,12 @@ import sublime_plugin
 import time
 import functools
 import locale
-import threading
+# import threading
+import tempfile
 
 
 def settings_get(name, default=None):
-    # load up the plugin settings
+# load up the plugin settings
     plugin_settings = sublime.load_settings('CoffeeScript.sublime-settings')
     # project plugin settings? sweet! no project plugin settings? ok, well promote plugin_settings up then
     if sublime.active_window() and sublime.active_window().active_view():
@@ -173,7 +174,6 @@ class CompileCommand(TextCommand):
             cwd = source_dir
         else:
             cwd = None
-        print(cwd)
         result = run("coffee", args=args, cwd = cwd)
 
         if result['okay'] is True:
@@ -387,6 +387,38 @@ def createOut(input_view_id, edit):
     return output
 
 
+def mapping(view,output):
+    tempFolder = tempfile.gettempdir()
+    args = []
+    source_file = view.file_name()
+    # source_dir = os.path.normcase(os.path.dirname(source_file))
+    args = ["-m","-o",tempFolder,source_file]
+    res = run("coffee", args = args)
+    folder, file_nm = os.path.split(source_file)
+    mapFile = path.join(tempFolder,file_nm.split(".")[0]+'.map')
+    # with open(path.join(tempFolder,file_nm.split(".")[0]+'.map')) as f:
+    # index = load(open(mapFile))
+    # c
+    (row,col) = view.rowcol(view.sel()[0].begin())
+    command = ["node", "source.js",mapFile,str(row),str(col)]
+    proc = Popen(command, cwd=path.dirname(path.realpath(__file__)), stdout=PIPE, stderr=PIPE)
+    stat = proc.communicate()
+    okay = proc.returncode == 0
+    res = ({"okay": okay, "out": stat[0].decode('utf-8'), "err": stat[1].decode('utf-8')})
+    if okay:
+        (row,cal) = res["out"].split(" ")
+        row = int(row)
+        cal = int(cal)
+        selected = output.sel()
+        selected.clear()
+        region_begin = output.text_point(row, 0)
+
+        selected.add(sublime.Region(region_begin, region_begin))
+        output.run_command('move', {'by': 'characters', 'forward': True})
+        output.run_command('move', {'by': 'characters', 'forward': False})
+        output.show_at_center(region_begin)
+
+
 def refreshOut(view_id, edit):
     this_view = ToggleWatch.views[view_id]
     this_view['last_modified'] = time.mktime(time.gmtime())
@@ -400,7 +432,12 @@ def refreshOut(view_id, edit):
     res = brew(args, Text.get(this_view['input_obj']))
     output = this_view['output_obj']
     this_view['modified'] = False
+    # if res["out"]
     output.run_command('update_watch', {'pos': 0, 'text': res["out"] or res["err"]})
+    # run()
+    # 
+    mapping(this_view['input_obj'],this_view['output_obj'])
+    # print(row)
 
     return
 
