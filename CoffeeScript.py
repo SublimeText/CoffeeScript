@@ -528,6 +528,8 @@ class RunScriptCommand(TextCommand):
         args = [self.view.file_name()]
         if no_wrapper:
             args = args + ['-b']
+        if isLitCoffee(self.view):
+            args = ['-l'] + args
 
         res = brew(args, "", cwd)
         panel = window.get_output_panel(self.PANEL_NAME)
