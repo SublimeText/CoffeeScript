@@ -156,9 +156,15 @@ class CompileCommand(TextCommand):
             folder, file_nm = os.path.split(source_file)
             args = ['--output', compile_dir] + args
         else:
+            compile_dir = source_dir
             print("Compile to same directory")
 
-        result = run("coffee", args=args)
+        if sourcemaps:
+            cwd = source_dir
+        else:
+            cwd = None
+        print(cwd)
+        result = run("coffee", args=args, cwd = cwd)
 
         if result['okay'] is True:
             status = 'Compilation Succeeded'
