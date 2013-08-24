@@ -79,6 +79,11 @@ def isCoffee(view=None):
         view = sublime.active_window().active_view()
     return 'source.coffee' in view.scope_name(0)
 
+def isLitCoffee(view=None):
+    if view is None:
+        view = sublime.active_window().active_view()
+    return 'source.litcoffee' in view.scope_name(0)
+
 
 class Text():
     @staticmethod
@@ -104,7 +109,7 @@ class Text():
 
 class CompileCommand(TextCommand):
     def is_enabled(self):
-        return isCoffee(self.view)
+        return isCoffee(self.view) or isLitCoffee(self.view)
 
     def run(self, *args, **kwargs):
         no_wrapper = settings_get('noWrapper', True)
@@ -123,6 +128,8 @@ class CompileCommand(TextCommand):
             args = ['-b'] + args
         if sourcemaps:
             args = ['-m'] + args
+        if isLitCoffee(self.view):
+            args = ['-l'] + args
 
         # check instance of compile_paths
         if isinstance(compile_paths, dict):
@@ -168,7 +175,7 @@ class CompileCommand(TextCommand):
 
 class CompileAndDisplayCommand(TextCommand):
     def is_enabled(self):
-        return isCoffee(self.view)
+        return isCoffee(self.view) or isLitCoffee(self.view)
 
     def run(self, edit, **kwargs):
         no_wrapper = settings_get('noWrapper', True)
@@ -181,6 +188,8 @@ class CompileAndDisplayCommand(TextCommand):
 
         if no_wrapper:
             args = ['-b'] + args
+        if isLitCoffee(self.view):
+            args = ['-l'] + args
 
         res = brew(args, Text.get(self.view))
         if res["okay"] is True:
@@ -191,10 +200,13 @@ class CompileAndDisplayCommand(TextCommand):
 
 class CheckSyntaxCommand(TextCommand):
     def is_enabled(self):
-        return isCoffee(self.view)
+        return isCoffee(self.view) or isLitCoffee(self.view)
 
     def run(self, edit):
-        res = brew(['-b', '-p'], Text.get(self.view))
+        args = ['-b', '-p']
+        if isLitCoffee(self.view):
+            args = ['-l'] + args
+        res = brew(args, Text.get(self.view))
         if res["okay"] is True:
             status = 'Valid'
         else:
@@ -501,7 +513,7 @@ class RunScriptCommand(TextCommand):
     PANEL_IS_OPEN = False
 
     def is_enabled(self):
-        return isCoffee(self.view)
+        return isCoffee(self.view) or isLitCoffee(self.view)
 
     def run(self, edit):
         window = self.view.window()
