@@ -10,7 +10,7 @@ import sublime_plugin
 import time
 import functools
 import locale
-# import threading
+import threading
 import tempfile
 
 
