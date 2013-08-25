@@ -1,21 +1,21 @@
-#aponxi v0.6
-import sublime
+#aponxi
 import sys
-from os import path
 import os
+from os import path
 from subprocess import Popen, PIPE
 from sublime_plugin import TextCommand
 from sublime_plugin import WindowCommand
 import sublime_plugin
-import time
+import sublime
 import functools
 import locale
-# import threading
+import threading
 import tempfile
+from .sourcemap import load
 
 
 def settings_get(name, default=None):
-# load up the plugin settings
+    # load up the plugin settings
     plugin_settings = sublime.load_settings('CoffeeScript.sublime-settings')
     # project plugin settings? sweet! no project plugin settings? ok, well promote plugin_settings up then
     if sublime.active_window() and sublime.active_window().active_view():
@@ -33,6 +33,10 @@ def settings_get(name, default=None):
 
 
 def run(cmd, args=[], source="", cwd=None, env=None, callback=None):
+    """
+    Run command. "coffee", "cake", etc.
+    Will run on thread if callback function is passed.
+    """
     if callback:
         threading.Thread(target=lambda cb: cb(_run(cmd, args=args, source=source, cwd=cwd, env=env)), args=(callback,)).start()
     else:
@@ -53,6 +57,8 @@ def _run(cmd, args=[], source="", cwd=None, env=None):
             stat = proc.communicate(input=source)
         except:
             stat = proc.communicate(input=source.encode("utf8"))
+        okay = proc.returncode == 0
+        return {"okay": okay, "out": stat[0].decode(locale.getdefaultlocale()[1]), "err": stat[1].decode(locale.getdefaultlocale()[1])}
     else:
         if env is None:
             env = {"PATH": settings_get('binDir', '/usr/local/bin')}
@@ -67,20 +73,22 @@ def _run(cmd, args=[], source="", cwd=None, env=None):
             command = [cmd] + args + [source]
         proc = Popen(command, env=env, cwd=cwd, stdout=PIPE, stderr=PIPE)
         stat = proc.communicate()
-    okay = proc.returncode == 0
-    return {"okay": okay, "out": stat[0].decode('utf-8'), "err": stat[1].decode('utf-8')}
+        okay = proc.returncode == 0
+        return {"okay": okay, "out": stat[0].decode('utf-8'), "err": stat[1].decode('utf-8')}
 
 
 def brew(args, source, cwd=None, callback=None):
+    """
+    Compile command
+    """
     if sys.platform == "win32":
         args.append("-s")
     else:
         args.append("-e")
-
     return run("coffee", args=args, source=source.encode('utf-8'), callback=callback)
 
 
-def cake(task, cwd, callback = None):
+def cake(task, cwd, callback=None):
     return run("cake", args=task, cwd=cwd, callback=callback)
 
 
@@ -130,10 +138,6 @@ class CompileCommand(TextCommand):
         compile_paths = settings_get('compilePaths')
         sourcemaps = settings_get('sourceMaps', True)
 
-        # print "Compiling: " + source_file
-        # if sys.platform == "win32":
-        #     args = ['-c', source_file.encode('utf8')]
-        # else:
         args = ['-c', source_file]
         if no_wrapper:
             args = ['-b'] + args
@@ -174,16 +178,14 @@ class CompileCommand(TextCommand):
             cwd = source_dir
         else:
             cwd = None
-        result = run("coffee", args=args, cwd = cwd)
+        result = run("coffee", args=args, cwd=cwd)
 
         if result['okay'] is True:
             status = 'Compilation Succeeded'
         else:
             errorFirstLine = result['err'].splitlines()[0]
-            status = 'Compilation FAILED '+errorFirstLine
+            status = 'Compilation FAILED ' + errorFirstLine
             sublime.error_message(errorFirstLine)
-
-        sublime.status_message(status)
 
         later = lambda: sublime.status_message(status)
         sublime.set_timeout(later, 300)
@@ -193,14 +195,9 @@ class CompileAndDisplayCommand(TextCommand):
     def is_enabled(self):
         return isCoffee(self.view) or isLitCoffee(self.view)
 
-    def on_done(self, edit,res):
-        if res["okay"] is True:
-            self.output.set_scratch(True)
-            self.output.run_command('insert', {'characters': res["out"]})
-
     def run(self, edit, **kwargs):
         no_wrapper = settings_get('noWrapper', True)
-        self.output = output = self.view.window().new_file()
+        output = self.view.window().new_file()
         output.set_scratch(True)
         opt = kwargs["opt"]
         if opt == '-p':
@@ -212,7 +209,6 @@ class CompileAndDisplayCommand(TextCommand):
         if isLitCoffee(self.view):
             args = ['-l'] + args
 
-        # res = brew(args, Text.get(self.view), callback= lambda res: self.on_done(edit,res))
         res = brew(args, Text.get(self.view))
         if res["okay"] is True:
             output.insert(edit, 0, res["out"])
@@ -233,7 +229,7 @@ class CheckSyntaxCommand(TextCommand):
             status = 'Valid'
         else:
             status = res["err"].split("\n")[0]
-        sublime.status_message('Syntax %s' % status)
+        sublime.message_dialog('Syntax %s' % status)
 
 
 class QuickRunBarCommand(WindowCommand):
@@ -279,7 +275,7 @@ class RunCakeTaskCommand(WindowCommand):
                 msg = "failed"
             sublime.status_message("Task %s - %s." % (task, msg))
 
-        res = cake(task, cakepath, on_done)
+        cake(task, cakepath, on_done)
 
     def run(self):
         self.window.show_input_panel('Cake >', '', self.finish, None, None)
@@ -291,265 +287,6 @@ class RunCakeTaskCommand(WindowCommand):
 # | (_| | |_) | (_) | | | |>  <| |
 #  \__,_| .__/ \___/|_| |_/_/\_\_|
 #       |_|
-
-def watched_filename(view_id):
-    view = ToggleWatch.views[view_id]['input_obj']
-    if view.file_name() is not None:
-        filename = view.file_name().split('/')[-1]
-    else:
-        filename = "Unsaved File"
-    return filename
-
-
-class UpdateWatchCommand(sublime_plugin.TextCommand):
-    def run(self, edit, pos, text):
-        region = sublime.Region(0, self.view.size())
-        self.view.erase(edit, region)
-        self.view.insert(edit, pos, text)
-
-class ToggleWatch(TextCommand):
-    views = {}
-    outputs = {}
-
-    def is_enabled(self):
-        return isCoffee(self.view)
-
-    def run(self, edit):
-        myvid = self.view.id()
-        if not myvid in ToggleWatch.views:
-
-            views = ToggleWatch.views
-            views[myvid] = {'watched': True, 'modified': True, 'input_closed': False}
-            views[myvid]["input_obj"] = self.view
-
-            print("Now watching", watched_filename(myvid))
-            self.view.window().run_command('set_layout', {
-                "cols": [0.0, 0.5, 1.0],
-                "rows": [0.0, 1.0],
-                "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
-            })
-            # return
-            createOut(myvid, edit)
-
-        else:
-            views = ToggleWatch.views
-
-            views[myvid]['watched'] = not views[myvid]['watched']
-            if not views[myvid]['watched']:
-                print("Stopped watching", watched_filename(myvid))
-
-            if views[myvid]['output_open'] is False:
-                print("Openning output and watching", watched_filename(myvid))
-                createOut(myvid, edit)
-
-            elif views[myvid]['watched'] is True:
-                print("Resuming watching", watched_filename(myvid))
-                refreshOut(myvid, edit)
-
-
-def cleanUp(input_view_id):
-    # print(ToggleWatch.views[input_view_id])
-    # window = ToggleWatch.views[input_view_id]["input_obj"].window()
-    del ToggleWatch.outputs[ToggleWatch.views[input_view_id]['output_id']]
-    del ToggleWatch.views[input_view_id]
-
-    return
-
-
-def get_output_filename(input_view_id):
-    input_filename = watched_filename(input_view_id)
-    fileName, fileExtension = os.path.splitext(input_filename)
-    output_filename = fileName + '.js'
-    return output_filename
-
-
-def createOut(input_view_id, edit):
-    #create output panel and save
-    this_view = ToggleWatch.views[input_view_id]
-    outputs = ToggleWatch.outputs
-    output = this_view["input_obj"].window().new_file()
-    output.window().focus_group(1)
-    output.window().set_view_index(output, output.window().active_group(), 0)
-    # print(output.index)
-    output.set_scratch(True)
-    output.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
-    this_view['output_id'] = output.id()
-    this_view["output_obj"] = output
-    this_view["output_open"] = True
-    this_view["edit"] = edit
-    # Getting file extension
-    output_filename = get_output_filename(input_view_id)
-    output.set_name(output_filename)
-
-    if not output.id() in outputs:
-        outputs[output.id()] = {'boundto': input_view_id}
-    refreshOut(input_view_id, edit)
-    return output
-
-
-def mapping(view,output):
-    tempFolder = tempfile.gettempdir()
-    args = []
-    source_file = view.file_name()
-    # source_dir = os.path.normcase(os.path.dirname(source_file))
-    args = ["-m","-o",tempFolder,source_file]
-    res = run("coffee", args = args)
-    folder, file_nm = os.path.split(source_file)
-    mapFile = path.join(tempFolder,file_nm.split(".")[0]+'.map')
-    # with open(path.join(tempFolder,file_nm.split(".")[0]+'.map')) as f:
-    # index = load(open(mapFile))
-    # c
-    (row,col) = view.rowcol(view.sel()[0].begin())
-    command = ["node", "source.js",mapFile,str(row),str(col)]
-    proc = Popen(command, cwd=path.dirname(path.realpath(__file__)), stdout=PIPE, stderr=PIPE)
-    stat = proc.communicate()
-    okay = proc.returncode == 0
-    res = ({"okay": okay, "out": stat[0].decode('utf-8'), "err": stat[1].decode('utf-8')})
-    if okay:
-        (row,cal) = res["out"].split(" ")
-        row = int(row)
-        cal = int(cal)
-        selected = output.sel()
-        selected.clear()
-        region_begin = output.text_point(row, 0)
-
-        selected.add(sublime.Region(region_begin, region_begin))
-        output.run_command('move', {'by': 'characters', 'forward': True})
-        output.run_command('move', {'by': 'characters', 'forward': False})
-        output.show_at_center(region_begin)
-
-
-def refreshOut(view_id, edit):
-    this_view = ToggleWatch.views[view_id]
-    this_view['last_modified'] = time.mktime(time.gmtime())
-    #refresh the output view
-    no_wrapper = settings_get('noWrapper', True)
-
-    args = ['-p']
-    if no_wrapper:
-        args = ['-b'] + args
-
-    res = brew(args, Text.get(this_view['input_obj']))
-    output = this_view['output_obj']
-    this_view['modified'] = False
-    # if res["out"]
-    output.run_command('update_watch', {'pos': 0, 'text': res["out"] or res["err"]})
-    # run()
-    # 
-    mapping(this_view['input_obj'],this_view['output_obj'])
-    # print(row)
-
-    return
-
-
-def isView(view_id):
-    # are they modifying a view (rather than a panel, etc.)
-    if not view_id:
-        return False
-    window = sublime.active_window()
-    view = window.active_view() if window is not None else None
-    return (view is not None and view.id() == view_id)
-
-
-def close_output(input_id):
-    views = ToggleWatch.views
-    v = views[input_id]
-    output = v['output_obj']
-    if v['output_open'] is True:
-        output.window().focus_view(output)
-        if len(ToggleWatch.views) == 1:
-            output.window().run_command('set_layout', {
-                "cols": [0.0, 1.0],
-                "rows": [0.0, 1.0],
-                "cells": [[0, 0, 1, 1]]
-            })
-        output.window().run_command("close")
-        print(watched_filename(input_id), "was closed. Closing the Output")
-        cleanUp(input_id)
-
-    return
-
-
-class CaptureEditing(sublime_plugin.EventListener):
-
-    def handleTimeout(self, vid):
-        this_view = ToggleWatch.views[vid]
-        modified = this_view['modified']
-        if modified is True:
-            # been 1000ms since the last modification
-            refreshOut(vid, this_view["edit"])
-
-    def on_modified(self, view):
-        vid = view.id()
-        watch_modified = settings_get('watchOnModified')
-
-        if watch_modified is not False and vid in ToggleWatch.views:
-            if watch_modified is True:
-                delay = 0.5
-            elif watch_modified < 0.5:
-                delay = 0.5
-            else:
-                delay = watch_modified
-            #then we have a watched input.
-            this_view = ToggleWatch.views[vid]
-            if this_view['modified'] is False:
-                this_view['modified'] = True
-                if this_view['watched'] is True:
-                    sublime.set_timeout(functools.partial(self.handleTimeout, vid), int(delay * 1000))
-            return
-
-    def on_post_save(self, view):
-        # print "isCoffee " + str(isCoffee())
-        watch_save = settings_get('watchOnSave', True)
-        if watch_save:
-            save_id = view.id()
-            views = ToggleWatch.views
-            if save_id in views:
-                # getting view object
-                save_view = ToggleWatch.views[save_id]
-                # check if modified
-                if save_view['modified'] is True:
-                    refreshOut(save_id, save_view['edit'])
-        compile_on_save = settings_get('compileOnSave', True)
-        if compile_on_save is True and isCoffee() is True:
-
-            print("Compiling on save...")
-            view.run_command("compile")
-        show_compile_output_on_save = settings_get('showOutputOnSave', True)
-        if show_compile_output_on_save is True and isCoffee() is True and RunScriptCommand.PANEL_IS_OPEN is True:
-            print("Updating output panel...")
-            view.run_command("compile_output")
-
-        return
-
-    def on_close(self, view):
-        close_id = view.id()
-        views = ToggleWatch.views
-        if close_id in views:
-            #this is an input
-            views[close_id]['input_closed'] = True
-            close_output(close_id)
-
-        if close_id in ToggleWatch.outputs and views[ToggleWatch.outputs[close_id]['boundto']]['input_closed'] is not True:
-            #this is an output
-            boundview = ToggleWatch.outputs[close_id]['boundto']
-            thatview = views[boundview]
-            thatview['output_open'] = False
-            thatview['watched'] = False
-
-            filename = watched_filename(boundview)
-            cleanUp(ToggleWatch.outputs[close_id]['boundto'])
-            if len(ToggleWatch.views) == 0:
-                thatview['input_obj'].window().run_command('set_layout', {
-                    "cols": [0.0, 1.0],
-                    "rows": [0.0, 1.0],
-                    "cells": [[0, 0, 1, 1]]
-                })
-            print("The output was closed. No longer watching", filename)
-
-        return
-
-
 class LintCommand(TextCommand):
 
     def is_enabled(self):
@@ -562,8 +299,12 @@ class LintCommand(TextCommand):
         for line in res["out"].split('\n'):
             if not len(line.split(","))-1:
                 continue
-            file, line, type, message = line.split(",")
-            error_list.append({"message": message, "line": int(line)-1})
+            lineNum = line.split(",")[1]
+            message = line.split(",")[-1]
+            try:
+                error_list.append({"message": message, "line": int(lineNum)-1})
+            except:
+                continue
         self.popup_error_list(error_list)
 
     def popup_error_list(self, error_list):
@@ -633,3 +374,180 @@ class RunScriptCommand(TextCommand):
         window.run_command('show_panel', {'panel': 'output.%s' % self.PANEL_NAME})
         self.PANEL_IS_OPEN = True
         return
+
+watchers = {}
+
+
+def watched_filename(view):
+    if view.file_name() is not None:
+        filename = view.file_name().split('/')[-1]
+    else:
+        filename = "Unsaved File"
+    return filename
+
+
+class Tool():
+    @staticmethod
+    def get_file_name(file_path):
+        if file_path:
+            filename = os.path.split(file_path)[-1]
+        else:
+            filename = "Unsaved File"
+        return filename
+
+    @staticmethod
+    def get_js_file_name(coffee_file_name):
+        fileName, fileExtension = os.path.splitext(coffee_file_name)
+        output_filename = fileName + '.js'
+        return output_filename
+
+
+class Watcher():
+    def __init__(self, inputView):
+        self.inputView = inputView
+        print("Now watching", watched_filename(inputView))
+        if self.inputView.window().num_groups() == 1:
+            # create new column
+            self.inputView.window().run_command('set_layout', {
+                "cols": [0.0, 0.5, 1.0],
+                "rows": [0.0, 1.0],
+                "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
+            })
+        self.create_output()
+
+    def create_output(self):
+        self.sourceFilePath = self.inputView.file_name()
+        self.outputFileName = Tool.get_js_file_name(Tool.get_file_name(self.sourceFilePath))
+        self.outputTempDir = tempfile.gettempdir()
+        # print(self.outputTempDir)
+        self.outputFilePath = path.join(self.outputTempDir, self.outputFileName)
+
+        no_wrapper = settings_get('noWrapper', True)
+        args = []
+        if no_wrapper:
+            args = ['-b'] + args
+        args = args + ["-m", "-o", self.outputTempDir, self.sourceFilePath]
+
+        res = run("coffee", args)
+        if not res["okay"]:
+            sublime.message_dialog("Error. See console.")
+            print(res["err"])
+            return
+        # create new tab
+        self.outputView = self.inputView.window().open_file(self.outputFilePath)
+        # move it to second column
+        self.outputView.window().focus_group(1)
+        self.outputView.window().set_view_index(self.outputView, self.outputView.window().active_group(), 0)
+
+    def refresh(self):
+        no_wrapper = settings_get('noWrapper', True)
+        args = ["-m", "-o", self.outputTempDir]
+        if no_wrapper:
+            args = ['-b'] + args
+        res = brew(args, source=Text.get(self.inputView))
+        with open(self.outputFilePath, 'w') as f:
+            f.write(res["out"])
+
+        mapFile = path.join(self.outputTempDir, self.outputFileName.split(".")[0]+'.map')
+        (inputRow, inputCol) = self.inputView.rowcol(self.inputView.sel()[0].begin())
+        index = load(open(mapFile)).getpos(line=inputRow, column=inputCol)
+        if not index:
+            return
+        (row, col) = index
+        row = int(row)
+
+        def goto():
+            selected = self.outputView.sel()
+            selected.clear()
+            region_begin = self.outputView.text_point(row, 0)
+            selected.add(sublime.Region(region_begin, region_begin))
+            self.outputView.run_command('move', {'by': 'characters', 'forward': True})
+            self.outputView.run_command('move', {'by': 'characters', 'forward': False})
+            self.outputView.show_at_center(region_begin)
+        sublime.set_timeout(goto, 10)
+
+    def stop(self):
+        # close compiled tab
+        print("Stop watching: " + self.inputView.file_name())
+        window = self.outputView.window() or self.inputView.window()
+        if self.outputView.window():
+            window.focus_view(self.outputView)
+            window.run_command("close")
+
+        if len(watchers) == 1 and len(window.views_in_group(1)) == 0:
+            window.run_command('set_layout', {
+                "cols": [0.0, 1.0],
+                "rows": [0.0, 1.0],
+                "cells": [[0, 0, 1, 1]]
+            })
+        del watchers[self.inputView.id()]
+
+
+class ToggleWatch(TextCommand):
+    views = {}
+    outputs = {}
+
+    def is_enabled(self):
+        return isCoffee(self.view)
+
+    def run(self, edit):
+        viewID = self.view.id()
+        if not viewID in watchers:
+            watchers[viewID] = Watcher(self.view)
+        else:
+            watchers[viewID].stop()
+
+
+class CaptureEditing(sublime_plugin.EventListener):
+
+    def is_enabled(self, view):
+        return isCoffee(view)
+
+    def handleTimeout(self, watcher):
+        watcher.refresh()
+
+    def on_modified(self, view):
+        if not self.is_enabled(view):
+            return
+        viewID = view.id()
+        watch_modified = settings_get('watchOnModified')
+
+        if watch_modified is not False and viewID in watchers:
+            if watch_modified is True:
+                delay = 0.5
+            elif watch_modified < 0.5:
+                delay = 0.5
+            else:
+                delay = watch_modified
+            sublime.set_timeout(functools.partial(self.handleTimeout, watchers[viewID]), int(delay * 1000))
+
+    def on_post_save(self, view):
+        if not self.is_enabled(view):
+            return
+        compile_on_save = settings_get('compileOnSave', True)
+        if compile_on_save is True:
+            print("Compiling on save...")
+            view.run_command("compile")
+            show_compile_output_on_save = settings_get('showOutputOnSave', True)
+            if show_compile_output_on_save is True and isCoffee() is True and RunScriptCommand.PANEL_IS_OPEN is True:
+                print("Updating output panel...")
+                view.run_command("compile_output")
+
+        watch_save = settings_get('watchOnSave', True)
+        if watch_save:
+            viewID = view.id()
+            if viewID in watchers:
+                watchers[viewID].refresh()
+
+    def on_close(self, view):
+        viewID = view.id()
+        for k, watcher in watchers.items():
+            if watcher.outputView.id() == viewID:
+                watcher.stop()
+                break
+
+        if not self.is_enabled(view):
+            return
+
+        if viewID in watchers:
+            watchers[viewID].stop()
