@@ -409,7 +409,7 @@ class Tool():
 class Watcher():
     def __init__(self, inputView):
         self.inputView = inputView
-        print("Now watching", watched_filename(inputView))
+        print("Now watching " + watched_filename(inputView))
         if self.inputView.window().num_groups() == 1:
             # create new column
             self.inputView.window().run_command('set_layout', {
