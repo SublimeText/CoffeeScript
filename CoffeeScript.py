@@ -296,6 +296,7 @@ class LintCommand(TextCommand):
         filepath = self.view.file_name()
         res = run("coffeelint", args=[filepath, "--csv"])
         error_list = []
+
         for line in res["out"].split('\n'):
             if not len(line.split(","))-1:
                 continue
@@ -305,7 +306,10 @@ class LintCommand(TextCommand):
                 error_list.append({"message": message, "line": int(lineNum)-1})
             except:
                 continue
-        self.popup_error_list(error_list)
+        if len(error_list):
+            self.popup_error_list(error_list)
+        else:
+            sublime.message_dialog("No lint errors.")
 
     def popup_error_list(self, error_list):
 
@@ -438,6 +442,8 @@ class Watcher():
         # move it to second column
         self.outputView.window().focus_group(1)
         self.outputView.window().set_view_index(self.outputView, self.outputView.window().active_group(), 0)
+        # self.outputView.window().focus_group(0)
+        self.inputView.window().focus_view(self.inputView)
 
     def refresh(self):
         no_wrapper = settings_get('noWrapper', True)
@@ -467,20 +473,21 @@ class Watcher():
         sublime.set_timeout(goto, 10)
 
     def stop(self):
-        # close compiled tab
+        if not self.inputView.id() in watchers:
+            return
         print("Stop watching: " + self.inputView.file_name())
+        del watchers[self.inputView.id()]
         window = self.outputView.window() or self.inputView.window()
         if self.outputView.window():
             window.focus_view(self.outputView)
             window.run_command("close")
 
-        if len(watchers) == 1 and len(window.views_in_group(1)) == 0:
+        if len(watchers) == 0 and len(window.views_in_group(1)) == 0:
             window.run_command('set_layout', {
                 "cols": [0.0, 1.0],
                 "rows": [0.0, 1.0],
                 "cells": [[0, 0, 1, 1]]
             })
-        del watchers[self.inputView.id()]
 
 
 class ToggleWatch(TextCommand):
@@ -504,22 +511,24 @@ class CaptureEditing(sublime_plugin.EventListener):
         return isCoffee(view)
 
     def handleTimeout(self, watcher):
-        watcher.refresh()
+        if self._new_modify and not self._refreshed:
+            sublime.set_timeout(functools.partial(self.handleTimeout, watcher), 1000)
+            self._new_modify = False
+        else:
+            if self._refreshed:
+                return
+            self._refreshed = True
+            watcher.refresh()
 
     def on_modified(self, view):
         if not self.is_enabled(view):
             return
         viewID = view.id()
         watch_modified = settings_get('watchOnModified')
-
+        self._new_modify = True
         if watch_modified is not False and viewID in watchers:
-            if watch_modified is True:
-                delay = 0.5
-            elif watch_modified < 0.5:
-                delay = 0.5
-            else:
-                delay = watch_modified
-            sublime.set_timeout(functools.partial(self.handleTimeout, watchers[viewID]), int(delay * 1000))
+            self._refreshed = False
+            self.handleTimeout(watchers[viewID])
 
     def on_post_save(self, view):
         if not self.is_enabled(view):
