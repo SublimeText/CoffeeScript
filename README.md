@@ -1,4 +1,3 @@
-
 	                                         __
 	   __     _____     ___     ___    __  _/\_\
 	 /'__`\  /\ '__`\  / __`\ /' _ `\ /\ \/'\/\ \
@@ -62,17 +61,17 @@ I use this plug-in almost everyday! Therefore, whenever I am not developing I am
 
 > This is the recommended installation method.
 
-If you have Sublime Package Control, you know what to do. If not, well: it's a package manager for Sublime Text 2; it's awesome and you can [read about it here](http://wbond.net/sublime_packages/package_control). It is in Alpha stage for Sublime Text 3 and installation guide is [at this page](http://wbond.net/sublime_packages/package_control/installation#ST3).
+If you have Sublime Package Control, you know what to do. If not, well: it's a package manager for Sublime Text 3; it's awesome and you can [read about it here](https://sublime.wbond.net/). Installation guide can be [found here](https://sublime.wbond.net/installation).
 
-To install Package Control by Git:
+The simplest method of installation is through the Sublime Text console. The console is accessed via the ctrl+` shortcut or the View > Show Console menu. Once open, paste the appropriate Python code for your version of Sublime Text into the console.
 
-The Packages/ folder listed below refers to the folder that opens when you use the `Preferences > Browse Packages…` menu.
+SUBLIME TEXT 3
+
 ```
-cd Packages/
-git clone https://github.com/wbond/sublime_package_control.git "Package Control"
-cd "Package Control"
-git checkout python3
+import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
 ```
+
+This code creates the Installed Packages folder for you (if necessary), and then downloads the Package Control.sublime-package into it.
 
 After installing the package manager:
 
@@ -320,7 +319,47 @@ Go to `Project > Edit Project` to change project settings.
 }
 
 
+
 ```
+
+# FAQ
+
+Most of the linux terminal commands written here can be run via [cygwin](http://cygwin.com/install.html) - aka Linux Terminal in Windows.
+
+- Most of the problems are related to configurations. Remember to configure `binDir` after you install!
+
+
+- Do I have coffee-script installed?
+
+Try finding coffee-script in your global npm list with `npm ls -g | grep coffee` which will output something like:
+
+```bash
+npm ls -g | grep coffee
+
+# will output:
+#├── coffee-script@1.6.3
+#├─┬ coffeelint@0.5.6
+#│ ├── coffee-script@1.6.3
+#├── UNMET DEPENDENCY generator-coffee *
+#│ │ ├── coffee-script@1.3.3
+```
+
+
+- Where can I find out the path to coffee binary?
+
+In Linux `which` command will tell you where a command originates from. In terminal type:
+
+```bash
+which coffee
+# /usr/bin/coffee
+```
+
+This path will go into the `binDir` setting.
+
+
+
+
+
 # Latest Changelog
 ### v0.7.0 01/June/2013
 
