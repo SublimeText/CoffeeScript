@@ -30,6 +30,7 @@
 # Jump to Section
 
 * [Latest Change Log](#latest-changelog)
+* [FAQ](#faq)
 * [Installation](#installation)
 * [Updating](#updating)
 * [Commands/Shortcuts](#commandsshortcuts)
