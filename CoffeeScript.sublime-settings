@@ -7,12 +7,12 @@
 		"envPATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 	*/
-	"envPATH": "",
+	"envPATH": "$PATH",
 	/*
 		The directory containing your coffee binary. Usually
-		/usr/local/bin or /usr/bin.
+		/usr/local/bin.
 	*/
-	"binDir": "/usr/bin"
+	"binDir": "/usr/local/bin"
 
 	/*
 		Compile without the top-level function wrapper (coffee -b).
@@ -44,47 +44,18 @@
 		## Enable compiling to a specific directory.
 		#### Description
 
-		if it is a string like 'some/directory' then `-o some/directory` will be added to `coffee` compiler.
+		if it is a string like 'some/directory' then `-o some/directory` will be added to `coffee` compiler. 
 		if it is false or not string then it will compile your `script.coffee` to the directory it is in.
 
 		#### Example:
-		Directory is relative to the file you are editing if specified such as
+		Directory is relative to the file you are editting if specified such as
 			compileDir": "out"
 		Directory is absolute if specified such as
 			compileDir": "/home/logan/Desktop/out"
-
+		
 	*/
 ,	"compileDir": false
-	/*
-		## Enable compiling to a specific relative directories.
 
-		#### Example:
-		Set absolute path for compile dir:
-			"compileDir": "/home/user/projects/js"
-		And specified folders
-			"relativeDir": "/home/user/projects/coffee"
-			"compilePaths":
-			{
-				"/home/user/projects/coffee": "/home/user/projects/first/js",
-				"/home/user/projects/second/coffee": "../js",
-			}
-
-		So
-			"/home/user/projects/coffee/app.coffee" will compile to "/home/user/projects/first/js/app.js"
-			"/home/user/projects/coffee/models/prod.coffee" will compile to "/home/user/projects/first/js/models/prod.js"
-			"/home/user/projects/coffee/second/coffee/app2.coffee" will compile to "/home/user/projects/second/js/app2.js"
-			"/home/user/projects/main.coffee" will compile to "/home/user/projects/js/main.js"
-
-	*/
-,	"compilePaths": false
-
-	/*
-		## Enable source maps support
-  		CoffeeScript 1.6.1 and above include support for better coffeescript debugging.
-  		Browsers that support it can trace your bugs to your original coffeescript source code,
-  		instead of the javascript that's being evaluated
-	*/
-, "sourceMaps":false
 
 
 }

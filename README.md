@@ -1,33 +1,33 @@
-
-	                                         __
-	   __     _____     ___     ___    __  _/\_\
-	 /'__`\  /\ '__`\  / __`\ /' _ `\ /\ \/'\/\ \
-	/\ \L\.\_\ \ \L\ \/\ \L\ \/\ \/\ \\/>  </\ \ \
+		                                               
+	                                         __    
+	   __     _____     ___     ___    __  _/\_\   
+	 /'__`\  /\ '__`\  / __`\ /' _ `\ /\ \/'\/\ \  
+	/\ \L\.\_\ \ \L\ \/\ \L\ \/\ \/\ \\/>  </\ \ \ 
 	\ \__/.\_\\ \ ,__/\ \____/\ \_\ \_\/\_/\_\\ \_\
 	 \/__/\/_/ \ \ \/  \/___/  \/_/\/_/\//\/_/ \/_/
-	            \ \_\
-	             \/_/
+	            \ \_\                              
+	             \/_/                              
 
 
-	 ____            __    __
-	/\  _`\         /\ \__/\ \__
-	\ \ \L\ \     __\ \ ,_\ \ ,_\    __   _ __
+	 ____            __    __                   
+	/\  _`\         /\ \__/\ \__                
+	\ \ \L\ \     __\ \ ,_\ \ ,_\    __   _ __  
 	 \ \  _ <'  /'__`\ \ \/\ \ \/  /'__`\/\`'__\
-	  \ \ \L\ \/\  __/\ \ \_\ \ \_/\  __/\ \ \/
-	   \ \____/\ \____\\ \__\\ \__\ \____\\ \_\
-	    \/___/  \/____/ \/__/ \/__/\/____/ \/_/
-
-
-			                ___    ___                                                __
-			              /'___\ /'___\                                    __        /\ \__
-			  ___    ___ /\ \__//\ \__/   __     __    ____    ___   _ __ /\_\  _____\ \ ,_\
-			 /'___\ / __`\ \ ,__\ \ ,__\/'__`\ /'__`\ /',__\  /'___\/\`'__\/\ \/\ '__`\ \ \/
-			/\ \__//\ \L\ \ \ \_/\ \ \_/\  __//\  __//\__, `\/\ \__/\ \ \/ \ \ \ \ \L\ \ \ \_
+	  \ \ \L\ \/\  __/\ \ \_\ \ \_/\  __/\ \ \/ 
+	   \ \____/\ \____\\ \__\\ \__\ \____\\ \_\ 
+	    \/___/  \/____/ \/__/ \/__/\/____/ \/_/ 
+	                                            
+	             
+			                ___    ___                                                __      
+			              /'___\ /'___\                                    __        /\ \__   
+			  ___    ___ /\ \__//\ \__/   __     __    ____    ___   _ __ /\_\  _____\ \ ,_\  
+			 /'___\ / __`\ \ ,__\ \ ,__\/'__`\ /'__`\ /',__\  /'___\/\`'__\/\ \/\ '__`\ \ \/  
+			/\ \__//\ \L\ \ \ \_/\ \ \_/\  __//\  __//\__, `\/\ \__/\ \ \/ \ \ \ \ \L\ \ \ \_ 
 			\ \____\ \____/\ \_\  \ \_\\ \____\ \____\/\____/\ \____\\ \_\  \ \_\ \ ,__/\ \__\
 			 \/____/\/___/  \/_/   \/_/ \/____/\/____/\/___/  \/____/ \/_/   \/_/\ \ \/  \/__/
-			                                                                      \ \_\
-			                                                                       \/_/
-
+			                                                                      \ \_\       
+			                                                                       \/_/       
+                               
 # Jump to Section
 
 * [Latest Change Log](#latest-changelog)
@@ -39,22 +39,21 @@
 * [Settings](#settings)
 * [Special Thanks](#special-thanks)
 * [Support this Project: ![](https://www.gittip.com/assets/widgets/heart.gif) Tip Me!](https://www.gittip.com/aponxi/)
-* [Donate Me as little as you want!](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VBUW4M9LKTR62)
 
 # Overview
 
-**This package is for Sublime Text 3**. If you are looking for Sublime Text 2, then please refer to [st2 branch here](https://github.com/aponxi/sublime-better-coffeescript/tree/st2).
+This branch is for Sublime Text 2 only.
 
 ## Description
 
-CoffeeScript plug-in was originally created by @Xavura. As I began writing a lot of code in CoffeeScript, I felt the need for side-by-side view for compiled CoffeeScript. Since Xavura's repository have been inactive I decided to branch out my own version. The biggest change in my branch is the Watch Mode which updates the compiled JavaScript view whenever you modify the CoffeeScript thus enabling you to view your progress side-by-side.
+CoffeeScript plugin was originally created by @Xavura. As I began writing a lot of code in CoffeeScript I felt the need for side-by-side view for compiled CoffeeScript. Since Xavura's repo have been inactive I decided to branch out my own version. The biggest change in my branch is the Watch Mode which updates the compiled JavaScript view whenever you modify the CoffeeScript thus enabling you to view your progress side-by-side.
 
-I use this plug-in almost everyday! Therefore, whenever I am not developing I am in testing. I'll do my best to make sure every request or bug will be answered since I'm a frequent user.
+I use this plugin everyday so whenever I am not developing I am in testing stage. I'll make sure every request or bug will be patched since I'm a frequent user.
 
 ## Contributing
 
 - Please use [aponxi/issues page](https://github.com/aponxi/sublime-better-coffeescript/issues) to make requests or report bugs.
-- Please make _pull requests_ to the respective branch (`master` branch is for Sublime Text 3, `st2` branch is for Sublime Text 2.)
+- Please make _pull requests_ to develop branch.
 
 # Installation
 
@@ -62,19 +61,13 @@ I use this plug-in almost everyday! Therefore, whenever I am not developing I am
 
 > This is the recommended installation method.
 
-If you have Sublime Package Control, you know what to do. If not, well: it's a package manager for Sublime Text 2; it's awesome and you can [read about it here](http://wbond.net/sublime_packages/package_control). It is in Alpha stage for Sublime Text 3 and installation guide is [at this page](http://wbond.net/sublime_packages/package_control/installation#ST3).
+If you have Sublime Package Control, you know what to do. If not, well: it's a package manager for Sublime Text 2; it's awesome and you can [read about it here](http://wbond.net/sublime_packages/package_control).
 
-To install Package Control by Git:
+To install Package Control, open the Python Console (`ctrl+'` or ``cmd+` ``) and paste the following into it:
 
-The Packages/ folder listed below refers to the folder that opens when you use the `Preferences > Browse Packages…` menu.
-```
-cd Packages/
-git clone https://github.com/wbond/sublime_package_control.git "Package Control"
-cd "Package Control"
-git checkout python3
-```
+    import urllib2,os; pf='Package Control.sublime-package'; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read()); print 'Please restart Sublime Text to finish installation'
 
-After installing the package manager:
+After installing the package and restarting the editor:
 
 * Open the Command Pallete (`ctrl+shift+P` or `cmd+shift+P`).
 * Type "Install Package" and hit return.
@@ -86,9 +79,9 @@ After installing the package manager:
 
 Sublime stores packages in the following locations:
 
-	Nix: ~/.config/sublime-text-3/packages
-	Mac: ~/Library/Application\ Support/Sublime\ Text\ 3/Packages
-	Win: %APPDATA%\Sublime Text 3\Packages
+	Nix: ~/.config/sublime-text-2/packages
+	Mac: ~/Library/Application\ Support/Sublime\ Text\ 2/Packages
+	Win: %APPDATA%\Sublime Text 2\Packages
 
 ### As a repository within the packages directory
 
@@ -151,7 +144,7 @@ You can access the commands either using the command palette (`ctrl+shift+P` or 
 
 Context menu has `Compile Output` that compiles the current CoffeeScript and outputs the javascript code that is run, in a panel.
 
-**Note:** Some of the commands use the Status Bar for output, so you'll probably want to enable it (View » Show Status Bar).
+**Note:** Some of the commands use the Status Bar for output, so you'll probably want to enable it (Tools » Show Status Bar).
 
 
 
@@ -214,7 +207,7 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 {
 	/*
 		The directories you would like to include in $PATH environment variable.
-		Use this if your node installation is at a separate location and getting errors such as `cannot find node executable`
+		Use this if your node installation is at a seperate location and getting errors such as `cannot find node executable`
 
 		example:
 		"envPATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
@@ -257,39 +250,17 @@ Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to chang
 		## Enable compiling to a specific directory.
 		#### Description
 
-		if it is a string like 'some/directory' then `-o some/directory` will be added to `coffee` compiler.
+		if it is a string like 'some/directory' then `-o some/directory` will be added to `coffee` compiler. 
 		if it is false or not string then it will compile your `script.coffee` to the directory it is in.
 
 		#### Example:
-		Directory is relative to the file you are editing if specified such as
+		Directory is relative to the file you are editting if specified such as
 			compileDir": "out"
 		Directory is absolute if specified such as
 			compileDir": "/home/logan/Desktop/out"
-
+		
 	*/
 ,	"compileDir": false
-	/*
-		## Enable compiling to a specific relative directories.
-
-		#### Example:
-		Set absolute path for compile dir:
-			"compileDir": "/home/user/projects/js"
-		And specified folders
-			"relativeDir": "/home/user/projects/coffee"
-			"compilePaths":
-			{
-				"/home/user/projects/coffee": "/home/user/projects/first/js",
-				"/home/user/projects/second/coffee": "../js",
-			}
-
-		So
-			"/home/user/projects/coffee/app.coffee" will compile to "/home/user/projects/first/js/app.js"
-			"/home/user/projects/coffee/models/prod.coffee" will compile to "/home/user/projects/first/js/models/prod.js"
-			"/home/user/projects/coffee/second/coffee/app2.coffee" will compile to "/home/user/projects/second/js/app2.js"
-			"/home/user/projects/main.coffee" will compile to "/home/user/projects/js/main.js"
-
-	*/
-,	"compilePaths": false
 
 
 
@@ -322,15 +293,53 @@ Go to `Project > Edit Project` to change project settings.
 
 ```
 # Latest Changelog
-### v0.7.0 01/June/2013
+### v0.6.40 26/May/2013
+* added environment PATH settings, to add additional paths to find homebrew node and such
+* fixed an issue with the compile and display the output in panel (alt shift R) It was getting the text of the file and running it- thus not finding `required` modules in nodejs. I made it so that it runs the coffee command in the cwd and runs the filename instead of the whole script. In example: `coffee -b -e "my/script.coffee"` but this is run in `/home/projects/my`.
+* fixed #41 by adding settings into the command pallet
 
-- merged st3 with master branch
-- now the sublime text 2 support is in st2 branch
-- fixed the @ highlight in language definitions
-- fixed an error you would get when it was looking for project settings when it wasn't a project we were editing
+### v0.6.32 02/Feb/2013
+* with help of @idpsycho fixed #14 once more.
+* added alert message on compile failed which also works with compile on save
+
+### v0.6.31 25/Jan/2013
+
+* hotfixed default compile dir to be `false`
+
+### v0.6.3 25/Jan/2013
+* added compileDir option which specifies `coffee -o` arg when compiling.
+* Fixed settings file name. It was Coffeescript when it should have been CoffeeScript. Fixes #19
+* compileDir path works only if it exists.
+* now also works if it doesn't exist.
+* changed default compileDir option to false thus compiling a coffee script to the same directory as default.
+
+### v0.6.2 16/Jan/2013
+- Updated package.json, bumped up version.
+
+### v0.6.1 16/Jan/2013
+- Added utf-8 encode/decode to prevent unicode decode errors, fixed #17
+- Corrected years in 0.6 changelog... Should get used to it by now.
+- Added error output in panel which fixes #16
+
+### v0.6 Changelog - 16/Jan/2013
+
+- Changed menu name to "Better Coffeescript"
+- Changed menu arguments to be directed to `sublime-better-coffeescript` folders, settings files are still kept as `Coffeescript.sublime-settings`
+- Fixed lint errors
+- if delay is lower than < 0.5 then we are saying that minimum delay should be 0.5
+- added a method that gets the input's filename with .js extension
+- setting the output view's name as filename.js fixes #13
+- added compileOnSave option fixes #14
+- updated readme fixes #6
+- added compile output class
+- added compile_output command, it displays the console.logs and what not in a panel
+- added compile_output command to the context menu (right click). This only works for coffeescripts.
+- Added that it existed in README.
+- Added option for showOutputOnSave
+- Need a way of telling if output is open or closed/hidden #15
+
 
 # Special Thanks
 
 * [agibsonsw](https://github.com/agibsonsw) for his help in writing WatchMode
 * [Xavura](https://github.com/Xavura) for writing the base of this plugin
-* [lavrton](https://github.com/lavrton) for his contributions
