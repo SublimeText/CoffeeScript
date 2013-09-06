@@ -3,7 +3,7 @@
 		[
 			{ "key": "setting.auto_match_enabled", "operator": "equal", "operand": true },
 			{
-				"operand": "(string.quoted.double | string.interpolated) - string source",
+				"operand": "(string.quoted.double.coffee | string.interpolated.coffee) - string source",
 				"operator": "equal",
 				"match_all": true,
 				"key": "selector"
