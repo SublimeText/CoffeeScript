@@ -19,7 +19,14 @@
 	*/
 
 ,	"noWrapper": true
-
+	/*
+		Check syntax of your file every time you save a file.
+	*/
+,	"checkSyntaxOnSave": true
+	/*
+		Lint your code via coffeelint every time you save a file
+	*/
+,	"lintOnSave": false
 	/*
 		Enable or disable refresh the compiled Output on Save.
 		Only available for watch mode.

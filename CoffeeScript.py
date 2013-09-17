@@ -309,7 +309,7 @@ class LintCommand(TextCommand):
         if len(error_list):
             self.popup_error_list(error_list)
         else:
-            sublime.message_dialog("No lint errors.")
+            sublime.status_message("No lint errors.")
 
     def popup_error_list(self, error_list):
 
@@ -547,6 +547,20 @@ class CaptureEditing(sublime_plugin.EventListener):
             viewID = view.id()
             if viewID in watchers:
                 watchers[viewID].refresh()
+
+        if settings_get("checkSyntaxOnSave", True):
+            args = ['-b', '-p']
+            if isLitCoffee(view):
+                args = ['-l'] + args
+            res = brew(args, Text.get(view))
+            if res["okay"] is True:
+                sublime.status_message("Syntax is valid.")
+            else:
+                status = res["err"].split("\n")[0]
+                sublime.message_dialog('Syntax error: %s' % status)
+
+        if settings_get("lintOnSave", True):
+            view.run_command("lint")
 
     def on_close(self, view):
         viewID = view.id()
