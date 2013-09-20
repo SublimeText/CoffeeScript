@@ -1,12 +1,15 @@
-{
-	"cmd": ["cake", "sbuild"]
+{	"cmd": ["cake", "sbuild"]
 ,	"path": "/usr/local/bin:$PATH"
 ,	"selector": "source.coffee"
 ,	"working_dir": "$project_path"
+
+,	"windows":
+	{	"path": "$PATH"
+	,	"cmd": ["cake.cmd", "sbuild"]
+	}
+
 ,	"variants":
-	[
-		{
-			"name": "Run",
+	[	{	"name": "Run",
 			"cmd": ["coffee", "$file"]
 		}
 	]
