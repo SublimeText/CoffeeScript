@@ -42,7 +42,7 @@
 	/*
 		Enable Compiling on save. It will compile into the same folder.
 	*/
-,	"compileOnSave": true
+,	"compileOnSave": false
 	/*
 		## Enable outputting the results of the compiled coffeescript in a panel
 	*/
