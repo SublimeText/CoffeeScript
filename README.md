@@ -63,7 +63,7 @@ I use this plugin everyday so whenever I am not developing I am in testing stage
 
 If you have Sublime Package Control, you know what to do. If not, well: it's a package manager for Sublime Text 2; it's awesome and you can [read about it here](http://wbond.net/sublime_packages/package_control).
 
-To install Package Control, open the Python Console (`ctrl+'` or ``cmd+` ``) and paste the following into it:
+To install Package Control, open the Python Console (In Sublime Text Press `ctrl+'` or ``cmd+` ``) and paste the following into it:
 
     import urllib2,os; pf='Package Control.sublime-package'; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read()); print 'Please restart Sublime Text to finish installation'
 
