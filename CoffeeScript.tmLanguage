@@ -59,7 +59,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>(new)\s+(\w+(?:\.\w*)*)</string>
+			<string>(new|instanceof)\s+(\w+(?:\.\w*)*)</string>
 			<key>name</key>
 			<string>meta.class.instance.constructor</string>
 		</dict>
