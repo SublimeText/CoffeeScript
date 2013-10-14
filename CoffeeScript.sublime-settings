@@ -24,7 +24,11 @@
 	*/
 ,	"checkSyntaxOnSave": true
 	/*
-		Lint your code via coffeelint every time you save a file
+		Lint your code via coffeelint every time you save a file.
+	*/
+,	"lintOnSave": false
+	/*
+		Path to lint configuration file.
 	*/
 ,	"lintOnSave": false
 	/*

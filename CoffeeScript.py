@@ -294,9 +294,15 @@ class LintCommand(TextCommand):
 
     def run(self, edit):
         filepath = self.view.file_name()
-        res = run("coffeelint", args=[filepath, "--csv"])
+        args = [filepath, "--csv"]
+        lintConfFile = settings_get("lintConfFile", False)
+        if lintConfFile:
+            if not path.isfile(lintConfFile):
+                print("Lint configuration file not found. Path: " + lintConfFile)
+            else:
+                args += ["-f", lintConfFile]
+        res = run("coffeelint", args=args)
         error_list = []
-
         for line in res["out"].split('\n'):
             if not len(line.split(","))-1:
                 continue
