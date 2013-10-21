@@ -22,7 +22,7 @@
 	/*
 		Check syntax of your file every time you save a file.
 	*/
-,	"checkSyntaxOnSave": true
+,	"checkSyntaxOnSave": false
 	/*
 		Lint your code via coffeelint every time you save a file.
 	*/
