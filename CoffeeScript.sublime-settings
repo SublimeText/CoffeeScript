@@ -30,7 +30,7 @@
 	/*
 		Path to lint configuration file.
 	*/
-,	"lintOnSave": false
+,	"lintConfFile": false
 	/*
 		Enable or disable refresh the compiled Output on Save.
 		Only available for watch mode.
