@@ -216,6 +216,22 @@ class CompileAndDisplayCommand(TextCommand):
             output.insert(edit, 0, res["err"].split("\n")[0])
 
 
+class FastCompileCommand(TextCommand):
+    def is_enabled(self):
+        return not isCoffee(self.view) and not isLitCoffee(self.view)
+
+    def run(self, edit, **kwargs):
+        res = brew(["-c", "-b"], Text.get(self.view))
+        if res["okay"] is True:
+            result = res["out"]
+            print(result.split("\n")[0][0:2] == "//")
+            if result.split("\n")[0][0:2] == "//":
+                result = "\n".join(result.split("\n")[1:])
+            self.view.run_command('insert', {'characters': result})
+        else:
+            sublime.message_dialog("Compiling error: " + res["err"])
+
+
 class CheckSyntaxCommand(TextCommand):
     def is_enabled(self):
         return isCoffee(self.view) or isLitCoffee(self.view)

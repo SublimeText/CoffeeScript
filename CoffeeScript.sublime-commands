@@ -36,6 +36,10 @@
 	,	"command": "run_script"
 	}
 ,	{
+		"caption": "Coffee: Fast Compile"
+	,	"command": "fast_compile"
+	}
+,	{
 		"caption": "Coffee: Lint"
 	,	"command": "lint"
 	}
