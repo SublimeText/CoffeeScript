@@ -357,7 +357,9 @@ which coffee
 
 This path will go into the `binDir` setting.
 
-
+- I'm getting the error message `'coffee' is not recognized as an internal or external command,` when saving.
+ 
+The coffee-script binary probably is not installed. Either install coffee-script or set `checkSyntaxOnSave` and `compileOnSave` to `false` in `Preferences > Package Settings > CoffeeScript > Settings - User`.
 
 
 
