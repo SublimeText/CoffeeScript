@@ -224,10 +224,12 @@ class FastCompileCommand(TextCommand):
         res = brew(["-c", "-b"], Text.get(self.view))
         if res["okay"] is True:
             result = res["out"]
-            print(result.split("\n")[0][0:2] == "//")
             if result.split("\n")[0][0:2] == "//":
                 result = "\n".join(result.split("\n")[1:])
+            current_auto_indent = self.view.settings().get("auto_indent")
+            self.view.settings().set("auto_indent", False)
             self.view.run_command('insert', {'characters': result})
+            self.view.settings().set("auto_indent", current_auto_indent)
         else:
             sublime.message_dialog("Compiling error: " + res["err"])
 
