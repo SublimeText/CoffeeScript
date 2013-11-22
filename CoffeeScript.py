@@ -135,6 +135,8 @@ class CompileCommand(TextCommand):
         compile_dir = settings_get('compileDir')
         source_file = self.view.file_name()
         source_dir = os.path.normcase(os.path.dirname(source_file))
+        project_file = self.view.window().project_file_name()
+        project_dir = os.path.normcase(os.path.dirname(project_file))
         compile_paths = settings_get('compilePaths')
         sourcemaps = settings_get('sourceMaps', True)
 
@@ -151,6 +153,8 @@ class CompileCommand(TextCommand):
             appendix_len = None
             for key_path in compile_paths:
                 norm_path = os.path.normcase(key_path)
+                if not os.path.isabs(norm_path):
+                    norm_path = os.path.join(project_dir, norm_path)
                 appendix = os.path.relpath(source_dir, norm_path)
                 if not appendix.startswith('..') and (appendix_len is None or len(appendix) < appendix_len):
                     appendix_len = len(appendix)
