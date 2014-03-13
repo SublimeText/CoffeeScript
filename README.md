@@ -62,19 +62,7 @@ I use this plug-in almost everyday! Therefore, whenever I am not developing I am
 
 > This is the recommended installation method.
 
-If you have Sublime Package Control, you know what to do. If not, well: it's a package manager for Sublime Text 3; it's awesome and you can [read about it here](https://sublime.wbond.net/). Installation guide can be [found here](https://sublime.wbond.net/installation).
-
-The simplest method of installation is through the Sublime Text console. The console is accessed via the ctrl+` shortcut or the View > Show Console menu. Once open, paste the appropriate Python code for your version of Sublime Text into the console.
-
-SUBLIME TEXT 3
-
-```
-import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
-```
-
-This code creates the Installed Packages folder for you (if necessary), and then downloads the Package Control.sublime-package into it.
-
-After installing the package manager:
+If you have [Sublime Package Control](https://sublime.wbond.net/), you know what to do. If not, well: it's a package manager for Sublime Text 3. Installation guide can be [found here](https://sublime.wbond.net/installation).  After installing the package manager:
 
 * Open the Command Pallete (`ctrl+shift+P` or `cmd+shift+P`).
 * Type "Install Package" and hit return.
