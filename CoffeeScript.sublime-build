@@ -1,6 +1,6 @@
 {
     "cmd": ["cake", "sbuild"],
-    "path": "/usr/local/bin:$PATH",
+    "path": "/usr/local/bin:/usr/local/share/npm/bin:$PATH",
     "selector": "source.coffee",
     "working_dir": "$project_path"
 
@@ -13,6 +13,7 @@
     ,
     "variants": [{
         "name": "Run",
+        "file_regex": "^[ ]*at .*?(/...*?\\.coffee):([0-9]*):.*",
         "cmd": ["coffee", "$file"]
     }]
 }
