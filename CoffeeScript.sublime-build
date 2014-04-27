@@ -1,16 +1,19 @@
-{	"cmd": ["cake", "sbuild"]
-,	"path": "/usr/local/bin:$PATH"
-,	"selector": "source.coffee"
-,	"working_dir": "$project_path"
+{
+    "cmd": ["cake", "sbuild"],
+    "path": "/usr/local/bin:/usr/local/share/npm/bin:$PATH",
+    "selector": "source.coffee",
+    "working_dir": "$project_path"
 
-,	"windows":
-	{	"path": "$PATH"
-	,	"cmd": ["cake.cmd", "sbuild"]
-	}
+    ,
+    "windows": {
+        "path": "$PATH",
+        "cmd": ["cake.cmd", "sbuild"]
+    }
 
-,	"variants":
-	[	{	"name": "Run",
-			"cmd": ["coffee", "$file"]
-		}
-	]
+    ,
+    "variants": [{
+        "name": "Run",
+        "file_regex": "^[ ]*at .*?(/...*?\\.coffee):([0-9]*):.*",
+        "cmd": ["coffee", "$file"]
+    }]
 }
