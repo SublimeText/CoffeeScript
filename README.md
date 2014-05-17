@@ -1,3 +1,6 @@
+[![Project Status](http://stillmaintained.com/aponxi/sublime-better-coffeescript.png)](http://stillmaintained.com/aponxi/sublime-better-coffeescript)
+
+
 	                                         __
 	   __     _____     ___     ___    __  _/\_\
 	 /'__`\  /\ '__`\  / __`\ /' _ `\ /\ \/'\/\ \
@@ -38,8 +41,7 @@
 * [Building](#building)
 * [Settings](#settings)
 * [Special Thanks](#special-thanks)
-* [Support this Project: ![](https://www.gittip.com/assets/widgets/heart.gif) Tip Me!](https://www.gittip.com/aponxi/)
-* [Donate Me as little as you want!](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VBUW4M9LKTR62)
+
 
 # Overview
 
