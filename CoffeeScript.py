@@ -317,7 +317,7 @@ class LintCommand(TextCommand):
 
     def run(self, edit):
         filepath = self.view.file_name()
-        args = [filepath, "--csv"]
+        args = [filepath, "--reporter csv"]
         lintConfFile = settings_get("lintConfFile", False)
         if lintConfFile:
             if not path.isfile(lintConfFile):
