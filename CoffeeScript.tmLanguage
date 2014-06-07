@@ -640,7 +640,9 @@
 				</dict>
 			</array>
 		</dict>
-		<key>interpolated_coffee</key>
+
+
+ 		<key>interpolated_coffee</key>
 		<dict>
 			<key>patterns</key>
 			<array>
@@ -667,8 +669,33 @@
 						</dict>
 					</array>
 				</dict>
+
+				<dict>
+					<key>begin</key>
+					<string>&lt;%</string>
+					<key>captures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.section.embedded.coffee</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>%&gt;</string>
+					<key>name</key>
+					<string>source.coffee.embedded.source</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>$self</string>
+						</dict>
+					</array>
+				</dict>
 			</array>
 		</dict>
+
 		<key>numeric</key>
 		<dict>
 			<key>patterns</key>
