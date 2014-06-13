@@ -174,6 +174,7 @@ Context menu has `Compile Output` that compiles the current CoffeeScript and out
 **Classes**
 
 	Class - cla
+	Class extends SuperClass - clx
 
 **Other**
 
