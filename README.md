@@ -199,7 +199,7 @@ That's what this is for! You would create a `Cakefile` and inside it you would w
 
 # Settings
 
-Go to `Preferences > Package Settings >Better CoffeeScript > Settings - User` to change settings.
+Go to `Preferences > Package Settings > Better CoffeeScript > Settings - User` to change settings.
 
 ```Javascript
 {
@@ -350,7 +350,7 @@ This path will go into the `binDir` setting.
 
 - I'm getting the error message `'coffee' is not recognized as an internal or external command,` when saving.
 
-The coffee-script binary probably is not installed. Either install coffee-script or set `checkSyntaxOnSave` and `compileOnSave` to `false` in `Preferences > Package Settings >Better CoffeeScript > Settings - User`.
+The coffee-script binary probably is not installed. Either install coffee-script or set `checkSyntaxOnSave` and `compileOnSave` to `false` in `Preferences > Package Settings > Better CoffeeScript > Settings - User`.
 
 
 
