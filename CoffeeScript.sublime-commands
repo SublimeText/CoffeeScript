@@ -43,4 +43,12 @@
 		"caption": "Coffee: Lint"
 	,	"command": "lint"
 	}
+, {
+		"caption": "Coffee: Add Parens"
+	,	"command": "add_parens"
+	}
+, {
+		"caption": "Coffee: Remove Parens"
+	,	"command": "remove_parens"
+	}
 ]
