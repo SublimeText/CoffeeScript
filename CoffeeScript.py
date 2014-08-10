@@ -255,6 +255,49 @@ class CheckSyntaxCommand(TextCommand):
         sublime.message_dialog('Syntax %s' % status)
 
 
+class AddParensCommand(TextCommand):
+    def is_enabled(self):
+        return isCoffee(self.view) or isLitCoffee(self.view)
+
+    def run(self, edit):
+        for sel in self.view.sel():
+            self.view.insert(edit, sel.end(), ')')
+
+            if self.view.substr(sel.begin() - 1) is ' ':
+                self.view.replace(edit, sublime.Region(sel.begin() - 1, sel.begin()), '(')
+            else:
+                self.view.insert(edit, sel.begin(), '(')
+
+
+class RemoveParensCommand(TextCommand):
+    def is_enabled(self):
+        return isCoffee(self.view) or isLitCoffee(self.view)
+
+    def do_it(self, edit, point):
+        if self.view.substr(point - 1) is '(':
+            self.view.replace(edit, sublime.Region(point - 1, point), ' ')
+        elif self.view.substr(point) is '(':
+            self.view.replace(edit, sublime.Region(point, point + 1), ' ')
+        elif self.view.substr(point) is ')':
+            self.view.erase(edit, sublime.Region(point, point + 1))
+        elif self.view.substr(point - 1) is ')':
+            self.view.erase(edit, sublime.Region(point - 1, point))
+
+    def run(self, edit):
+        points = []
+
+        self.view.run_command('expand_selection', {'to': 'brackets'})
+        for sel in self.view.sel():
+            points.append(sel.begin())
+            points.append(sel.end())
+
+        points.sort()
+        points.reverse()
+
+        for point in points:
+            self.do_it(edit, point)
+
+
 class QuickRunBarCommand(WindowCommand):
     def finish(self, text):
         if text == '':
