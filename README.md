@@ -137,6 +137,7 @@ You can access the commands either using the command palette (`ctrl+shift+P` or 
 	alt+shift+n - Display parser nodes
 	alt+shift+w - Toggle watch mode
 	alt+shift+p - Toggle output panel
+	alt+shift+9 - Toggle parens around function arguments
 
 
 Context menu has `Compile Output` that compiles the current CoffeeScript and outputs the javascript code that is run, in a panel.
