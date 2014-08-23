@@ -255,47 +255,41 @@ class CheckSyntaxCommand(TextCommand):
         sublime.message_dialog('Syntax %s' % status)
 
 
-class AddParensCommand(TextCommand):
+class ToggleParensCommand(TextCommand):
     def is_enabled(self):
         return isCoffee(self.view) or isLitCoffee(self.view)
 
     def run(self, edit):
-        for sel in self.view.sel():
-            self.view.insert(edit, sel.end(), ')')
+        if self.view.sel()[0].empty():
+            self.view.run_command('expand_selection', {'to': 'brackets'})
+            for sel in self.view.sel():
+                self.remove_parens(edit, sel)
+        else:
+            for sel in self.view.sel():
+                self.add_parens(edit, sel)
+            self.view.run_command('move', {'by': 'characters', 'forward': True})
 
-            if self.view.substr(sel.begin() - 1) is ' ':
-                self.view.replace(edit, sublime.Region(sel.begin() - 1, sel.begin()), '(')
-            else:
-                self.view.insert(edit, sel.begin(), '(')
+    def add_parens(self, edit, sel):
+        self.view.insert(edit, sel.end(), ')')
 
+        if self.view.substr(sel.begin() - 1) is ' ':
+            self.view.replace(edit, sublime.Region(sel.begin() - 1, sel.begin()), '(')
+        else:
+            self.view.insert(edit, sel.begin(), '(')
 
-class RemoveParensCommand(TextCommand):
-    def is_enabled(self):
-        return isCoffee(self.view) or isLitCoffee(self.view)
+    def remove_parens(self, edit, sel):
+        begin = sel.begin()
+        end = sel.end()
 
-    def do_it(self, edit, point):
-        if self.view.substr(point - 1) is '(':
-            self.view.replace(edit, sublime.Region(point - 1, point), ' ')
-        elif self.view.substr(point) is '(':
-            self.view.replace(edit, sublime.Region(point, point + 1), ' ')
-        elif self.view.substr(point) is ')':
-            self.view.erase(edit, sublime.Region(point, point + 1))
-        elif self.view.substr(point - 1) is ')':
-            self.view.erase(edit, sublime.Region(point - 1, point))
+        if self.view.substr(begin - 1) is '(':
+            self.view.replace(edit, sublime.Region(begin - 1, begin), ' ')
+        elif self.view.substr(begin) is '(':
+            self.view.replace(edit, sublime.Region(begin, begin + 1), ' ')
 
-    def run(self, edit):
-        points = []
-
-        self.view.run_command('expand_selection', {'to': 'brackets'})
-        for sel in self.view.sel():
-            points.append(sel.begin())
-            points.append(sel.end())
-
-        points.sort()
-        points.reverse()
-
-        for point in points:
-            self.do_it(edit, point)
+        if self.view.substr(end) is ')':
+            self.view.erase(edit, sublime.Region(end, end + 1))
+        elif self.view.substr(end - 1) is ')':
+            self.view.erase(edit, sublime.Region(end - 1, end))
 
 
 class QuickRunBarCommand(WindowCommand):
