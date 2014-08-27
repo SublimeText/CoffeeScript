@@ -1,8 +1,8 @@
 {
     "install": "README.md",
-    "0.5.1": "changelogs/0.5.1.md",
-    "0.5.2": "changelogs/0.5.2.md",
-    "0.5.3": "changelogs/0.5.3.md",
+    "0.5.1": "changelogs/0.5.1.txt",
+    "0.5.2": "changelogs/0.5.2.txt",
+    "0.5.3": "changelogs/0.5.3.txt",
     "0.5.4": "changelogs/0.5.4.md",
     "0.5.5": "changelogs/0.5.5.md",
     "0.5.6": "changelogs/0.5.6.md",
