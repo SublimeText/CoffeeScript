@@ -438,7 +438,7 @@
 				|event|Float(32|64)Array|Function|
 				Int(8|16|32|64)Array|Math|Map|Number|
 				Object|Proxy|RegExp|Set|String|WeakMap|
-				window|Uint(8|16|32|64)Array|XMLHttpRequest
+				window|Uint(8|16|32|64)Array|XMLHttpRequest|Symbol
 			)\b</string>
 			<key>name</key>
 			<string>support.class.coffee</string>
