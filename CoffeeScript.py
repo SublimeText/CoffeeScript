@@ -493,10 +493,13 @@ class Watcher():
         self.outputFilePath = path.join(self.outputTempDir, self.outputFileName)
 
         no_wrapper = settings_get('noWrapper', True)
+        sourcemaps = settings_get('sourceMaps', True)
         args = []
         if no_wrapper:
             args = ['-b'] + args
-        args = args + ["-m", "-o", self.outputTempDir, self.sourceFilePath]
+        if sourcemaps:
+            args = args + ['-m']
+        args = args + ["-o", self.outputTempDir, self.sourceFilePath]
 
         res = run("coffee", args)
         if not res["okay"]:
@@ -513,7 +516,10 @@ class Watcher():
 
     def refresh(self):
         no_wrapper = settings_get('noWrapper', True)
-        args = ["-m", "-o", self.outputTempDir]
+        sourcemaps = settings_get('sourceMaps', True)
+        args = ["-o", self.outputTempDir]
+        if sourcemaps:
+            args = ['-m'] + args
         if no_wrapper:
             args = ['-b'] + args
         res = brew(args, source=Text.get(self.inputView))
