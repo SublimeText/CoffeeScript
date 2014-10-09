@@ -8,5 +8,4 @@
 ,	{"keys": ["alt+shift+n"], "command": "compile_and_display", "args": {"opt": "-n"}}
 ,	{"keys": ["alt+shift+w"], "command": "toggle_watch"}
 ,	{"keys": ["alt+shift+z"], "command": "toggle_output_panel"}
-,	{"keys": ["alt+shift+9"], "command": "toggle_parens"}
 ]
