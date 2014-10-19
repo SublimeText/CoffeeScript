@@ -364,6 +364,80 @@ The coffee-script binary probably is not installed. Either install coffee-script
 
 # Special Thanks
 
+
+Thanks to everyone who has contributed to this project. You guys rock! 
+
 * [agibsonsw](https://github.com/agibsonsw) for his help in writing WatchMode
-* [Xavura](https://github.com/Xavura) for writing the base of this plugin
-* [lavrton](https://github.com/lavrton) for his contributions
+
+* [Xavura](https://github.com/Xavura) for writing the base of this plugin and contributing 56 commits / 1,951 ++ / 406 --
+
+* [@lavrton](https://github.com/lavrton) for helping with moderation as well as ontributing 39 commits / 5,009 ++ / 857 --
+
+* [@markalfred](https://github.com/markalfred) for contributing 6 commits / 90 ++ / 48 --
+
+* [@exromany](https://github.com/exromany) for contributing 5 commits / 71 ++ / 31 --
+
+* [@DaQuirm](https://github.com/DaQuirm) for contributing 3 commits / 42 ++ / 23 --
+
+* [@ehuss](https://github.com/ehuss) for contributing 2 commits / 2 ++ / 2 --
+
+* [@donovanhide](https://github.com/donovanhide) for contributing 2 commits / 16 ++ / 16 --
+
+* [@SunLn](https://github.com/SunLn) for contributing 2 commits / 5 ++ / 5 --
+
+* [@mekf](https://github.com/mekf) for contributing 2 commits / 15 ++ / 2 --
+
+* [@pyrotechnick](https://github.com/pyrotechnick) for contributing 2 commits / 4 ++ / 3 --
+
+* [@samtsai](https://github.com/samtsai) for contributing 2 commits / 6 ++ / 6 --
+
+* [@szhu](https://github.com/szhu) for contributing 2 commits / 18 ++ / 15 --
+
+* [@johnogle222](https://github.com/johnogle222) for contributing 1 commit / 7 ++ / 0 --
+
+* [@arjansingh](https://github.com/arjansingh) for contributing 1 commit / 8 ++ / 4 --
+
+* [@stared](https://github.com/stared) for contributing 1 commit / 1 ++ / 1 --
+
+* [@tomByrer](https://github.com/tomByrer) for contributing 1 commit / 1 ++ / 13 --
+
+* [@ppvg](https://github.com/ppvg) for contributing 1 commit / 20 ++ / 27 --
+
+* [@TurtlePie](https://github.com/TurtlePie) for contributing 1 commit / 1 ++ / 1 --
+
+* [@FichteFoll](https://github.com/FichteFoll) for contributing 1 commit / 8 ++ / 5 --
+
+* [@daytonn](https://github.com/daytonn) for contributing 1 commit / 1 ++ / 1 --
+
+* [@mfkp](https://github.com/mfkp) for contributing 1 commit / 1 ++ / 1 --
+
+* [@btmills](https://github.com/btmills) for contributing 1 commit / 3 ++ / 1 --
+
+* [@Whoaa512](https://github.com/Whoaa512) for contributing 1 commit / 2 ++ / 2 --
+
+* [@alexdowad](https://github.com/alexdowad) for contributing 1 commit / 8 ++ / 2 --
+
+* [@Cryrivers](https://github.com/Cryrivers) for contributing 1 commit / 1 ++ / 1 --
+
+* [@wbond](https://github.com/wbond) for contributing 1 commit / 4 ++ / 4 --
+
+* [@nouveller](https://github.com/nouveller) for contributing 1 commit / 0 ++ / 1 --
+
+* [@larvata](https://github.com/larvata) for contributing 1 commit / 11 ++ / 11 --
+
+* [@ashtuchkin](https://github.com/ashtuchkin) for contributing 1 commit / 36 ++ / 7 --
+
+* [@philippotto](https://github.com/philippotto) for contributing 1 commit / 28 ++ / 1 --
+
+* [@mattschofield](https://github.com/mattschofield) for contributing 1 commit / 19 ++ / 0 --
+
+* [@Mitranim](https://github.com/Mitranim) for contributing 1 commit / 1 ++ / 1 --
+
+* [@osuushi](https://github.com/osuushi) for contributing 1 commit / 10 ++ / 2 --
+
+* [@radcool](https://github.com/radcool) for contributing 1 commit / 2 ++ / 2 --
+
+* [@FredyC](https://github.com/FredyC) for contributing 1 commit / 1 ++ / 1 --
+
+_Written in Q3 2014_
+
