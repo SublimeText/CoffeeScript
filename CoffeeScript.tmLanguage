@@ -225,7 +225,7 @@
 			<key>match</key>
 			<string>(?x)
 				\b(?&lt;![\.\$])(
-					break|by|catch|continue|else|finally|for|in|of|if|return|switch|
+					break|by|catch|continue|else|finally|for|in|of|if|return|yield|switch|
 					then|throw|try|unless|when|while|until|loop|do|(?&lt;=for)\s+own
 				)(?!\s*:)\b
 			</string>
