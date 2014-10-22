@@ -474,6 +474,7 @@ class Tool():
 
 class Watcher():
     def __init__(self, inputView):
+        self.created_pane = False
         self.inputView = inputView
         print("Now watching " + watched_filename(inputView))
         if self.inputView.window().num_groups() == 1:
@@ -483,6 +484,7 @@ class Watcher():
                 "rows": [0.0, 1.0],
                 "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
             })
+            self.created_pane = True
         self.create_output()
 
     def create_output(self):
@@ -554,7 +556,7 @@ class Watcher():
             window.focus_view(self.outputView)
             window.run_command("close")
 
-        if len(watchers) == 0 and len(window.views_in_group(1)) == 0:
+        if self.created_pane and len(window.views_in_group(1)) == 0:
             window.run_command('set_layout', {
                 "cols": [0.0, 1.0],
                 "rows": [0.0, 1.0],
