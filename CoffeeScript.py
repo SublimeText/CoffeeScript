@@ -474,16 +474,36 @@ class Tool():
 
 class Watcher():
     def __init__(self, inputView):
+        self.created_pane = False
         self.inputView = inputView
         print("Now watching " + watched_filename(inputView))
-        if self.inputView.window().num_groups() == 1:
-            # create new column
+        self.determine_output_pane()
+        self.create_output()
+
+    def determine_output_pane(self):
+        active_group = self.inputView.window().active_group()
+        num_groups = self.inputView.window().num_groups()
+        layout = self.inputView.window().get_layout()
+        cells = layout['cells']
+        cols = layout['cols']
+
+        if num_groups == 1:
+            # only pane. create a new one.
+            self.output_pane_index = 1
+            self.created_pane = True
             self.inputView.window().run_command('set_layout', {
                 "cols": [0.0, 0.5, 1.0],
                 "rows": [0.0, 1.0],
                 "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
             })
-        self.create_output()
+        elif active_group == num_groups - 1:
+            # last pane in window. output to the previous one.
+            self.output_pane_index = active_group - 1
+        elif len(cols) > 2 and cells[active_group][2] == len(cols) - 1:
+            # last pane in row. output to previous one.
+            self.output_pane_index = active_group - 1
+        else:
+            self.output_pane_index = active_group + 1
 
     def create_output(self):
         self.sourceFilePath = self.inputView.file_name()
@@ -509,7 +529,7 @@ class Watcher():
         # create new tab
         self.outputView = self.inputView.window().open_file(self.outputFilePath)
         # move it to second column
-        self.outputView.window().focus_group(1)
+        self.outputView.window().focus_group(self.output_pane_index)
         self.outputView.window().set_view_index(self.outputView, self.outputView.window().active_group(), 0)
         # self.outputView.window().focus_group(0)
         self.inputView.window().focus_view(self.inputView)
@@ -554,7 +574,7 @@ class Watcher():
             window.focus_view(self.outputView)
             window.run_command("close")
 
-        if len(watchers) == 0 and len(window.views_in_group(1)) == 0:
+        if self.created_pane and len(window.views_in_group(self.output_pane_index)) == 0:
             window.run_command('set_layout', {
                 "cols": [0.0, 1.0],
                 "rows": [0.0, 1.0],
