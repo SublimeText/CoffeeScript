@@ -10,6 +10,7 @@
 		<string>Cakefile</string>
 		<string>coffee.erb</string>
 		<string>cson</string>
+		<string>cjsx</string>
 	</array>
 	<key>firstLineMatch</key>
 	<string>^#!.*\bcoffee</string>
