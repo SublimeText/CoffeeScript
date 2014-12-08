@@ -543,7 +543,7 @@ class Watcher():
         if no_wrapper:
             args = ['-b'] + args
         res = brew(args, source=Text.get(self.inputView))
-        with open(self.outputFilePath, 'w') as f:
+        with open(self.outputFilePath, 'w', encoding='utf8') as f:
             f.write(res["out"])
 
         mapFile = path.join(self.outputTempDir, self.outputFileName.split(".")[0]+'.map')
