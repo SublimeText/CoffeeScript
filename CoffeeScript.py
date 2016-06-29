@@ -69,6 +69,11 @@ def _run(cmd, args=[], source="", cwd=None, env=None):
         customEnv = settings_get('envPATH', "")
         if customEnv:
             env["PATH"] = env["PATH"]+":"+customEnv
+
+        # adding environment path
+        if len(os.environ.get("PATH")):
+            env["PATH"] = env["PATH"]+":"+os.environ.get("PATH")
+
         if source == "":
             command = [cmd] + args
         else:
