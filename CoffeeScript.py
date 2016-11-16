@@ -2,6 +2,7 @@
 import sys
 import os
 from os import path
+from os import environ
 from subprocess import Popen, PIPE
 from sublime_plugin import TextCommand
 from sublime_plugin import WindowCommand
@@ -61,7 +62,8 @@ def _run(cmd, args=[], source="", cwd=None, env=None):
         return {"okay": okay, "out": stat[0].decode(locale.getdefaultlocale()[1]), "err": stat[1].decode(locale.getdefaultlocale()[1])}
     else:
         if env is None:
-            env = {"PATH": settings_get('binDir', '/usr/local/bin')}
+            env = {"PATH": environ["PATH"]}
+            env["PATH"] = settings_get('binDir', '/usr/local/bin')+":"+env["PATH"]
 
         # adding custom PATHs from settings
         customEnv = settings_get('envPATH', "")
