@@ -352,6 +352,13 @@ This path will go into the `binDir` setting.
 
 The coffee-script binary probably is not installed. Either install coffee-script or set `checkSyntaxOnSave` and `compileOnSave` to `false` in `Preferences > Package Settings > Better CoffeeScript > Settings - User`.
 
+```diff
+- * un-answered question *
+- How do I make custom syntax highlighting on top of sublime-better-coffeescript? 
+#(for eg: I just want to change the colours of `debugger` statements and `console.log` statements to be 
+#fusia, lavender or something, so they pop-out more so I can easily detect them from the rest of the 
+#code.) - github: spike321
+```
 
 
 # Latest Changelog
