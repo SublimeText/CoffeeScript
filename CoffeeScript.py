@@ -185,7 +185,13 @@ class CompileCommand(TextCommand):
             cwd = source_dir
         else:
             cwd = None
-        result = run("coffee", args=args, cwd=cwd)
+
+        coffeeBin = os.path.normcase(os.path.join(source_dir, 'node_modules', '.bin', 'coffee'))
+        if os.path.isfile(coffeeBin):
+            print("Using local `coffee` to compile:", coffeeBin)
+            result = run(coffeeBin, args=args, cwd=cwd)
+        else:
+            result = run('coffee', args=args, cwd=cwd)
 
         if result['okay'] is True:
             status = 'Compilation Succeeded'
