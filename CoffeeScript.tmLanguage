@@ -223,11 +223,31 @@
 			<string>string.regexp.coffee</string>
 		</dict>
 		<dict>
+            <key>comment</key>
+            <string>Show for-from as keyword.control</string>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.coffee</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.coffee</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>\b(?:(for)(?:\b.+\b)(from))\b</string>
+		</dict>
+		<dict>
 			<key>match</key>
 			<string>(?x)
 				\b(?&lt;![\.\$])(
 					break|by|catch|continue|else|finally|for|in|of|if|return|yield|switch|
-					then|throw|try|unless|when|while|until|loop|do|(?&lt;=for)\s+own
+					then|throw|try|unless|when|while|until|loop|do|(?&lt;=for)\s+own|
+					await
 				)(?!\s*:)\b
 			</string>
 			<key>name</key>
