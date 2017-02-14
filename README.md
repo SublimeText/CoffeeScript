@@ -1,3 +1,9 @@
+This fork I've made for 3 major purposes:
+
+1. Support new keywords in Coffee-Script, such as `await`, `for-from`, `import-from`.
+2. Using local `coffee` as a preference to instead of the global on. The searching starts from `node_modules/.bin`  in current project folder or current file's folder then upward.
+3. Add new setting `nodejs` that lets you add `--harmony`, `--expose-gc` and `--max-stack-size` to `coffee` binary.
+
 [![Project Status](http://stillmaintained.com/aponxi/sublime-better-coffeescript.png)](http://stillmaintained.com/aponxi/sublime-better-coffeescript)
 
 
