@@ -95,7 +95,12 @@
   		Browsers that support it can trace your bugs to your original coffeescript source code,
   		instead of the javascript that's being evaluated
 	*/
-, "sourceMaps":false
+, 	"sourceMaps": false
 
+, 	"nodejs": []
 
+	/*
+		## Enable source maps support
+  		pass some options to node.js, such as -debug, --harmony, --max-stack-size, and --expose-gc.
+	*/
 }
