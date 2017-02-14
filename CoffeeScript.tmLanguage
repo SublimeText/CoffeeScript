@@ -242,6 +242,39 @@
 			<string>\b(?:(for)(?:\b.+\b)(from))\b</string>
 		</dict>
 		<dict>
+            <key>comment</key>
+            <string>Show import-from as keyword.control</string>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.coffee</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.coffee</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>\b(?:(import)(?:\b.+\b)(from))\b</string>
+		</dict>
+		<dict>
+            <key>comment</key>
+            <string>Show import as keyword.control</string>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.coffee</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>\b(?:(import)(?:\b.+\b))</string>
+		</dict>
+		<dict>
 			<key>match</key>
 			<string>(?x)
 				\b(?&lt;![\.\$])(

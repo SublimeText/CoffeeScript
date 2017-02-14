@@ -420,17 +420,17 @@
 						(\*\*|__)(?=\S)								# Open
 						(?=
 							(
-							    &lt;[^&gt;]*+&gt;							# HTML tags
+								&lt;[^&gt;]*+&gt;							# HTML tags
 							  | (?&lt;raw&gt;`+)([^`]|(?!(?&lt;!`)\k&lt;raw&gt;(?!`))`)*+\k&lt;raw&gt;
 																	# Raw
 							  | \\[\\`*_{}\[\]()#.!+\-&gt;]?+			# Escapes
 							  | \[
 								(				
-								        (?&lt;square&gt;					# Named group
+										(?&lt;square&gt;					# Named group
 											[^\[\]\\]				# Match most chars
-								          | \\.						# Escaped chars
-								          | \[ \g&lt;square&gt;*+ \]		# Nested brackets
-								        )*+
+										  | \\.						# Escaped chars
+										  | \[ \g&lt;square&gt;*+ \]		# Nested brackets
+										)*+
 									\]
 									(
 										(							# Reference Link
@@ -751,8 +751,8 @@
 					<string>string.regexp.coffee</string>
 				</dict>
 				<dict>
-		            <key>comment</key>
-		            <string>Show for-from as keyword.control</string>
+					<key>comment</key>
+					<string>Show for-from as keyword.control</string>
 					<key>captures</key>
 					<dict>
 						<key>1</key>
@@ -768,6 +768,39 @@
 					</dict>
 					<key>match</key>
 					<string>\b(?:(for)(?:\b.+\b)(from))\b</string>
+				</dict>
+				<dict>
+					<key>comment</key>
+					<string>Show import-from as keyword.control</string>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.coffee</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.coffee</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>\b(?:(import)(?:\b.+\b)(from))\b</string>
+				</dict>
+				<dict>
+					<key>comment</key>
+					<string>Show import as keyword.control</string>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.coffee</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>\b(?:(import)(?:\b.+\b))</string>
 				</dict>
 				<dict>
 					<key>match</key>
@@ -1351,17 +1384,17 @@
 						(\*|_)(?=\S)								# Open
 						(?=
 							(
-							    &lt;[^&gt;]*+&gt;							# HTML tags
+								&lt;[^&gt;]*+&gt;							# HTML tags
 							  | (?&lt;raw&gt;`+)([^`]|(?!(?&lt;!`)\k&lt;raw&gt;(?!`))`)*+\k&lt;raw&gt;
 																	# Raw
 							  | \\[\\`*_{}\[\]()#.!+\-&gt;]?+			# Escapes
 							  | \[
 								(				
-								        (?&lt;square&gt;					# Named group
+										(?&lt;square&gt;					# Named group
 											[^\[\]\\]				# Match most chars
-								          | \\.						# Escaped chars
-								          | \[ \g&lt;square&gt;*+ \]		# Nested brackets
-								        )*+
+										  | \\.						# Escaped chars
+										  | \[ \g&lt;square&gt;*+ \]		# Nested brackets
+										)*+
 									\]
 									(
 										(							# Reference Link
