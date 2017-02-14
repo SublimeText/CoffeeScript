@@ -102,6 +102,8 @@ def brew(args, source, view=None, cwd=None, callback=None, source_dir=None):
         args.append("-s")
     else:
         args.append("-e")
+    nodejsArgs = settings_get("nodejs", [])
+    args.extend(["--nodejs", "'" + ' '.join(nodejsArgs) + "'"])
     coffeeBin = getCoffeeBin(view)
     return run(coffeeBin, args=args, source=source.encode('utf-8'), callback=callback)
 
@@ -235,7 +237,7 @@ class CompileAndDisplayCommand(TextCommand):
         if isLitCoffee(self.view):
             args = ['-l'] + args
 
-        res = brew(args, Text.get(self.view), self)
+        res = brew(args, Text.get(self.view), self.view)
         if res["okay"] is True:
             output.insert(edit, 0, res["out"])
         else:
@@ -449,7 +451,7 @@ class RunScriptCommand(TextCommand):
         if isLitCoffee(self.view):
             args = ['-l'] + args
 
-        res = brew(args, "", self, cwd)
+        res = brew(args, "", self.view, cwd)
         panel = window.get_output_panel(self.PANEL_NAME)
         panel.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
         panel.set_read_only(False)
