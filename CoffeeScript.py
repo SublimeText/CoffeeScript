@@ -14,6 +14,7 @@ import threading
 import tempfile
 from .sourcemap import load
 
+
 def settings_get(name, default=None):
     # load up the plugin settings
     plugin_settings = sublime.load_settings('CoffeeScript.sublime-settings')
@@ -31,22 +32,6 @@ def settings_get(name, default=None):
     setting = project_settings.get(name, plugin_settings.get(name, default))
     return setting
 
-def getCoffeeBin(view=None):
-    if view is not None:
-        source_file = view.file_name()
-        source_dir = os.path.normcase(os.path.dirname(source_file))
-        project_file = view.window().project_file_name()
-        project_dir = None
-        if project_file:
-            project_dir = os.path.normcase(os.path.dirname(project_file))
-        start_dir = source_dir if project_dir is None else project_dir
-        while start_dir != '/':
-            coffeeBin = os.path.normcase(os.path.join(start_dir, 'node_modules', '.bin', 'coffee'))
-            if os.path.isfile(coffeeBin):
-                print("Using local `coffee` to compile:", coffeeBin)
-                return coffeeBin
-            start_dir = os.path.dirname(start_dir)
-    return 'coffee'
 
 def run(cmd, args=[], source="", cwd=None, env=None, callback=None):
     """
@@ -94,7 +79,7 @@ def _run(cmd, args=[], source="", cwd=None, env=None):
         return {"okay": okay, "out": stat[0].decode('utf-8'), "err": stat[1].decode('utf-8')}
 
 
-def brew(args, source, view=None, cwd=None, callback=None, source_dir=None):
+def brew(args, source, cwd=None, callback=None):
     """
     Compile command
     """
@@ -102,10 +87,7 @@ def brew(args, source, view=None, cwd=None, callback=None, source_dir=None):
         args.append("-s")
     else:
         args.append("-e")
-    nodejsArgs = settings_get("nodejs", [])
-    args.extend(["--nodejs", "'" + ' '.join(nodejsArgs) + "'"])
-    coffeeBin = getCoffeeBin(view)
-    return run(coffeeBin, args=args, source=source.encode('utf-8'), callback=callback)
+    return run("coffee", args=args, source=source.encode('utf-8'), callback=callback)
 
 
 def cake(task, cwd, callback=None):
@@ -204,9 +186,12 @@ class CompileCommand(TextCommand):
         else:
             cwd = None
 
-        coffeeBin = getCoffeeBin(self.view)
-        print('coffeeBin', coffeeBin)
-        result = run(coffeeBin, args=args, cwd=cwd)
+        coffeeBin = os.path.normcase(os.path.join(source_dir, 'node_modules', '.bin', 'coffee'))
+        if os.path.isfile(coffeeBin):
+            print("Using local `coffee` to compile:", coffeeBin)
+            result = run(coffeeBin, args=args, cwd=cwd)
+        else:
+            result = run('coffee', args=args, cwd=cwd)
 
         if result['okay'] is True:
             status = 'Compilation Succeeded'
@@ -237,7 +222,8 @@ class CompileAndDisplayCommand(TextCommand):
         if isLitCoffee(self.view):
             args = ['-l'] + args
 
-        res = brew(args, Text.get(self.view), self.view)
+        res = brew(args, Text.get(self.view))
+
         if res["okay"] is True:
             output.insert(edit, 0, res["out"])
         else:
@@ -249,7 +235,7 @@ class FastCompileCommand(TextCommand):
         return not isCoffee(self.view) and not isLitCoffee(self.view)
 
     def run(self, edit, **kwargs):
-        res = brew(["-c", "-b"], Text.get(self.view), self)
+        res = brew(["-c", "-b"], Text.get(self.view))
         if res["okay"] is True:
             result = res["out"]
             if result.split("\n")[0][0:2] == "//":
@@ -270,7 +256,7 @@ class CheckSyntaxCommand(TextCommand):
         args = ['-b', '-p']
         if isLitCoffee(self.view):
             args = ['-l'] + args
-        res = brew(args, Text.get(self.view), self)
+        res = brew(args, Text.get(self.view))
         if res["okay"] is True:
             status = 'Valid'
         else:
@@ -320,7 +306,7 @@ class QuickRunBarCommand(WindowCommand):
         if text == '':
             return
         text = "{puts, print} = require 'util'\n" + text
-        res = brew(['-b'], text, self)
+        res = brew(['-b'], text)
         if res["okay"] is True:
             output = self.window.new_file()
             output.set_scratch(True)
@@ -451,7 +437,7 @@ class RunScriptCommand(TextCommand):
         if isLitCoffee(self.view):
             args = ['-l'] + args
 
-        res = brew(args, "", self.view, cwd)
+        res = brew(args, "", cwd)
         panel = window.get_output_panel(self.PANEL_NAME)
         panel.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
         panel.set_read_only(False)
@@ -565,7 +551,7 @@ class Watcher():
             args = ['-m'] + args
         if no_wrapper:
             args = ['-b'] + args
-        res = brew(args, Text.get(self.inputView), self.inputView)
+        res = brew(args, source=Text.get(self.inputView))
         with open(self.outputFilePath, 'w', encoding='utf8') as f:
             f.write(res["out"])
 
@@ -667,7 +653,7 @@ class CaptureEditing(sublime_plugin.EventListener):
             args = ['-b', '-p']
             if isLitCoffee(view):
                 args = ['-l'] + args
-            res = brew(args, Text.get(view), self)
+            res = brew(args, Text.get(view))
             if res["okay"] is True:
                 sublime.status_message("Syntax is valid.")
             else:
