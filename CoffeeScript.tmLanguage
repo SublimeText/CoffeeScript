@@ -263,21 +263,66 @@
 		<dict>
 			<key>comment</key>
 			<string>Show export as keyword.control</string>
-			<key>captures</key>
+			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
 				<dict>
 					<key>name</key>
 					<string>keyword.control.coffee</string>
 				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.control.coffee</string>
-				</dict>
 			</dict>
-			<key>match</key>
-			<string>\b(export)\s+\b(default)\b</string>
+			<key>begin</key>
+			<string>\b(export)</string>
+			<key>end</key>
+			<string>\n|$</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>name</key><string>test</string>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.coffee</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.class.coffee</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.coffee</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.coffee</string>
+						</dict>
+						<key>5</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.class.coffee</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>\b(?:(?:\b(default)\s+(.*?\b)|.*?(from|as)\s+(?:(default)|(\w+)?)))</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#instance_variable</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#single_quoted_string</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#double_quoted_string</string>
+				</dict>
+			</array>
 		</dict>
 		<dict>
 			<key>match</key>
