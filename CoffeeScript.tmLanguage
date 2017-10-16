@@ -251,9 +251,14 @@
 					<key>name</key>
 					<string>keyword.control.coffee</string>
 				</dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.coffee</string>
+				</dict>
 			</dict>
 			<key>match</key>
-			<string>\b(import)|(?:(?!\n(import).*)(from)?)</string>
+			<string>\b(import)|(?:(from)(?=\s(?:\b|[\'\"])))\b</string>
 		</dict>
 		<dict>
 			<key>comment</key>
