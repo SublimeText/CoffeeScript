@@ -244,21 +244,45 @@
 		<dict>
 			<key>comment</key>
 			<string>Show import as keyword.control</string>
-			<key>captures</key>
+			<key>beginCaptures</key>
 			<dict>
-				<key>0</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.control.coffee</string>
-				</dict>
 				<key>1</key>
 				<dict>
 					<key>name</key>
 					<string>keyword.control.coffee</string>
 				</dict>
 			</dict>
-			<key>match</key>
-			<string>\b(import)|(?:(from)(?=\s(?:\b|[\'\"])))\b</string>
+			<key>begin</key>
+			<string>\b(import)</string>
+			<key>end</key>
+			<string>\n|$|\;</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#instance_variable</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#single_quoted_string</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#double_quoted_string</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>\b(from)\b</string>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.coffee</string>
+						</dict>
+					</dict>
+				</dict>
+			</array>
 		</dict>
 		<dict>
 			<key>comment</key>
@@ -278,7 +302,6 @@
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>name</key><string>test</string>
 					<key>captures</key>
 					<dict>
 						<key>1</key>
