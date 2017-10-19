@@ -25,6 +25,10 @@
 	<key>patterns</key>
 	<array>
 		<dict>
+			<key>include</key>
+			<string>#literal-jsx</string>
+		</dict>
+		<dict>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
@@ -822,6 +826,239 @@
 				</dict>
 			</array>
 		</dict>
+
+
+		<key>jsx-attribute-assignment</key>
+		<dict>
+			<key>match</key>
+			<string>=</string>
+			<key>name</key>
+			<string>keyword.operator.assignment.jsx</string>
+		</dict>
+		<key>jsx-attribute-name</key>
+		<dict>
+			<key>match</key>
+			<string>[_$a-zA-Z][-$\w]*</string>
+			<key>name</key>
+			<string>entity.other.attribute-name.jsx</string>
+		</dict>
+		<key>jsx-attributes</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#jsx-attribute-name</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#jsx-attribute-assignment</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#jsx-string-quoted</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#jsx-evaluated-code</string>
+				</dict>
+			</array>
+		</dict>
+		<key>jsx-entities</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>&amp;(?:[a-zA-Z0-9]+|#\d+|#x\h+);</string>
+					<key>name</key>
+					<string>constant.character.entity.jsx</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>&amp;\S*;</string>
+					<key>name</key>
+					<string>invalid.illegal.bad-ampersand.jsx</string>
+				</dict>
+			</array>
+		</dict>
+		<key>jsx-evaluated-code</key>
+		<dict>
+			<key>begin</key>
+			<string>{</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.section.embedded.begin.jsx</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>}</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.section.embedded.end.jsx</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>meta.embedded.expression.jsx</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_coffee</string>
+				</dict>
+			</array>
+		</dict>
+		<key>jsx-string-quoted</key>
+		<dict>
+			<key>begin</key>
+			<string>(["'])</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.string.begin.jsx</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>\1</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.string.end.jsx</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>string.quoted.jsx</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#jsx-entities</string>
+				</dict>
+			</array>
+		</dict>
+		<key>jsx-tag-end</key>
+		<dict>
+			<key>begin</key>
+			<string>&gt;</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>meta.tag.jsx punctuation.definition.tag.end.jsx</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>(?=&lt;/)</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#jsx-tag-start</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#jsx-evaluated-code</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#jsx-entities</string>
+				</dict>
+			</array>
+		</dict>
+		<key>jsx-tag-start</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>(&lt;)([_$a-zA-Z][-$:.\w]*[$\w]*)</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>meta.tag.jsx punctuation.definition.tag.begin.jsx</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>meta.tag.jsx entity.name.tag.jsx</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(&lt;/)(\2)(&gt;)|(/&gt;)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>meta.tag.jsx punctuation.definition.tag.begin.jsx</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>meta.tag.jsx entity.name.tag.jsx</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>meta.tag.jsx punctuation.definition.tag.end.jsx</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>meta.tag.jsx punctuation.definition.tag.end.jsx</string>
+						</dict>
+					</dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#jsx-tag-end</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#jsx-attributes</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>&lt;</string>
+					<key>name</key>
+					<string>invalid.illegal.tag.incomplete.jsx</string>
+				</dict>
+			</array>
+		</dict>
+
+		<key>literal-jsx</key>
+		<dict>
+			<key>begin</key>
+			<string>(?&lt;=\(|\{|\[|,|&amp;&amp;|\|\||\?|:|=|=&gt;|\Wreturn|^return|\Wdefault|^)(?=\s*&lt;[_$a-zA-Z])</string>
+			<key>contentName</key>
+			<string>meta.jsx.js</string>
+			<key>end</key>
+			<string>(?&lt;=/&gt;|&gt;)</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#jsx-tag-start</string>
+				</dict>
+			</array>
+		</dict>
+
 
 		<key>numeric</key>
 		<dict>
