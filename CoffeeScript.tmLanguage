@@ -1064,6 +1064,10 @@
 							<key>include</key>
 							<string>#jsx-attributes</string>
 						</dict>
+						<dict>
+							<key>include</key>
+							<string>#jsx-evaluated-code</string>
+						</dict>
 					</array>
 				</dict>
 				<dict>
