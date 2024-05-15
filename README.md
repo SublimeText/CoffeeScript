@@ -10,7 +10,7 @@ I use this plug-in almost everyday! Therefore, whenever I am not developing I am
 
 ## Contributing
 
-- Please use [aponxi/issues page](https://github.com/aponxi/sublime-better-coffeescript/issues) to make requests or report bugs.
+- Please use [aponxi/issues page](https://github.com/SublimeText/BetterCoffeeScript/issues) to make requests or report bugs.
 - Please make _pull requests_ to the respective branch (`master` branch is for Sublime Text 3, `st2` branch is for Sublime Text 2.)
 
 # Installation
@@ -19,7 +19,7 @@ I use this plug-in almost everyday! Therefore, whenever I am not developing I am
 
 > This is the recommended installation method.
 
-If you have [Sublime Package Control](https://sublime.wbond.net/), you know what to do. If not, well: it's a package manager for Sublime Text 3. Installation guide can be [found here](https://sublime.wbond.net/installation).  After installing the package manager:
+If you have [Package Control](https://packagecontrol.io/), you know what to do. If not, well: it's a package manager for Sublime Text 3. Installation guide can be [found here](https://packagecontrol.io/installation).  After installing the package manager:
 
 * Open the Command Pallete (`ctrl+shift+P` or `cmd+shift+P`).
 * Type "Install Package" and hit return.
@@ -40,7 +40,7 @@ Sublime stores packages in the following locations:
 Open a Terminal/Console and run the following commands, replacing `PACKAGE_PATH` with the path corresponding to your OS above.
 
 	cd PACKAGE_PATH
-	git clone https://github.com/aponxi/sublime-better-coffeescript.git "Better CoffeeScript"
+	git clone https://github.com/SublimeText/BetterCoffeeScript.git "Better CoffeeScript"
 
 ### As a repository outside of the packages directory
 
@@ -49,7 +49,7 @@ If you use Github for Mac/Windows which store repositories in a specific locatio
 If you don't yet have the repository, then grab it via your GUI program or via the command line:
 
 	cd WHEREVER_YOU_WANT
-	git clone https://github.com/aponxi/sublime-better-coffeescript.git
+	git clone https://github.com/SublimeText/BetterCoffeeScript.git
 
 Once that is done, we will create the link:
 
@@ -320,7 +320,7 @@ The coffee-script binary probably is not installed. Either install coffee-script
 # Special Thanks
 
 
-Thanks to everyone who has contributed to this project. You guys rock! 
+Thanks to everyone who has contributed to this project. You guys rock!
 
 * [agibsonsw](https://github.com/agibsonsw) for his help in writing WatchMode
 
