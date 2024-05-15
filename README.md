@@ -63,21 +63,6 @@ Once that is done, we will create the link:
 	cd PACKAGE_PATH
 	ln -s ABSOLUTE_PATH_TO_REPOSITORY "Better CoffeeScript"
 
-#### A note on Package Control
-
-When Package Control tries to update your packages, if you have a repository in your packages directory then it will try to pull down and merge any changes. If you don't want this to happen and would rather handle everything yourself, then you can add the following to your settings (Preferences » Package Settings » Package Control » Settings - User):
-
-	"auto_upgrade_ignore": ["Better CoffeeScript"]
-
-# Updating
-
-If you are using Package Control, updating will be automatic and you don't have to worry about it.
-
-If using Source Control:
-
-	cd "PACKAGE_PATH/Better CoffeeScript"
-	git fetch origin
-	git merge origin/master
 
 # Commands/Shortcuts
 
