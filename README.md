@@ -11,7 +11,7 @@ I use this plug-in almost everyday! Therefore, whenever I am not developing I am
 
 ## Contributing
 
-- Please use [aponxi/issues page](https://github.com/SublimeText/BetterCoffeeScript/issues) to make requests or report bugs.
+- Please use the [issues page](https://github.com/SublimeText/BetterCoffeeScript/issues) to make requests or report bugs.
 - Please make _pull requests_ to the respective branch (`master` branch is for Sublime Text 3, `st2` branch is for Sublime Text 2.)
 
 # Installation
