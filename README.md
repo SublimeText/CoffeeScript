@@ -1,6 +1,7 @@
 ## Overview
 
-**This package is for Sublime Text 3**. If you are looking for Sublime Text 2, then please refer to [st2 branch here](https://github.com/SublimeText/BetterCoffeeScript/tree/st2).
+**This package is for Sublime Text 3+**.
+An old version for Sublime Text 2 is accessible via the [st2 branch here](https://github.com/SublimeText/BetterCoffeeScript/tree/st2).
 
 ## Description
 
@@ -34,6 +35,10 @@ Sublime stores packages in the following locations:
 	Nix: ~/.config/sublime-text-3/packages
 	Mac: ~/Library/Application\ Support/Sublime\ Text\ 3/Packages
 	Win: %APPDATA%\Sublime Text 3\Packages
+
+When using Sublime Text 4 or higher,
+the directory without the "3" (and the preceding separator character)
+will be preferred.
 
 ### As a repository within the packages directory
 
