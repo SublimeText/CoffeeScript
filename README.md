@@ -1,51 +1,6 @@
-[![Project Status](http://stillmaintained.com/aponxi/sublime-better-coffeescript.png)](http://stillmaintained.com/aponxi/sublime-better-coffeescript)
+## Overview
 
-
-	                                         __
-	   __     _____     ___     ___    __  _/\_\
-	 /'__`\  /\ '__`\  / __`\ /' _ `\ /\ \/'\/\ \
-	/\ \L\.\_\ \ \L\ \/\ \L\ \/\ \/\ \\/>  </\ \ \
-	\ \__/.\_\\ \ ,__/\ \____/\ \_\ \_\/\_/\_\\ \_\
-	 \/__/\/_/ \ \ \/  \/___/  \/_/\/_/\//\/_/ \/_/
-	            \ \_\
-	             \/_/
-
-
-	 ____            __    __
-	/\  _`\         /\ \__/\ \__
-	\ \ \L\ \     __\ \ ,_\ \ ,_\    __   _ __
-	 \ \  _ <'  /'__`\ \ \/\ \ \/  /'__`\/\`'__\
-	  \ \ \L\ \/\  __/\ \ \_\ \ \_/\  __/\ \ \/
-	   \ \____/\ \____\\ \__\\ \__\ \____\\ \_\
-	    \/___/  \/____/ \/__/ \/__/\/____/ \/_/
-
-
-			                ___    ___                                                __
-			              /'___\ /'___\                                    __        /\ \__
-			  ___    ___ /\ \__//\ \__/   __     __    ____    ___   _ __ /\_\  _____\ \ ,_\
-			 /'___\ / __`\ \ ,__\ \ ,__\/'__`\ /'__`\ /',__\  /'___\/\`'__\/\ \/\ '__`\ \ \/
-			/\ \__//\ \L\ \ \ \_/\ \ \_/\  __//\  __//\__, `\/\ \__/\ \ \/ \ \ \ \ \L\ \ \ \_
-			\ \____\ \____/\ \_\  \ \_\\ \____\ \____\/\____/\ \____\\ \_\  \ \_\ \ ,__/\ \__\
-			 \/____/\/___/  \/_/   \/_/ \/____/\/____/\/___/  \/____/ \/_/   \/_/\ \ \/  \/__/
-			                                                                      \ \_\
-			                                                                       \/_/
-
-# Jump to Section
-
-* [Latest Change Log](#latest-changelog)
-* [FAQ](#faq)
-* [Installation](#installation)
-* [Updating](#updating)
-* [Commands/Shortcuts](#commandsshortcuts)
-* [Snippets](#snippets)
-* [Building](#building)
-* [Settings](#settings)
-* [Special Thanks](#special-thanks)
-
-
-# Overview
-
-**This package is for Sublime Text 3**. If you are looking for Sublime Text 2, then please refer to [st2 branch here](https://github.com/aponxi/sublime-better-coffeescript/tree/st2).
+**This package is for Sublime Text 3**. If you are looking for Sublime Text 2, then please refer to [st2 branch here](https://github.com/SublimeText/BetterCoffeeScript/tree/st2).
 
 ## Description
 
