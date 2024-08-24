@@ -8,49 +8,57 @@
 
 	*/
 	"envPATH": "",
+
 	/*
 		The directory containing your coffee binary. Usually
 		/usr/local/bin or /usr/bin.
 	*/
-	"binDir": "/usr/bin"
+	"binDir": "/usr/bin",
 
 	/*
 		Compile without the top-level function wrapper (coffee -b).
 	*/
+	"noWrapper": true,
 
-,	"noWrapper": true
 	/*
 		Check syntax of your file every time you save a file.
 	*/
-,	"checkSyntaxOnSave": false
+	"checkSyntaxOnSave": false,
+
 	/*
 		Lint your code via coffeelint every time you save a file.
 	*/
-,	"lintOnSave": false
+	"lintOnSave": false,
+
 	/*
 		Path to lint configuration file.
 	*/
-,	"lintConfFile": false
+	"lintConfFile": false,
+
 	/*
 		Enable or disable refresh the compiled Output on Save.
 		Only available for watch mode.
 	*/
-,	"watchOnSave": true
+	"watchOnSave": true,
+
 	/*
 		Enable refreshing compiled JS when CoffeeScript is modified.
 
 		Put false to disable
 		Put a number of seconds to delay the refresh
 	*/
-,	"watchOnModified": 0.5
+	"watchOnModified": 0.5,
+
 	/*
 		Enable Compiling on save. It will compile into the same folder.
 	*/
-,	"compileOnSave": false
+	"compileOnSave": false,
+
 	/*
 		## Enable outputting the results of the compiled coffeescript in a panel
 	*/
-,	"showOutputOnSave": false
+	"showOutputOnSave": false,
+
 	/*
 		## Enable compiling to a specific directory.
 		#### Description
@@ -65,7 +73,8 @@
 			compileDir": "/home/logan/Desktop/out"
 
 	*/
-,	"compileDir": false
+	"compileDir": false,
+
 	/*
 		## Enable compiling to a specific relative directories.
 
@@ -87,15 +96,13 @@
 			"/home/user/projects/main.coffee" will compile to "/home/user/projects/js/main.js"
 
 	*/
-,	"compilePaths": false
+	"compilePaths": false,
 
 	/*
 		## Enable source maps support
-  		CoffeeScript 1.6.1 and above include support for better coffeescript debugging.
-  		Browsers that support it can trace your bugs to your original coffeescript source code,
-  		instead of the javascript that's being evaluated
+		CoffeeScript 1.6.1 and above include support for better coffeescript debugging.
+		Browsers that support it can trace your bugs to your original coffeescript source code,
+		instead of the javascript that's being evaluated
 	*/
-, "sourceMaps":false
-
-
+	"sourceMaps":false,
 }
