@@ -5,7 +5,7 @@
     <key>scope</key>
     <string>
         source.coffee meta.class.coffee,
-        source.coffee meta.function.coffee
+        source.coffee meta.function.identifier.coffee entity.name.function
     </string>
     <key>settings</key>
     <dict>

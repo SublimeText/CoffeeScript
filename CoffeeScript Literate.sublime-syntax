@@ -157,7 +157,6 @@ contexts:
             | [ ]{,3}(?<marker>[-*_])([ ]{,2}\k<marker>){2,}[ \t]*+$
             )
           push:
-            - include: block_raw
             - include: heading
             - include: separator
             - match: ^
@@ -175,7 +174,7 @@ contexts:
               pop: true
             - include: inline
   block_raw:
-    - include: scope:source.coffee
+    - include: scope:source.coffee#script
   bold:
     - match: |-
         (?x)
