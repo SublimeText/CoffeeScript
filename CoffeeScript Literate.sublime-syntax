@@ -2,12 +2,13 @@
 ---
 # http://www.sublimetext.com/docs/syntax.html
 name: CoffeeScript (Literate)
-comment: CoffeeScript (Literate)
+scope: source.litcoffee
+
 file_extensions:
   - litcoffee
   - litcoffee.erb
   - coffee.md
-scope: source.litcoffee
+
 contexts:
   main:
     - match: |-
@@ -20,16 +21,15 @@ contexts:
             (?! ([ ]{4}|\t))
           pop: true
         - include: block_raw
+    # We could also use an empty end match and set
+    # applyEndPatternLast, but then we must be sure that the begin
+    # pattern will only match stuff matched by the sub-patterns.
     - match: |-
         (?x)^
         (?= [ ]{,3}>.
         | [#]{1,6}\s*+
         | [ ]{,3}(?<marker>[-*_])([ ]{,2}\k<marker>){2,}[ \t]*+$
         )
-      comment: |
-        We could also use an empty end match and set
-                        applyEndPatternLast, but then we must be sure that the begin
-                        pattern will only match stuff matched by the sub-patterns.
       push:
         - meta_scope: meta.block-level.markdown
         - match: |-
@@ -62,15 +62,15 @@ contexts:
             1: punctuation.definition.list_item.markdown
           pop: true
         - include: list-paragraph
+    # Markdown formatting is disabled inside block-level tags.
     - match: '^(?=<(p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|script|noscript|form|fieldset|iframe|math|ins|del)\b)(?!.*?</\1>)'
-      comment: Markdown formatting is disabled inside block-level tags.
       push:
         - meta_scope: meta.disable-markdown
         - match: (?<=^</\1>$\n)
           pop: true
         - include: scope:text.html.basic
+    # Same rule but for one line disables.
     - match: '^(?=<(p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|script|noscript|form|fieldset|iframe|math|ins|del)\b)'
-      comment: Same rule but for one line disables.
       push:
         - meta_scope: meta.disable-markdown
         - match: $\n?
@@ -127,11 +127,10 @@ contexts:
                         HTML grammar will not mark it up as invalid.
       scope: meta.other.valid-ampersand.markdown
   block_quote:
+    # We terminate the block quote when seeing an empty line, a
+    # separator or a line with leading > characters. The latter is
+    # to “reset” the quote level for quoted lines.
     - match: '\G[ ]{,3}(>)(?!$)[ ]?'
-      comment: |
-        We terminate the block quote when seeing an empty line, a
-                        separator or a line with leading > characters. The latter is
-                        to “reset” the quote level for quoted lines.
       captures:
         1: punctuation.definition.blockquote.markdown
       push:
@@ -176,7 +175,7 @@ contexts:
               pop: true
             - include: inline
   block_raw:
-    - include: coffee_script
+    - include: scope:source.coffee
   bold:
     - match: |-
         (?x)
@@ -245,165 +244,10 @@ contexts:
         - include: link-ref-literal
         - include: link-ref
   bracket:
+    # Markdown will convert this for us. We match it so that the
+    # HTML grammar will not mark it up as invalid.
     - match: '<(?![a-z/?\$!])'
-      comment: |
-        Markdown will convert this for us. We match it so that the
-                        HTML grammar will not mark it up as invalid.
       scope: meta.other.valid-bracket.markdown
-  coffee_script:
-    - match: '(\([^()]*?\))\s*([=-]>)'
-      comment: 'match stuff like: a -> …'
-      scope: meta.inline.function.coffee
-      captures:
-        1: variable.parameter.function.coffee
-        2: storage.type.function.coffee
-    - match: (new)\s+((?!class)\w+(?:\.\w*)*)
-      scope: meta.class.instance.constructor
-      captures:
-        1: keyword.operator.new.coffee
-        2: entity.name.type.instance.coffee
-    - match: "'''"
-      captures:
-        0: punctuation.definition.string.begin.coffee
-      push:
-        - meta_scope: string.quoted.heredoc.coffee
-        - match: "'''"
-          captures:
-            0: punctuation.definition.string.end.coffee
-          pop: true
-    - match: '"""'
-      captures:
-        0: punctuation.definition.string.begin.coffee
-      push:
-        - meta_scope: string.quoted.double.heredoc.coffee
-        - match: '"""'
-          captures:
-            0: punctuation.definition.string.end.coffee
-          pop: true
-        - match: \\.
-          scope: constant.character.escape.coffee
-        - include: interpolated_coffee
-    - match: '`'
-      captures:
-        0: punctuation.definition.string.begin.coffee
-      push:
-        - meta_scope: string.quoted.script.coffee
-        - match: '`'
-          captures:
-            0: punctuation.definition.string.end.coffee
-          pop: true
-        - match: '\\(x\h{2}|[0-2][0-7]{,2}|3[0-6][0-7]|37[0-7]?|[4-7][0-7]?|.)'
-          scope: constant.character.escape.coffee
-    - match: (?<!#)###(?!#)
-      captures:
-        0: punctuation.definition.comment.coffee
-      push:
-        - meta_scope: comment.block.coffee
-        - match: '###(?:[ \t]*\n)'
-          captures:
-            0: punctuation.definition.comment.coffee
-          pop: true
-        - match: '@\w*'
-          scope: storage.type.annotation.coffeescript
-    - match: '(#)(?!\{).*$\n?'
-      scope: comment.line.number-sign.coffee
-      captures:
-        1: punctuation.definition.comment.coffee
-    - match: '/{3}'
-      push:
-        - meta_scope: string.regexp.coffee
-        - match: '/{3}[imgy]{0,4}'
-          pop: true
-        - include: interpolated_coffee
-        - include: embedded_comment
-    - match: '/(?![\s=/*+{}?])(\\.|.)*?/[igmy]{0,4}(?![a-zA-Z0-9])'
-      scope: string.regexp.coffee
-    - match: '\b(?<![\.\$])(break|by|catch|continue|else|finally|for|in|of|if|return|switch|then|throw|try|unless|when|while|until|loop|do|(?<=for)\s+own)(?!\s*:)\b'
-      scope: keyword.control.coffee
-    - match: 'and=|or=|!|%|&|\^|\*|\/|\-\-|\-|\+\+|\+|~|===|==|=|!=|!==|<=|>=|<<=|>>=|>>>=|<>|<|>|!|&&|\?|\||\|\||\:|\*=|(?<!\()/=|%=|\+=|\-=|&=|\^=|\b(?<![\.\$])(instanceof|new|delete|typeof|and|or|is|isnt|not)\b'
-      scope: keyword.operator.coffee
-    - match: '([a-zA-Z\$_](\w|\$|\.)*\s*(?!\::)((:)|(=))(?!(\s*\(.*\))?\s*((=|-)>)))'
-      scope: variable.assignment.coffee
-      captures:
-        1: variable.assignment.coffee
-        4: punctuation.separator.key-value
-        5: keyword.operator.coffee
-    - match: '(?<=\s|^)([\[\{])(?=.*?[\]\}]\s+[:=])'
-      captures:
-        0: keyword.operator.coffee
-      push:
-        - meta_scope: meta.variable.assignment.destructured.coffee
-        - match: '([\]\}]\s*[:=])'
-          captures:
-            0: keyword.operator.coffee
-          pop: true
-        - include: variable_name
-        - include: instance_variable
-        - include: single_quoted_string
-        - include: double_quoted_string
-        - include: numeric
-    - match: '(\s*)(?=[a-zA-Z\$_])([a-zA-Z\$_](\w|\$|:|\.)*\s*(?=[:=](\s*\(.*\))?\s*((=|-)>)))'
-      scope: meta.function.coffee
-      captures:
-        2: entity.name.function.coffee
-        3: entity.name.function.coffee
-        4: variable.parameter.function.coffee
-        5: storage.type.function.coffee
-    - match: (=|-)>
-      scope: storage.type.function.coffee
-    - match: '\b(?<!\.)(true|on|yes)(?!\s*[:=])\b'
-      scope: constant.language.boolean.true.coffee
-    - match: '\b(?<!\.)(false|off|no)(?!\s*[:=])\b'
-      scope: constant.language.boolean.false.coffee
-    - match: '\b(?<!\.)null(?!\s*[:=])\b'
-      scope: constant.language.null.coffee
-    - match: '\b(?<!\.)(super|this|extends)(?!\s*[:=])\b'
-      scope: variable.language.coffee
-    - match: '(class\b)\s+((?!extends)@?[a-zA-Z\$_][\w\.]*)?(?:\s*(extends)\s+(@?[a-zA-Z\$\._][\w\.]*))?'
-      scope: meta.class.coffee
-      captures:
-        1: storage.type.class.coffee
-        2: entity.name.type.class.coffee
-        3: keyword.control.inheritance.coffee
-        4: entity.other.inherited-class.coffee
-    - match: \b(debugger|\\)\b
-      scope: keyword.other.coffee
-    - match: \b(Infinity|NaN|undefined)\b
-      scope: constant.language.coffee
-    - match: \;
-      scope: punctuation.terminator.statement.coffee
-    - match: ',[ |\t]*'
-      scope: meta.delimiter.object.comma.coffee
-    - match: \.
-      scope: meta.delimiter.method.period.coffee
-    - match: '\{|\}'
-      scope: meta.brace.curly.coffee
-    - match: \(|\)
-      scope: meta.brace.round.coffee
-    - match: '\[|\]\s*'
-      scope: meta.brace.square.coffee
-    - include: instance_variable
-    - include: single_quoted_string
-    - include: double_quoted_string
-    - include: numeric
-  double_quoted_string:
-    - match: '"'
-      captures:
-        0: punctuation.definition.string.begin.coffee
-      push:
-        - meta_scope: string.quoted.double.coffee
-        - match: '"'
-          captures:
-            0: punctuation.definition.string.end.coffee
-          pop: true
-        - match: '\\(x\h{2}|[0-2][0-7]{,2}|3[0-6][0-7]|37[0-7]?|[4-7][0-7]?|.)'
-          scope: constant.character.escape.coffee
-        - include: interpolated_coffee
-  embedded_comment:
-    - match: (?<!\\)(#).*$\n?
-      scope: comment.line.number-sign.coffee
-      captures:
-        1: punctuation.definition.comment.coffee
   escape:
     - match: '\\[-`*_#+.!(){}\[\]\\>]'
       scope: constant.character.escape.markdown
@@ -478,20 +322,6 @@ contexts:
     - include: image-ref
     - include: link-ref-literal
     - include: link-ref
-  instance_variable:
-    - match: '(@)([a-zA-Z_\$]\w*)?'
-      scope: variable.other.readwrite.instance.coffee
-  interpolated_coffee:
-    - match: '\#\{'
-      captures:
-        0: punctuation.section.embedded.coffee
-      push:
-        - meta_scope: source.coffee.embedded.source
-        - match: '\}'
-          captures:
-            0: punctuation.section.embedded.coffee
-          pop: true
-        - include: main
   italic:
     - match: |-
         (?x)
@@ -652,20 +482,3 @@ contexts:
   separator:
     - match: '\G[ ]{,3}([-*_])([ ]{,2}\1){2,}[ \t]*$\n?'
       scope: meta.separator.markdown
-  single_quoted_string:
-    - match: "'"
-      captures:
-        0: punctuation.definition.string.begin.coffee
-      push:
-        - meta_scope: string.quoted.single.coffee
-        - match: "'"
-          captures:
-            0: punctuation.definition.string.end.coffee
-          pop: true
-        - match: '\\(x\h{2}|[0-2][0-7]{,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)'
-          scope: constant.character.escape.coffee
-  variable_name:
-    - match: '([a-zA-Z\$_]\w*(\.\w+)*)'
-      scope: variable.assignment.coffee
-      captures:
-        1: variable.assignment.coffee
