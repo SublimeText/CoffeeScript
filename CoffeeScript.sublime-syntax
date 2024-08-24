@@ -108,18 +108,12 @@ contexts:
         - include: numeric
     - match: |-
         (?x)
-          (\s*)
-          (?=[a-zA-Z\$_@])
-          (
-            [a-zA-Z\$_@](\w|\$|:|\.)*\s*
-            (?=[:=]( (\s*.\( ($)) | (\s*\(.*\) )?\s*([=-]>)))
-          )
+        \s*
+        ( [a-zA-Z\$_@] [\w\$:.]* ) \s*
+        (?=[:=](?: \s*.\( $ | (?: \s*\(.*\) )? \s* [=-]> ) )
       scope: meta.function.coffee
       captures:
-        2: entity.name.function.coffee
-        3: entity.name.function.coffee
-        4: variable.parameter.function.coffee
-        5: storage.type.function.coffee
+        1: entity.name.function.coffee
     - match: '^\s*(describe|it|app\.(get|post|put|all|del|delete))[^\w]'
       comment: Show well-known functions from Express and Mocha in Go To Symbol view
       push:
