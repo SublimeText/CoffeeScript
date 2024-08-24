@@ -18,3 +18,13 @@ class App.Router extends Snakeskin.Router
 #           ^^ storage.type.function.coffee
     "Hello"
 #   ^^^^^^^ meta.string.coffee string.quoted.double.coffee
+
+
+  keywords: ->
+    yield @foo
+#   ^^^^^ keyword.control.coffee
+#         ^^^^ variable.other.readwrite.instance.coffee
+
+    yield from @foo
+#   ^^^^^^^^^^ keyword.control.coffee
+#              ^^^^ variable.other.readwrite.instance.coffee

@@ -78,8 +78,8 @@ contexts:
     - match: |-
         (?x)
           \b(?<![\.\$])(
-            break|by|catch|continue|else|finally|for|in|of|if|return|yield|switch|
-            then|throw|try|unless|when|while|until|loop|do|(?<=for)\s+own
+            break|by|catch|continue|else|finally|for(?:\s+own)?|in|of|if|return|yield(?:\s+from)?|switch|
+            then|throw|try|unless|when|while|until|loop|do
           )(?!\s*:)\b
       scope: keyword.control.coffee
     - match: |-
