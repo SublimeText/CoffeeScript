@@ -1,0 +1,18 @@
+[
+	{
+		"caption": "Preferences: Better CoffeeScript Settings",
+		"command": "edit_settings",
+		"args": {
+			"base_file": "${packages}/Better CoffeeScript/CoffeeScript.sublime-settings",
+			"default": "{\n\t$0\n}\n"
+		}
+	},
+	{
+		"caption": "Preferences: Better CoffeeScript Key Bindings",
+		"command": "edit_settings",
+		"args": {
+			"base_file": "${packages}/Better CoffeeScript/Keymaps/Default ($platform).sublime-keymap",
+			"default": "{\n\t$0\n}\n"
+		}
+	}
+]
