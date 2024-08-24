@@ -273,7 +273,7 @@ class ToggleParensCommand(TextCommand):
     def add_parens(self, edit, sel):
         self.view.insert(edit, sel.end(), ')')
 
-        if self.view.substr(sel.begin() - 1) is ' ':
+        if self.view.substr(sel.begin() - 1) == ' ':
             self.view.replace(edit, sublime.Region(sel.begin() - 1, sel.begin()), '(')
         else:
             self.view.insert(edit, sel.begin(), '(')
@@ -282,14 +282,14 @@ class ToggleParensCommand(TextCommand):
         begin = sel.begin()
         end = sel.end()
 
-        if self.view.substr(begin - 1) is '(':
+        if self.view.substr(begin - 1) == '(':
             self.view.replace(edit, sublime.Region(begin - 1, begin), ' ')
-        elif self.view.substr(begin) is '(':
+        elif self.view.substr(begin) == '(':
             self.view.replace(edit, sublime.Region(begin, begin + 1), ' ')
 
-        if self.view.substr(end) is ')':
+        if self.view.substr(end) == ')':
             self.view.erase(edit, sublime.Region(end, end + 1))
-        elif self.view.substr(end - 1) is ')':
+        elif self.view.substr(end - 1) == ')':
             self.view.erase(edit, sublime.Region(end - 1, end))
 
 
