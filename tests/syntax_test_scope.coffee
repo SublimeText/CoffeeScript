@@ -1,5 +1,14 @@
 # SYNTAX TEST "CoffeeScript.sublime-syntax"
 
+class extends parentClass
+# <- meta.class.coffee storage.type.class.coffee
+#^^^^^^^^^^^^^^^^^^^^^^^^ meta.class.coffee
+#^^^^ storage.type.class.coffee
+#     ^^^^^^^ keyword.control.inheritance.coffee
+#             ^^^^^^^^^^^ entity.other.inherited-class.coffee
+  constructor: ->
+    return
+
 class App.Router extends Snakeskin.Router
 # <- meta.class.coffee storage.type.class.coffee
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.class.coffee
