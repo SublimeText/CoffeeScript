@@ -2,10 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>name</key>
-	<string>Comments</string>
 	<key>scope</key>
-	<string>source.litcoffee</string>
+	<string>source.coffee, source.litcoffee</string>
 	<key>settings</key>
 	<dict>
 		<key>shellVariables</key>

@@ -2,16 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>name</key>
-    <string>Symbol List</string>
     <key>scope</key>
-    <string>source.coffee meta.class.coffee,source.coffee meta.function.coffee</string>
+    <string>
+        source.coffee meta.class.coffee,
+        source.coffee meta.function.coffee
+    </string>
     <key>settings</key>
     <dict>
         <key>showInSymbolList</key>
         <integer>1</integer>
     </dict>
-    <key>uuid</key>
-    <string>C02A31C1-E770-472F-A13E-358FF1C6AD89</string>
 </dict>
 </plist>

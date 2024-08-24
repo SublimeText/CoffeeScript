@@ -1,5 +1,53 @@
 [
 	{
+		"caption": "Coffee: Check Syntax",
+		"command": "check_syntax"
+	},
+	{
+		"caption": "Coffee: Quick Run Bar",
+		"command": "quick_run_bar"
+	},
+	{
+		"caption": "Coffee: Run Cake Task",
+		"command": "run_cake_task"
+	},
+	{
+		"caption": "Coffee: Compile File",
+		"command": "compile"
+	},
+	{
+		"caption": "Coffee: Display JavaScript",
+		"command": "compile_and_display", "args": {"opt": "-p"}
+	},
+	{
+		"caption": "Coffee: Display Lexer Tokens",
+		"command": "compile_and_display", "args": {"opt": "-t"}
+	},
+	{
+		"caption": "Coffee: Display Parse Tree",
+		"command": "compile_and_display", "args": {"opt": "-n"}
+	},
+	{
+		"caption": "Coffee: Toggle Watch Mode",
+		"command": "toggle_watch"
+	},
+	{
+		"caption": "Coffee: Run Script / Selection",
+		"command": "run_script"
+	},
+	{
+		"caption": "Coffee: Fast Compile",
+		"command": "fast_compile"
+	},
+	{
+		"caption": "Coffee: Lint",
+		"command": "lint"
+	},
+	{
+		"caption": "Coffee: Toggle Parens",
+		"command": "toggle_parens"
+	},
+	{
 		"caption": "Preferences: Better CoffeeScript Settings",
 		"command": "edit_settings",
 		"args": {
