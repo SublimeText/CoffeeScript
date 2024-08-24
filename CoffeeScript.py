@@ -60,14 +60,23 @@ def _run(cmd, args=[], source="", cwd=None, env=None):
         okay = proc.returncode == 0
         return {"okay": okay, "out": stat[0].decode(locale.getdefaultlocale()[1]), "err": stat[1].decode(locale.getdefaultlocale()[1])}
     else:
+        bindir = settings_get('binDir', '/usr/local/bin')
+        if bindir.startswith("./"):
+            bindir = current_project_folder() + bindir[1:]
+
         if env is None:
             env = {"PATH": environ["PATH"]}
-            env["PATH"] = settings_get('binDir', '/usr/local/bin')+":"+env["PATH"]
+            env["PATH"] = bindir+":"+env["PATH"]
 
         # adding custom PATHs from settings
         customEnv = settings_get('envPATH', "")
         if customEnv:
             env["PATH"] = env["PATH"]+":"+customEnv
+
+        # adding environment path
+        if len(os.environ.get("PATH")):
+            env["PATH"] = env["PATH"]+":"+os.environ.get("PATH")
+
         if source == "":
             command = [cmd] + args
         else:
@@ -76,6 +85,26 @@ def _run(cmd, args=[], source="", cwd=None, env=None):
         stat = proc.communicate()
         okay = proc.returncode == 0
         return {"okay": okay, "out": stat[0].decode('utf-8'), "err": stat[1].decode('utf-8')}
+
+# From https://github.com/pderichs/sublime_rubocop/blob/master/rubocop_command.py
+# Return the the first path of the project
+def current_project_folder():
+    if int(sublime.version()) >= 3000:
+        project = sublime.active_window().project_data()
+        project_base_path = os.path.dirname(sublime.active_window().project_file_name())
+        if not (project is None):
+            if 'folders' in project:
+                folders = project['folders']
+                if len(folders) > 0:
+                    first_folder = folders[0]
+                    if 'path' in first_folder:
+                        path = first_folder['path']
+                        return (path if os.path.isabs(path) else os.path.join(project_base_path, path)) or ''
+    else:
+        folders = sublime.active_window().folders()
+        if (not (folders is None)) and (len(folders) > 0):
+            return folders[0]
+        return ''
 
 
 def brew(args, source, cwd=None, callback=None):

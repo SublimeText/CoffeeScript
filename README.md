@@ -161,6 +161,8 @@ Go to `Preferences > Package Settings > Better CoffeeScript > Settings - User` t
 	/*
 		The directory containing your coffee binary. Usually
 		/usr/local/bin.
+		If binDir begins with "./", then it is replaced by the first path of the project.
+		Set bindir to "./node_modules/.bin", and it will use the locally installed coffee.
 	*/
 	"binDir": "/usr/local/bin"
 
