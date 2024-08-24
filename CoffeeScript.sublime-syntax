@@ -75,6 +75,12 @@ contexts:
         - include: embedded_comment
     - match: '/(?![\s=/*+{}?])(\\.|.)*?/[igmy]{0,4}(?![a-zA-Z0-9])'
       scope: string.regexp.coffee
+    - match: \bas\b
+      scope: keyword.operator.assignment.as.coffee
+    - match: \bexport\b
+      scope: keyword.control.export.coffee
+    - match: \b(?:import|from)\b
+      scope: keyword.control.import.coffee
     - match: |-
         (?x)
           \b(?<![\.\$])(

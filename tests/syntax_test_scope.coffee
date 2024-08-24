@@ -1,5 +1,15 @@
 # SYNTAX TEST "CoffeeScript.sublime-syntax"
 
+import {"foo"} from bar as baz
+# <- keyword.control.import.coffee
+#^^^^^ keyword.control.import.coffee
+#              ^^^^ keyword.control.import.coffee
+#                       ^^ keyword.operator.assignment.as.coffee
+
+export parentClass
+# <- keyword.control.export.coffee
+#^^^^^ keyword.control.export.coffee
+
 class extends parentClass
 # <- meta.class.coffee storage.type.class.coffee
 #^^^^^^^^^^^^^^^^^^^^^^^^ meta.class.coffee
