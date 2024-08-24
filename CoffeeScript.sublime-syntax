@@ -1,16 +1,19 @@
 %YAML 1.2
 ---
 # http://www.sublimetext.com/docs/syntax.html
+# CoffeeScript Syntax: version 1
 name: CoffeeScript
-comment: 'CoffeeScript Syntax: version 1'
+scope: source.coffee
+
 file_extensions:
   - coffee
   - Cakefile
   - coffee.erb
   - cson
   - cjsx
+
 first_line_match: ^#!.*\bcoffee
-scope: source.coffee
+
 contexts:
   main:
     - match: '(\([^()]*?\))\s*([=-]>)'
@@ -25,45 +28,37 @@ contexts:
         1: keyword.operator.new.coffee
         2: support.class.coffee
     - match: "'''"
-      captures:
-        0: punctuation.definition.string.begin.coffee
+      scope: punctuation.definition.string.begin.coffee
       push:
-        - meta_scope: string.quoted.heredoc.coffee
+        - meta_scope: meta.string.coffee string.quoted.heredoc.coffee
         - match: "'''"
-          captures:
-            0: punctuation.definition.string.end.coffee
+          scope: punctuation.definition.string.end.coffee
           pop: true
     - match: '"""'
-      captures:
-        0: punctuation.definition.string.begin.coffee
+      scope: punctuation.definition.string.begin.coffee
       push:
-        - meta_scope: string.quoted.double.heredoc.coffee
+        - meta_scope: meta.string.coffee string.quoted.double.heredoc.coffee
         - match: '"""'
-          captures:
-            0: punctuation.definition.string.end.coffee
+          scope: punctuation.definition.string.end.coffee
           pop: true
         - match: \\.
           scope: constant.character.escape.coffee
         - include: interpolated_coffee
     - match: '`'
-      captures:
-        0: punctuation.definition.string.begin.coffee
+      scope: punctuation.definition.string.begin.coffee
       push:
-        - meta_scope: string.quoted.script.coffee
+        - meta_scope: meta.string.coffee string.quoted.script.coffee
         - match: '`'
-          captures:
-            0: punctuation.definition.string.end.coffee
+          scope: punctuation.definition.string.end.coffee
           pop: true
         - match: '\\(x\h{2}|[0-2][0-7]{,2}|3[0-6][0-7]|37[0-7]?|[4-7][0-7]?|.)'
           scope: constant.character.escape.coffee
     - match: (?<!#)###(?!#)
-      captures:
-        0: punctuation.definition.comment.coffee
+      scope: punctuation.definition.comment.coffee
       push:
         - meta_scope: comment.block.coffee
         - match: '###(?:[ \t]*\n)'
-          captures:
-            0: punctuation.definition.comment.coffee
+          scope: punctuation.definition.comment.coffee
           pop: true
         - match: '@\w*'
           scope: storage.type.annotation.coffeescript
@@ -73,7 +68,7 @@ contexts:
         1: punctuation.definition.comment.coffee
     - match: '/{3}'
       push:
-        - meta_scope: string.regexp.coffee
+        - meta_scope: meta.string.regexp.coffee string.regexp.coffee
         - match: '/{3}[imgy]{0,4}'
           pop: true
         - include: interpolated_coffee
@@ -100,13 +95,11 @@ contexts:
         4: punctuation.separator.key-value
         5: keyword.operator.coffee
     - match: '(?<=\s|^)([\[\{])(?=.*?[\]\}]\s+[:=])'
-      captures:
-        0: keyword.operator.coffee
+      scope: keyword.operator.coffee
       push:
         - meta_scope: meta.variable.assignment.destructured.coffee
         - match: '([\]\}]\s*[:=])'
-          captures:
-            0: keyword.operator.coffee
+          scope: keyword.operator.coffee
           pop: true
         - include: variable_name
         - include: instance_variable
@@ -221,13 +214,11 @@ contexts:
     - include: numeric
   double_quoted_string:
     - match: '"'
-      captures:
-        0: punctuation.definition.string.begin.coffee
+      scope: punctuation.definition.string.begin.coffee
       push:
-        - meta_scope: string.quoted.double.coffee
+        - meta_scope: meta.string.coffee string.quoted.double.coffee
         - match: '"'
-          captures:
-            0: punctuation.definition.string.end.coffee
+          scope: punctuation.definition.string.end.coffee
           pop: true
         - match: '\\(x\h{2}|[0-2][0-7]{,2}|3[0-6][0-7]|37[0-7]?|[4-7][0-7]?|.)'
           scope: constant.character.escape.coffee
@@ -242,23 +233,21 @@ contexts:
       scope: variable.other.readwrite.instance.coffee
   interpolated_coffee:
     - match: '\#\{'
-      captures:
-        0: punctuation.section.embedded.coffee
+      scope: punctuation.section.embedded.coffee
       push:
-        - meta_scope: source.coffee.embedded.source
+        - clear_scopes: 1
+        - meta_scope: meta.embedded.coffee source.coffee.embedded.source
         - match: '\}'
-          captures:
-            0: punctuation.section.embedded.coffee
+          scope: punctuation.section.embedded.coffee
           pop: true
         - include: main
     - match: <%
-      captures:
-        0: punctuation.section.embedded.coffee
+      scope: punctuation.section.embedded.coffee
       push:
-        - meta_scope: source.coffee.embedded.source
+        - clear_scopes: 1
+        - meta_scope: meta.embedded.coffee source.coffee.embedded.source
         - match: '%>'
-          captures:
-            0: punctuation.section.embedded.coffee
+          scope: punctuation.section.embedded.coffee
           pop: true
         - include: main
   numeric:
@@ -266,13 +255,11 @@ contexts:
       scope: constant.numeric.coffee
   single_quoted_string:
     - match: "'"
-      captures:
-        0: punctuation.definition.string.begin.coffee
+      scope: punctuation.definition.string.begin.coffee
       push:
-        - meta_scope: string.quoted.single.coffee
+        - meta_scope: meta.string.coffee string.quoted.single.coffee
         - match: "'"
-          captures:
-            0: punctuation.definition.string.end.coffee
+          scope: punctuation.definition.string.end.coffee
           pop: true
         - match: '\\(x\h{2}|[0-2][0-7]{,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)'
           scope: constant.character.escape.coffee
