@@ -25,7 +25,7 @@ If you have [Package Control](https://packagecontrol.io/), you know what to do. 
 
 * Open the Command Pallete (`ctrl+shift+P` or `cmd+shift+P`).
 * Type "Install Package" and hit return.
-* Type "Better CoffeeScript" and hit return.
+* Type "CoffeeScript" and hit return.
 
 ## via Source Control
 
@@ -46,7 +46,7 @@ will be preferred.
 Open a Terminal/Console and run the following commands, replacing `PACKAGE_PATH` with the path corresponding to your OS above.
 
 	cd PACKAGE_PATH
-	git clone https://github.com/SublimeText/BetterCoffeeScript.git "Better CoffeeScript"
+	git clone https://github.com/SublimeText/BetterCoffeeScript.git "CoffeeScript"
 
 ### As a repository outside of the packages directory
 
@@ -62,12 +62,12 @@ Once that is done, we will create the link:
 #### Windows:
 
 	cd PACKAGE_PATH
-	mklink /D "Better CoffeeScript" ABSOLUTE_PATH_TO_REPOSITORY
+	mklink /D "CoffeeScript" ABSOLUTE_PATH_TO_REPOSITORY
 
 #### Nix/Mac:
 
 	cd PACKAGE_PATH
-	ln -s ABSOLUTE_PATH_TO_REPOSITORY "Better CoffeeScript"
+	ln -s ABSOLUTE_PATH_TO_REPOSITORY "CoffeeScript"
 
 
 # Commands/Shortcuts
@@ -145,7 +145,7 @@ That's what this is for! You would create a `Cakefile` and inside it you would w
 
 # Settings
 
-Go to `Preferences > Package Settings > Better CoffeeScript > Settings - User` to change settings.
+Go to `Preferences > Package Settings > CoffeeScript > Settings - User` to change settings.
 
 ```Javascript
 {
@@ -296,7 +296,7 @@ This path will go into the `binDir` setting.
 
 - I'm getting the error message `'coffee' is not recognized as an internal or external command,` when saving.
 
-The coffee-script binary probably is not installed. Either install coffee-script or set `checkSyntaxOnSave` and `compileOnSave` to `false` in `Preferences > Package Settings > Better CoffeeScript > Settings - User`.
+The coffee-script binary probably is not installed. Either install coffee-script or set `checkSyntaxOnSave` and `compileOnSave` to `false` in `Preferences > Package Settings > CoffeeScript > Settings - User`.
 
 
 

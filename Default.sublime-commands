@@ -48,18 +48,18 @@
 		"command": "toggle_parens"
 	},
 	{
-		"caption": "Preferences: Better CoffeeScript Settings",
+		"caption": "Preferences: CoffeeScript Settings",
 		"command": "edit_settings",
 		"args": {
-			"base_file": "${packages}/Better CoffeeScript/CoffeeScript.sublime-settings",
+			"base_file": "${packages}/CoffeeScript/CoffeeScript.sublime-settings",
 			"default": "{\n\t$0\n}\n"
 		}
 	},
 	{
-		"caption": "Preferences: Better CoffeeScript Key Bindings",
+		"caption": "Preferences: CoffeeScript Key Bindings",
 		"command": "edit_settings",
 		"args": {
-			"base_file": "${packages}/Better CoffeeScript/Default ($platform).sublime-keymap",
+			"base_file": "${packages}/CoffeeScript/Default ($platform).sublime-keymap",
 			"default": "{\n\t$0\n}\n"
 		}
 	}
