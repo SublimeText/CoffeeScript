@@ -21,10 +21,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - build: 3211
-            default_packages: v3211
-          - build: 4107
-            default_packages: v4107
+          - build: 4143
+            default_packages: v4143
           - build: 4180
             default_packages: v4180
           - build: latest

@@ -1,32 +1,35 @@
 | SYNTAX TEST "CoffeeScript Literate.sublime-syntax"
 
 # Heading
-| <- meta.block-level.markdown markup.heading.markdown punctuation.definition.heading.markdown
-|^^^^^^^^^ meta.block-level.markdown markup.heading.markdown
+| <- markup.heading.1.markdown punctuation.definition.heading.begin.markdown
+|^^^^^^^^^ text.html.markdown.litcoffee markup.heading.1.markdown
 
 # Indendet Code Block
 
     class App.Router extends Snakeskin.Router
-    | <- markup.raw.block.markdown meta.class.coffee storage.type.class.coffee
-    |^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.raw.block.markdown meta.class.coffee
-
-      @index: () =>
-    | ^^^^^^ meta.function.identifier.coffee entity.name.function.coffee
-    |       ^^ meta.function.coffee
-    |         ^^ meta.function.parameters.coffee
-    |           ^^^ meta.function.coffee
-    |            ^^ keyword.declaration.function.coffee
+    | <- meta.embedded.litcoffee source.coffee.embedded.markdown meta.class.coffee storage.type.class.coffee
+    |^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.embedded.litcoffee source.coffee.embedded.markdown meta.class.coffee
+      index: () =>
         @ensureData((data) =>
           @_parseDates(data, ['trending', 'new', 'top'])
           App.layout.renderExchange('index', data, ['index', 'search'])
         )
 
+- In list items
+
+      class App.Router extends Snakeskin.Router
+      | <- markup.list.unnumbered.markdown meta.embedded.litcoffee source.coffee.embedded.markdown meta.class.coffee storage.type.class.coffee
+      |^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.list.unnumbered.markdown meta.embedded.litcoffee source.coffee.embedded.markdown meta.class.coffee
+        index: () =>
+          @ensureData((data) =>
+            @_parseDates(data, ['trending', 'new', 'top'])
+            App.layout.renderExchange('index', data, ['index', 'search'])
+          )
+
 > Not in block quotes
 >
 >     class App.Router extends Snakeskin.Router
-|^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.block-level.markdown markup.quote.markdown - markdup.raw
-
-# https://github.com/SublimeText/CoffeeScript/issues/203
+|     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.quote.markdown markup.raw.block.markdown - source.coffee
 
 This is a test showcasing that multiline string interpolation is broken. Copy this post
 into a .litcoffee file and open it in Sublime to see the breakage.
