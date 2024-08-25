@@ -439,7 +439,7 @@ contexts:
         4: constant.language.flags.coffee
 
   heredoc-pattern-body:
-    - meta_scope: meta.string.regexp.coffee
+    - meta_scope: meta.string.heredoc.coffee
     - meta_content_scope: string.regexp.coffee
     - match: (/{3})([imgy]{0,4})
       captures:

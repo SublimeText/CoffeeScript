@@ -9,7 +9,10 @@
 	<key>name</key>
 	<string>Interpolated Code</string>
 	<key>scope</key>
-	<string>(string.quoted.double.coffee) - string source, (string.quoted.double.heredoc.coffee) - string source</string>
+	<string>
+		source.coffee meta.string string.quoted.double,
+		source.coffee meta.string.heredoc string.regexp
+	</string>
 	<key>tabTrigger</key>
 	<string>#</string>
 </dict>

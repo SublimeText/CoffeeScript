@@ -491,16 +491,16 @@ class App.Router extends Snakeskin.Router
   ///
 # <- - meta.string
 #^ - meta.string
-# ^^^ meta.string.regexp.coffee punctuation.definition.string.begin.coffee
-#    ^ meta.string.regexp.coffee string.regexp.coffee
+# ^^^ meta.string.heredoc.coffee punctuation.definition.string.begin.coffee
+#    ^ meta.string.heredoc.coffee string.regexp.coffee
   \. #{var}
-#^^^^^^^^^^^ meta.string.regexp.coffee
+#^^^^^^^^^^^ meta.string.heredoc.coffee
 # ^^ string.regexp.coffee constant.character.escape.coffee
 #    ^^^^^^ meta.embedded.coffee source.coffee.embedded.source
   ///
-# <- meta.string.regexp.coffee string.regexp.coffee
-#^ meta.string.regexp.coffee string.regexp.coffee
-# ^^^ meta.string.regexp.coffee punctuation.definition.string.end.coffee
+# <- meta.string.heredoc.coffee string.regexp.coffee
+#^ meta.string.heredoc.coffee string.regexp.coffee
+# ^^^ meta.string.heredoc.coffee punctuation.definition.string.end.coffee
 
   /[0-9]bar/img
 # ^^^^^^^^^^^^^ meta.string.regexp.coffee
