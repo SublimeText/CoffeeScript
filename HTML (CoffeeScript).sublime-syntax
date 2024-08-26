@@ -1,0 +1,89 @@
+%YAML 1.2
+---
+# http://www.sublimetext.com/docs/syntax.html
+name: HTML (CoffeeScript)
+scope: text.html.coffee
+version: 2
+
+extends: Packages/HTML/HTML.sublime-syntax
+
+file_extensions:
+  - coffee.html
+
+contexts:
+
+  script-common:
+    - meta_prepend: true
+    - match: (?i:lang){{attribute_name_break}}
+      scope: meta.attribute-with-value.html entity.other.attribute-name.html
+      set: script-lang-attribute-assignment
+
+  script-lang-attribute-assignment:
+    - meta_content_scope: meta.tag.script.begin.html meta.attribute-with-value.html
+    - match: =
+      scope: punctuation.separator.key-value.html
+      set: script-lang-attribute-value
+    - match: (?=\S)
+      set: script-javascript
+
+  script-lang-attribute-value:
+    - meta_include_prototype: false
+    - meta_scope: meta.tag.script.begin.html meta.attribute-with-value.html
+    - match: (?=(?i:coffee{{unquoted_attribute_break}}|'coffee'|"coffee"))
+      set:
+        - script-coffee
+        - tag-generic-attribute-meta
+        - tag-generic-attribute-value
+    - match: (?=\S)
+      set:
+        - script-javascript
+        - tag-generic-attribute-meta
+        - tag-generic-attribute-value
+
+  script-type-decider:
+    - meta_prepend: true
+    - match: (?={{coffee_mime_type}}{{unquoted_attribute_break}}|'{{coffee_mime_type}}'|"{{coffee_mime_type}}")
+      set:
+        - script-coffee
+        - tag-generic-attribute-meta
+        - tag-generic-attribute-value
+
+  script-coffee:
+    - meta_include_prototype: false
+    - meta_scope: meta.tag.script.begin.html
+    - match: '>'
+      scope: punctuation.definition.tag.end.html
+      set: script-coffee-content
+    - include: script-common
+
+  script-coffee-content:
+    - meta_include_prototype: false
+    - match: \s*((<!\[)(CDATA)(\[))
+      captures:
+        1: meta.tag.sgml.cdata.html
+        2: punctuation.definition.tag.begin.html
+        3: keyword.declaration.cdata.html
+        4: punctuation.definition.tag.begin.html
+      pop: 1  # make sure to match only once
+      embed: scope:source.coffee
+      embed_scope: meta.tag.sgml.cdata.html source.coffee.embedded.html
+      escape: \]\]>
+      escape_captures:
+        0: meta.tag.sgml.cdata.html punctuation.definition.tag.end.html
+    - match: '{{script_content_begin}}'
+      captures:
+        1: comment.block.html punctuation.definition.comment.begin.html
+      pop: 1  # make sure to match only once
+      embed: scope:source.coffee
+      embed_scope: source.coffee.embedded.html
+      escape: '{{script_content_end}}'
+      escape_captures:
+        1: source.coffee.embedded.html
+        2: comment.block.html punctuation.definition.comment.end.html
+        3: source.coffee.embedded.html
+        4: comment.block.html punctuation.definition.comment.end.html
+
+variables:
+
+  coffee_mime_type: |-
+    (?xi: (?: (?: application |text ) / coffee(?:script)? ) {{mime_type_parameters}}? )

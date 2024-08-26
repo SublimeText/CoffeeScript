@@ -1,0 +1,51 @@
+# SYNTAX TEST "HTML (CoffeeScript).sublime-syntax"
+
+<script type="text/coffeescript">
+# <- meta.tag.script.begin.html punctuation.definition.tag.begin.html
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.script.begin.html
+#^^^^^^ entity.name.tag.script.html
+#       ^^^^ entity.other.attribute-name.html
+#           ^ punctuation.separator.key-value.html
+#            ^^^^^^^^^^^^^^^^^^^ meta.string.html string.quoted.double.html
+#                               ^ punctuation.definition.tag.end.html
+    class extends parentClass
+    # <- source.coffee.embedded.html meta.class.coffee storage.type.class.coffee
+    #^^^^^^^^^^^^^^^^^^^^^^^^ source.coffee.embedded.html meta.class.coffee
+    #^^^^ storage.type.class.coffee
+    #     ^^^^^^^ keyword.control.inheritance.coffee
+    #             ^^^^^^^^^^^ entity.other.inherited-class.coffee
+      constructor: ->
+        return
+    # <- source.coffee.embedded.html
+    #   ^^^^^^ source.coffee.embedded.html keyword.control.flow.coffee
+</script>
+# <- meta.tag.script.end.html punctuation.definition.tag.begin.html
+#^^^^^^^^ meta.tag.script.end.html
+#^ punctuation.definition.tag.begin.html
+# ^^^^^^ entity.name.tag.script.html
+#       ^ punctuation.definition.tag.end.html
+
+<script lang="coffee">
+# <- meta.tag.script.begin.html punctuation.definition.tag.begin.html
+#^^^^^^^^^^^^^^^^^^^^^ meta.tag.script.begin.html
+#^^^^^^ entity.name.tag.script.html
+#       ^^^^ entity.other.attribute-name.html
+#           ^ punctuation.separator.key-value.html
+#            ^^^^^^^^ meta.string.html string.quoted.double.html
+#                    ^ punctuation.definition.tag.end.html
+    class extends parentClass
+    # <- source.coffee.embedded.html meta.class.coffee storage.type.class.coffee
+    #^^^^^^^^^^^^^^^^^^^^^^^^ source.coffee.embedded.html meta.class.coffee
+    #^^^^ storage.type.class.coffee
+    #     ^^^^^^^ keyword.control.inheritance.coffee
+    #             ^^^^^^^^^^^ entity.other.inherited-class.coffee
+      constructor: ->
+        return
+    # <- source.coffee.embedded.html
+    #   ^^^^^^ source.coffee.embedded.html keyword.control.flow.coffee
+</script>
+# <- meta.tag.script.end.html punctuation.definition.tag.begin.html
+#^^^^^^^^ meta.tag.script.end.html
+#^ punctuation.definition.tag.begin.html
+# ^^^^^^ entity.name.tag.script.html
+#       ^ punctuation.definition.tag.end.html
