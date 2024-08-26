@@ -64,7 +64,7 @@ contexts:
     - meta_scope: comment.block.coffee
     - match: \###(?!#)
       scope: punctuation.definition.comment.coffee
-      pop: true
+      pop: 1
     - match: (@)\w*
       scope: variable.annotation.coffee
       captures:
@@ -73,7 +73,7 @@ contexts:
   line-comment-body:
     - meta_scope: comment.line.number-sign.coffee
     - match: $\n?
-      pop: true
+      pop: 1
 
   shebang:
     - meta_include_prototype: false
@@ -81,7 +81,7 @@ contexts:
       scope: punctuation.definition.comment.coffee
       set: shebang-body
     - match: ^|(?=\S)  # Note: Ensure to highlight shebang if Python is embedded.
-      pop: true
+      pop: 1
 
   shebang-body:
     - meta_include_prototype: false
@@ -90,7 +90,7 @@ contexts:
     - match: coffee(?:\d(?:\.\d+)?)?\b
       scope: constant.language.shebang.coffee
     - match: $\n?
-      pop: true
+      pop: 1
 
 ###[ CLASS DECLARATIONS ]#####################################################
 
@@ -111,7 +111,7 @@ contexts:
       push:
         - meta_scope: meta.function.symbols.coffee
         - match: $
-          pop: true
+          pop: 1
         - include: script
     # anonymous functions
     - match: (?=\([^()]*?\)\s*[=-]>)
@@ -156,14 +156,14 @@ contexts:
 
   parameter-value:
     - match: (?=[,)])
-      pop: true
+      pop: 1
     - include: expressions
 
   function-body:
     - meta_content_scope: meta.function.coffee
     - match: '[=-]>'
       scope: meta.function.coffee keyword.declaration.function.coffee
-      pop: true
+      pop: 1
     - include: else-pop
 
 ###[ FUNCTION CALLS ]#########################################################
@@ -272,7 +272,7 @@ contexts:
     - meta_scope: meta.function-call.arguments.coffee
     - match: \)
       scope: punctuation.section.group.end.coffee
-      pop: true
+      pop: 1
     - include: script
 
 ###[ KEYWORDS ]###############################################################
@@ -360,7 +360,7 @@ contexts:
         2: punctuation.accessor.dot.coffee
     - match: '{{identifier}}'
       scope: support.class.coffee
-      pop: true
+      pop: 1
     - include: else-pop
 
 ###[ OBJECTS ]################################################################
@@ -446,7 +446,7 @@ contexts:
       captures:
         1: punctuation.definition.string.end.coffee
         2: constant.language.flags.coffee
-      pop: true
+      pop: 1
     - include: comments
     - include: string-escapes
     - include: string-interpolations
@@ -495,7 +495,7 @@ contexts:
     - meta_scope: meta.string.heredoc.coffee string.quoted.double.coffee
     - match: \"{3}
       scope: punctuation.definition.string.end.coffee
-      pop: true
+      pop: 1
     - match: \\.
       scope: constant.character.escape.coffee
     - include: string-interpolations
@@ -509,7 +509,7 @@ contexts:
     - meta_scope: meta.string.heredoc.coffee string.quoted.single.coffee
     - match: \'{3}
       scope: punctuation.definition.string.end.coffee
-      pop: true
+      pop: 1
 
   backtick-quoted-strings:
     - match: \`
@@ -529,7 +529,7 @@ contexts:
     - meta_scope: meta.string.coffee string.quoted.double.coffee
     - match: \"
       scope: punctuation.definition.string.end.coffee
-      pop: true
+      pop: 1
     - include: string-escapes
     - include: string-interpolations
 
@@ -542,7 +542,7 @@ contexts:
     - meta_scope: meta.string.coffee string.quoted.single.coffee
     - match: \'
       scope: punctuation.definition.string.end.coffee
-      pop: true
+      pop: 1
     - include: string-escapes
 
   string-escapes:
@@ -562,7 +562,7 @@ contexts:
     - meta_scope: meta.embedded.coffee source.coffee.embedded.source
     - match: \}
       scope: punctuation.section.embedded.coffee
-      pop: true
+      pop: 1
     - include: script
 
   string-embedded-body:
@@ -570,7 +570,7 @@ contexts:
     - meta_scope: meta.embedded.coffee source.coffee.embedded.source
     - match: '%>'
       scope: punctuation.section.embedded.coffee
-      pop: true
+      pop: 1
     - include: script
 
 ###[ VARIABLES ]###############################################################
@@ -585,11 +585,11 @@ contexts:
 
   else-pop:
     - match: (?=\S)
-      pop: true
+      pop: 1
 
   immediately-pop:
     - match: ''
-      pop: true
+      pop: 1
 
 ###############################################################################
 
