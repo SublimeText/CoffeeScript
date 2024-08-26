@@ -499,6 +499,27 @@ class App.Router extends Snakeskin.Router
 # ^^^ meta.string.heredoc.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
 #    ^ - meta.string - string
 
+  ```
+# ^^^ meta.string.heredoc.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
+#    ^ meta.string.heredoc.coffee meta.embedded.coffee source.jsx.embedded.coffee - string
+
+  var i = `back ${tick} string`;
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.heredoc.coffee meta.embedded.coffee source.jsx.embedded.coffee - source.jsx source.jsx
+# ^^^ keyword.declaration
+#         ^^^^^^ meta.string string.quoted.other.js
+#               ^^^^^^^ meta.string meta.interpolation.js
+#                       ^^^^^^^ meta.string string.quoted.other.js
+  return (<h1>Hello {World}</h1>)
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.heredoc.coffee meta.embedded.coffee source.jsx.embedded.coffee - source.jsx source.jsx
+#         ^^^^^^^^^^^^^^^^^^^^^^ meta.group.js meta.jsx.js
+#         ^^^^ meta.tag
+#                          ^^^^^ meta.tag
+  ```
+# <- meta.string.heredoc.coffee meta.embedded.coffee source.jsx.embedded.coffee - string
+#^ meta.string.heredoc.coffee meta.embedded.coffee source.jsx.embedded.coffee - string
+# ^^^ meta.string.heredoc.coffee string.quoted.script.coffee punctuation.definition.string.end.coffee
+#    ^ - meta.string - string
+
   `
 # ^ meta.string.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
 #  ^ meta.string.coffee meta.embedded.coffee source.jsx.embedded.coffee - string

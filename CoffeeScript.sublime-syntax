@@ -513,11 +513,18 @@ contexts:
       pop: 1
 
   backtick-quoted-strings:
+    - match: \`{3}
+      scope: meta.string.heredoc.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
+      embed: scope:source.jsx
+      embed_scope: meta.string.heredoc.coffee meta.embedded.coffee source.jsx.embedded.coffee
+      escape: '{{no_escape_behind}}`{3}'
+      escape_captures:
+        0: meta.string.heredoc.coffee string.quoted.script.coffee punctuation.definition.string.end.coffee
     - match: \`
       scope: meta.string.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
       embed: scope:source.jsx
       embed_scope: meta.string.coffee meta.embedded.coffee source.jsx.embedded.coffee
-      escape: \`
+      escape: '{{no_escape_behind}}`'
       escape_captures:
         0: meta.string.coffee string.quoted.script.coffee punctuation.definition.string.end.coffee
 
@@ -763,6 +770,10 @@ contexts:
 variables:
 
   ascii_space: '\t\n\f '
+
+  # A lookbehind used in embed..escape patterns, to check for unescaped characters
+  # in embed...escape statements.
+  no_escape_behind: (?<![^\\]\\)(?<![\\]{3})
 
   identifier: '[a-zA-Z\$_]\w*'
 
