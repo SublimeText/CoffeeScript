@@ -4,6 +4,7 @@
 # CoffeeScript Syntax: version 1
 name: CoffeeScript
 scope: source.coffee
+version: 2
 
 file_extensions:
   - coffee

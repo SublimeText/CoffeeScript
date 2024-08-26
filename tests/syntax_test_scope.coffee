@@ -65,24 +65,28 @@ class App.Router extends Snakeskin.Router
 # ^^^^^ - meta.function - entity.name.function
 
   name: ->
+# ^^^^^^^^ - meta.function meta.function
 # ^^^^ meta.function.identifier.coffee entity.name.function.coffee
 #     ^^^^ meta.function.coffee
 #     ^ keyword.operator.assignment.coffee
 #       ^^ keyword.declaration.function.coffee
 
   @name: ->
+# ^^^^^^^^^ - meta.function meta.function
 # ^^^^^ meta.function.identifier.coffee entity.name.function.coffee
 #      ^^^^ meta.function.coffee
 #      ^ keyword.operator.assignment.coffee
 #        ^^ keyword.declaration.function.coffee
 
   namespace.name: ->
+# ^^^^^^^^^^^^^^^^^^ - meta.function meta.function
 # ^^^^^^^^^^^^^^ meta.function.identifier.coffee entity.name.function.coffee
 #               ^^^^ meta.function.coffee
 #               ^ keyword.operator.assignment.coffee
 #                 ^^ keyword.declaration.function.coffee
 
   name = =>
+# ^^^^^^^^^ - meta.function meta.function
 # ^^^^ meta.function.identifier.coffee entity.name.function.coffee
 #     ^ meta.function.identifier.coffee - entity
 #      ^^^^ meta.function.coffee
@@ -90,6 +94,7 @@ class App.Router extends Snakeskin.Router
 #        ^^ keyword.declaration.function.coffee
 
   namespace.name = =>
+# ^^^^^^^^^^^^^^^^^^^ - meta.function meta.function
 # ^^^^^^^^^^^^^^ meta.function.identifier.coffee entity.name.function.coffee
 #               ^ meta.function.identifier.coffee - entity
 #                ^^^^ meta.function.coffee
@@ -97,18 +102,21 @@ class App.Router extends Snakeskin.Router
 #                  ^^ keyword.declaration.function.coffee
 
   name: =>
+# ^^^^^^^^ - meta.function meta.function
 # ^^^^ meta.function.identifier.coffee entity.name.function.coffee
 #     ^^^^ meta.function.coffee
 #     ^ keyword.operator.assignment.coffee
 #       ^^ keyword.declaration.function.coffee
 
   namespace.name: =>
+# ^^^^^^^^^^^^^^^^^^ - meta.function meta.function
 # ^^^^^^^^^^^^^^ meta.function.identifier.coffee entity.name.function.coffee
 #               ^^^^ meta.function.coffee
 #               ^ keyword.operator.assignment.coffee
 #                 ^^ keyword.declaration.function.coffee
 
   name = =>
+# ^^^^^^^^^ - meta.function meta.function
 # ^^^^ meta.function.identifier.coffee entity.name.function.coffee
 #     ^ meta.function.identifier.coffee - entity
 #      ^^^^ meta.function.coffee
@@ -116,6 +124,7 @@ class App.Router extends Snakeskin.Router
 #        ^^ keyword.declaration.function.coffee
 
   namespace.name = =>
+# ^^^^^^^^^^^^^^^^^^^ - meta.function meta.function
 # ^^^^^^^^^^^^^^ meta.function.identifier.coffee entity.name.function.coffee
 #               ^ meta.function.identifier.coffee - entity
 #                ^^^^ meta.function.coffee
@@ -123,6 +132,7 @@ class App.Router extends Snakeskin.Router
 #                  ^^ keyword.declaration.function.coffee
 
   name: () ->
+# ^^^^^^^^^^^ - meta.function meta.function
 # ^^^^ meta.function.identifier.coffee entity.name.function.coffee
 #     ^^ meta.function.coffee
 #       ^^ meta.function.parameters.coffee
@@ -133,6 +143,7 @@ class App.Router extends Snakeskin.Router
 #          ^^ keyword.declaration.function.coffee
 
   name: (foo, bar = undefined, baz="buuz", ...) ->
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - meta.function meta.function
 # ^^^^ meta.function.identifier.coffee entity.name.function.coffee
 #     ^^ meta.function.coffee
 #       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters.coffee
@@ -492,10 +503,10 @@ class App.Router extends Snakeskin.Router
 # ^ meta.string.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
 #  ^ meta.string.coffee meta.embedded.coffee source.jsx.embedded.coffee - string
   var i = 0;
-# ^^^^^^^^^^^ meta.string.coffee meta.embedded.coffee source.jsx.embedded.coffee
+# ^^^^^^^^^^^ meta.string.coffee meta.embedded.coffee source.jsx.embedded.coffee - source.jsx source.jsx
 # ^^^ keyword.declaration
   return (<h1>Hello {World}</h1>)
-# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.coffee meta.embedded.coffee source.jsx.embedded.coffee
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.coffee meta.embedded.coffee source.jsx.embedded.coffee - source.jsx source.jsx
 #         ^^^^^^^^^^^^^^^^^^^^^^ meta.group.js meta.jsx.js
 #         ^^^^ meta.tag
 #                          ^^^^^ meta.tag
