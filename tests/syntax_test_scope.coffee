@@ -488,6 +488,23 @@ class App.Router extends Snakeskin.Router
 # ^^^ meta.string.heredoc.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
 #    ^ - meta.string - string
 
+  `
+# ^ meta.string.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
+#  ^ meta.string.coffee meta.embedded.coffee source.jsx.embedded.coffee - string
+  var i = 0;
+# ^^^^^^^^^^^ meta.string.coffee meta.embedded.coffee source.jsx.embedded.coffee
+# ^^^ keyword.declaration
+  return (<h1>Hello {World}</h1>)
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.coffee meta.embedded.coffee source.jsx.embedded.coffee
+#         ^^^^^^^^^^^^^^^^^^^^^^ meta.group.js meta.jsx.js
+#         ^^^^ meta.tag
+#                          ^^^^^ meta.tag
+  `
+# <- meta.string.coffee meta.embedded.coffee source.jsx.embedded.coffee - string
+#^ meta.string.coffee meta.embedded.coffee source.jsx.embedded.coffee - string
+# ^ meta.string.coffee string.quoted.script.coffee punctuation.definition.string.end.coffee
+#  ^ - meta.string - string
+
   ///
 # <- - meta.string
 #^ - meta.string
