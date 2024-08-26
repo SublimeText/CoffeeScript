@@ -236,6 +236,11 @@ class App.Router extends Snakeskin.Router
 # ^^^^^^^^^^ keyword.control.flow.coffee
 #            ^^^^ variable.other.readwrite.instance.coffee
 
+  await return @foo;
+# ^^^^^ keyword.control.flow.coffee
+#       ^^^^^^ keyword.control.flow.coffee
+#              ^^^^ variable.other.readwrite.instance.coffee
+
 ###[ OPERATORS ]###############################################################
 
   as

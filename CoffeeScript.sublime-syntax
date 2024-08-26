@@ -314,7 +314,7 @@ contexts:
     - match: while(?!\s*:)\b
       scope: keyword.control.loop.while.coffee
     # flow
-    - match: (?:break|continue|return|throw|yield(?:\s+from)?)(?!\s*:)\b
+    - match: (?:await|break|continue|return|throw|yield(?:\s+from)?)(?!\s*:)\b
       scope: keyword.control.flow.coffee
     # other
     - match: (?:debugger\b|\\)
