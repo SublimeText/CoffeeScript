@@ -32,6 +32,7 @@ contexts:
     - include: classes
     - include: keywords
     - include: functions
+    - include: jsx-tags
     - include: expressions
 
   expressions:
@@ -573,6 +574,171 @@ contexts:
       pop: 1
     - include: script
 
+###[ JSX TAGS ]################################################################
+
+  jsx-tags:
+    - match: (<)(?:({{component_names}})|({{tag_names}}))(?=\s|/?>)
+      captures:
+        1: punctuation.definition.tag.begin.coffee
+        2: entity.name.tag.component.coffee
+        3: entity.name.tag.coffee
+      push:
+        - jsx-meta
+        - jsx-tag-open-body
+
+  jsx-meta:
+    - meta_include_prototype: false
+    - meta_scope: meta.jsx.coffee
+    - include: immediately-pop
+
+  jsx-body:
+    - match: (</)(?:({{component_names}})|({{tag_names}}))(?=\s|/?>)
+      captures:
+        1: punctuation.definition.tag.begin.coffee
+        2: entity.name.tag.component.coffee
+        3: entity.name.tag.coffee
+      set: jsx-tag-close-body
+    - match: (<)(?:({{component_names}})|({{tag_names}}))(?=\s|/?>)
+      captures:
+        1: punctuation.definition.tag.begin.coffee
+        2: entity.name.tag.component.coffee
+        3: entity.name.tag.coffee
+      push: jsx-tag-open-body
+    - include: jsx-text-interpolations
+
+  jsx-tag-close-body:
+    - meta_include_prototype: false
+    - meta_scope: meta.tag.coffee
+    - match: /?>
+      scope: punctuation.definition.tag.end.coffee
+      pop: 1
+
+  jsx-tag-open-body:
+    - meta_include_prototype: false
+    - meta_scope: meta.tag.coffee
+    - match: />
+      scope: punctuation.definition.tag.end.coffee
+      pop: 1
+    - match: \>
+      scope: punctuation.definition.tag.end.coffee
+      set: jsx-body
+    - match: '{{attribute_name_start}}'
+      push:
+        - jsx-tag-attribute-meta
+        - jsx-tag-attribute-assignment
+        - jsx-tag-attribute-name
+
+  jsx-tag-attribute-name:
+    - meta_scope: entity.other.attribute-name.coffee
+    - include: jsx-string-interpolations
+    - match: '{{attribute_name_break}}'
+      pop: 1
+    - match: '["''`<]'
+      scope: invalid.illegal.attribute-name.coffee
+
+  jsx-tag-attribute-meta:
+    - meta_include_prototype: false
+    - meta_scope: meta.attribute-with-value.coffee
+    - include: immediately-pop
+
+  jsx-tag-attribute-assignment:
+    - meta_include_prototype: false
+    - match: =
+      scope: punctuation.separator.key-value.coffee
+      set: jsx-tag-attribute-value
+    - include: else-pop
+
+  jsx-tag-attribute-value:
+    - meta_include_prototype: false
+    - match: \"
+      scope: punctuation.definition.string.begin.coffee
+      set: jsx-tag-attribute-value-double-quoted-content
+    - match: \'
+      scope: punctuation.definition.string.begin.coffee
+      set: jsx-tag-attribute-value-single-quoted-content
+    - match: '{{unquoted_attribute_start}}'
+      set: jsx-tag-attribute-value-unquoted-content
+    - include: else-pop
+
+  jsx-tag-attribute-value-double-quoted-content:
+    # See the top of this file for why prototype is excluded
+    - meta_include_prototype: false
+    - meta_scope: meta.string.coffee string.quoted.double.coffee
+    - match: \"
+      scope: punctuation.definition.string.end.coffee
+      pop: 1
+    - include: jsx-string-interpolations
+
+  jsx-tag-attribute-value-single-quoted-content:
+    # See the top of this file for why prototype is excluded
+    - meta_include_prototype: false
+    - meta_scope: meta.string.coffee string.quoted.single.coffee
+    - match: \'
+      scope: punctuation.definition.string.end.coffee
+      pop: 1
+    - include: jsx-string-interpolations
+
+  jsx-tag-attribute-value-unquoted-content:
+    # See the top of this file for why prototype is excluded
+    - meta_include_prototype: false
+    - meta_content_scope: meta.string.coffee string.unquoted.coffee
+    - include: jsx-string-interpolations
+    - match: '{{unquoted_attribute_break}}'
+      pop: 1
+    - match: '["''`<]'
+      scope: invalid.illegal.attribute-value.coffee
+
+  jsx-string-interpolations:
+    - match: \{#
+      scope: punctuation.definition.comment.begin.coffee
+      push: jsx-string-comment-body
+    - match: \{
+      scope: punctuation.section.interpolation.begin.coffee
+      push: jsx-string-interpolation-body
+
+  jsx-string-comment-body:
+    # required to support "toggle_comment"
+    - clear_scopes: 1
+    - meta_scope: meta.interpolation.coffee comment.block.coffee
+    - include: jsx-text-comment-body
+
+  jsx-string-interpolation-body:
+    - clear_scopes: 1
+    - meta_scope: meta.interpolation.coffee
+    - meta_content_scope: source.coffee.embedded.jsx
+    - include: jsx-text-interpolation-body
+
+  jsx-text-interpolations:
+    - match: \{#
+      scope: punctuation.definition.comment.begin.coffee
+      push: jsx-text-comment-body
+    - match: \{
+      scope: punctuation.section.interpolation.begin.coffee
+      push: jsx-text-interpolation-body
+
+  jsx-text-comment-body:
+    # required to support "toggle_comment"
+    - meta_scope: meta.interpolation.coffee comment.block.coffee
+    - match: \}
+      scope: punctuation.definition.comment.end.coffee
+      pop: 1
+
+  jsx-text-interpolation-body:
+    - meta_scope: meta.interpolation.coffee
+    - meta_content_scope: source.coffee.embedded.jsx
+    - match: \}
+      scope: punctuation.section.interpolation.end.coffee
+      pop: 1
+    - match: \#
+      scope: punctuation.definition.comment.coffee
+      push: jsx-line-comment-body
+    - include: script
+
+  jsx-line-comment-body:
+    - meta_scope: comment.line.number-sign.coffee
+    - match: $\n?|(?=})
+      pop: 1
+
 ###[ VARIABLES ]###############################################################
 
   instance-variables:
@@ -596,4 +762,18 @@ contexts:
 
 variables:
 
+  ascii_space: '\t\n\f '
+
   identifier: '[a-zA-Z\$_]\w*'
+
+  component_names: '[A-Z][[:alnum:]_.-]*'
+  tag_names: '[[:alpha:]][[:alnum:]_.-]*'
+
+  # https://html.spec.whatwg.org/multipage/syntax.coffee#attributes-2
+  attribute_name_break_char: '[{{ascii_space}}=/>]'
+  attribute_name_break: (?={{attribute_name_break_char}})
+  attribute_name_start: (?=[^{{attribute_name_break_char}}])
+
+  # https://html.spec.whatwg.org/multipage/syntax.coffee#syntax-attribute-value
+  unquoted_attribute_break: (?=[{{ascii_space}}]|/?>)
+  unquoted_attribute_start: (?=[^{{ascii_space}}=>])

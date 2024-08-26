@@ -561,3 +561,49 @@ class App.Router extends Snakeskin.Router
   @variable
 # ^^^^^^^^^ variable.other.readwrite.instance.coffee
 # ^ punctuation.definition.variable.coffee
+
+###[ JSX ]#####################################################################
+
+  <Component attrib="va{@lue}">
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.jsx.coffee meta.tag.coffee
+# ^ punctuation.definition.tag.begin.coffee
+#  ^^^^^^^^^ entity.name.tag.component.coffee
+#            ^^^^^^^^^^^^^^^^^ meta.attribute-with-value.coffee
+#            ^^^^^^ entity.other.attribute-name.coffee
+#                  ^ punctuation.separator.key-value.coffee
+#                   ^^^ meta.string.coffee string.quoted.double.coffee
+#                      ^^^^^^ meta.string.coffee meta.interpolation.coffee
+#                      ^ punctuation.section.interpolation.begin.coffee
+#                       ^^^^ source.coffee.embedded.jsx variable.other.readwrite.instance.coffee
+#                           ^ punctuation.section.interpolation.end.coffee
+#                            ^ meta.string.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
+#                             ^ punctuation.definition.tag.end.coffee
+    <h1>Text {# comment}!</h1>
+#   ^^^^ meta.jsx.coffee meta.tag.coffee
+#   ^ punctuation.definition.tag.begin.coffee
+#    ^^ entity.name.tag.coffee
+#      ^ punctuation.definition.tag.end.coffee
+#       ^^^^^ meta.jsx.coffee - meta.interpolation
+#            ^^^^^^^^^^^ meta.jsx.coffee meta.interpolation.coffee comment.block.coffee
+#            ^^ punctuation.definition.comment.begin.coffee
+#                      ^ punctuation.definition.comment.end.coffee
+#                       ^ meta.jsx.coffee - meta.interpolation
+#                        ^^^^^ meta.jsx.coffee meta.tag.coffee
+#                        ^^ punctuation.definition.tag.begin.coffee
+#                          ^^ entity.name.tag.coffee
+#                            ^ punctuation.definition.tag.end.coffee
+  </Component>
+# ^^^^^^^^^^^^ meta.jsx.coffee meta.tag.coffee
+# ^^ punctuation.definition.tag.begin.coffee
+#   ^^^^^^^^^ entity.name.tag.component.coffee
+#            ^ punctuation.definition.tag.end.coffee
+#             ^ - meta.jsx - meta.tag
+
+  <EmailInput
+    {# THIS IS A GOOD COMMENT }
+#   ^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.jsx.coffee meta.tag.coffee meta.attribute-with-value.coffee meta.interpolation.coffee comment.block.coffee
+    {...@props}
+#   ^^^^^^^^^^^ meta.jsx.coffee meta.tag.coffee meta.attribute-with-value.coffee meta.interpolation.coffee
+  />
+# ^^ meta.jsx.coffee meta.tag.coffee punctuation.definition.tag.end.coffee
+#   ^ - meta.jsx - meta.tag
