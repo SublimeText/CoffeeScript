@@ -237,16 +237,16 @@ class App.Router extends Snakeskin.Router
 
   yield @foo
 # ^^^^^ keyword.control.flow.coffee
-#       ^^^^ variable.other.readwrite.instance.coffee
+#       ^^^^ variable.other.member.coffee
 
   yield from @foo
 # ^^^^^^^^^^ keyword.control.flow.coffee
-#            ^^^^ variable.other.readwrite.instance.coffee
+#            ^^^^ variable.other.member.coffee
 
   await return @foo;
 # ^^^^^ keyword.control.flow.coffee
 #       ^^^^^^ keyword.control.flow.coffee
-#              ^^^^ variable.other.readwrite.instance.coffee
+#              ^^^^ variable.other.member.coffee
 
 ###[ OPERATORS ]###############################################################
 
@@ -622,7 +622,7 @@ class App.Router extends Snakeskin.Router
 #                     ^ meta.number.integer.decimal.coffee constant.numeric.value.coffee
 
   @variable
-# ^^^^^^^^^ variable.other.readwrite.instance.coffee
+# ^^^^^^^^^ variable.other.member.coffee
 # ^ punctuation.definition.variable.coffee
 
 ###[ JSX ]#####################################################################
@@ -637,7 +637,7 @@ class App.Router extends Snakeskin.Router
 #                   ^^^ meta.string.coffee string.quoted.double.coffee
 #                      ^^^^^^ meta.string.coffee meta.interpolation.coffee
 #                      ^ punctuation.section.interpolation.begin.coffee
-#                       ^^^^ source.coffee.embedded.jsx variable.other.readwrite.instance.coffee
+#                       ^^^^ source.coffee.embedded.jsx variable.other.member.coffee
 #                           ^ punctuation.section.interpolation.end.coffee
 #                            ^ meta.string.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
 #                             ^ punctuation.definition.tag.end.coffee

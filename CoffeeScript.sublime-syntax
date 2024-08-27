@@ -47,9 +47,8 @@ contexts:
     - include: triple-single-quoted-strings
     - include: double-quoted-strings
     - include: single-quoted-strings
-    - include: instance-variables
     - include: numbers
-    - include: objects
+    - include: variables
 
 ###[ COMMENTS ]###############################################################
 
@@ -408,45 +407,6 @@ contexts:
       pop: 1
     - include: else-pop
 
-###[ OBJECTS ]################################################################
-
-  objects:
-    - match: (?:this|extends)(?!\s*[:=])\b
-      scope: variable.language.coffee
-    - match: ({{identifier}})?(\.)
-      captures:
-        1: variable.other.object.coffee
-        2: punctuation.accessor.dot.coffee
-      push: member
-    - match: '{{identifier}}'
-      scope: variable.other.readwrite.coffee
-
-  member:
-    - meta_scope: meta.path.coffee
-    # member objects
-    - match: ({{identifier}})(\.)
-      captures:
-        1: variable.other.object.coffee
-        2: punctuation.accessor.dot.coffee
-    # method
-    - match: '{{identifier}}(?=\()'
-      scope: meta.function-call.identifier.coffee variable.function.coffee
-      set: function-call-argument-list
-    # member variable
-    - match: '{{identifier}}'
-      scope: variable.other.member.coffee
-      pop: 1
-    - include: immediately-pop
-
-  variables:
-    # member objects
-    - match: ({{identifier}})(\.)
-      captures:
-        1: variable.other.object.coffee
-        2: punctuation.accessor.dot.coffee
-    - match: '{{identifier}}'
-      scope: variable.other.member.coffee
-
 ###[ OPERATORS ]##############################################################
 
   punctuations:
@@ -790,13 +750,39 @@ contexts:
     - match: $\n?|(?=})
       pop: 1
 
-###[ VARIABLES ]###############################################################
+###[ VARIABLES ]##############################################################
 
-  instance-variables:
+  variables:
+    - match: (?:this|extends)(?!\s*[:=])\b
+      scope: variable.language.coffee
+    - match: ({{identifier}})?(\.)
+      captures:
+        1: variable.other.object.coffee
+        2: punctuation.accessor.dot.coffee
+      push: member
     - match: (@)(?:{{identifier}})?
-      scope: variable.other.readwrite.instance.coffee
+      scope: variable.other.member.coffee
       captures:
         1: punctuation.definition.variable.coffee
+    - match: '{{identifier}}'
+      scope: variable.other.readwrite.coffee
+
+  member:
+    - meta_scope: meta.path.coffee
+    # member objects
+    - match: ({{identifier}})(\.)
+      captures:
+        1: variable.other.object.coffee
+        2: punctuation.accessor.dot.coffee
+    # method
+    - match: '{{identifier}}(?=\()'
+      scope: meta.function-call.identifier.coffee variable.function.coffee
+      set: function-call-argument-list
+    # member variable
+    - match: '{{identifier}}'
+      scope: variable.other.member.coffee
+      pop: 1
+    - include: immediately-pop
 
 ###[ PROTOTYPES ]##############################################################
 
