@@ -302,8 +302,10 @@ contexts:
         | Uint(?: 8 | 16 | 32 | 64)Array | XMLHttpRequest | Symbol )\b
       scope: support.class.coffee
     # user function calls
-    - match: '{{identifier}}(?=\()'
+    - match: (@?){{identifier}}(?=\()
       scope: meta.function-call.identifier.coffee variable.function.coffee
+      captures:
+        1: punctuation.definition.variable.coffee
       push: function-call-argument-list
 
   function-call-argument-list:

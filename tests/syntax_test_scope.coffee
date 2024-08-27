@@ -366,6 +366,33 @@ class App.Router extends Snakeskin.Router
 #              ^ punctuation.section.group.begin.coffee
 #               ^ punctuation.section.group.end.coffee
 
+###[ USER FUNCTIONS ]##########################################################
+
+  func()
+# ^^^^ meta.function-call.identifier.coffee variable.function.coffee
+#     ^^ meta.function-call.arguments.coffee
+
+  $func()
+# ^^^^^ meta.function-call.identifier.coffee variable.function.coffee
+#      ^^ meta.function-call.arguments.coffee
+
+  $('')
+# ^ meta.function-call.identifier.coffee variable.function.coffee
+#  ^^^^ meta.function-call.arguments.coffee
+
+  @name()
+# ^^^^^ meta.function-call.identifier.coffee variable.function.coffee
+#      ^^ meta.function-call.arguments.coffee
+
+  @$('#notification')
+# ^^ meta.function-call.identifier.coffee variable.function.coffee
+#   ^^^^^^^^^^^^^^^^^ meta.function-call.arguments.coffee
+# ^ punctuation.definition.variable.coffee
+#  ^ variable.function.coffee
+#   ^ punctuation.section.group.begin.coffee
+#    ^^^^^^^^^^^^^^^ meta.string.coffee string.quoted.single.coffee
+#                   ^ punctuation.section.group.end.coffee
+
 ###[ OBJECT MEMBERS ]##########################################################
 
   this.key
