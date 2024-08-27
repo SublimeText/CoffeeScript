@@ -115,36 +115,77 @@ contexts:
           pop: 1
         - include: script
     # anonymous functions
-    - match: (?=\([^()]*?\)\s*[=-]>)
-      push: function-parameter-list
+    - match: (?=\()
+      branch_point: anonymous
+      branch:
+        - anonymous-parameter-list
+        - group
     # named functions
-    - match: |-
-        (?x)
-        \s*
-        ( [a-zA-Z\$_@] [\w\$:.]* ) \s*
-        (?=[:=](?: \s*.\( $ | (?: \s*\(.*\) )? \s* [=-]> ) )
-      scope: meta.function.identifier.coffee
-      captures:
-        1: entity.name.function.coffee
-      push: function-parameter-list
+    - match: (?=(?:(?!and=|or=)|@){{identifier}}\s*[:=][^>])
+      branch_point: function
+      branch:
+        - function-name
+        - immediately-pop
     - match: '[=-]>'
       scope: keyword.declaration.function.coffee
 
-  function-parameter-list:
+  anonymous-parameter-list:
+    - match: \(
+      scope: punctuation.section.parameters.begin.coffee
+      set:
+        - anonymous-body
+        - function-parameter-list-body
+    - include: comments
+    - include: else-pop
+
+  anonymous-body:
     - meta_content_scope: meta.function.coffee
+    - match: '[=-]>'
+      scope: meta.function.coffee keyword.declaration.function.coffee
+      pop: 1
+    - match: (?=\S)
+      fail: anonymous
+
+  group:
+    - match: \(
+      scope: punctuation.section.group.begin.coffee
+      pop: 1
+
+  function-name:
+    - meta_include_prototype: false
+    - meta_scope: meta.function.identifier.coffee
+    - match: (@?){{identifier}}
+      scope: entity.name.function.coffee
+      captures:
+        1: punctuation.definition.variable.coffee
+      set:
+        - function-body
+        - function-parameter-list
+        - function-assignment
+    - match: (?=\S)
+      fail: function
+
+  function-assignment:
+    - meta_include_prototype: false
     - match: '[:=](?!>)'
       scope: keyword.operator.assignment.coffee
+      pop: 1
+    - match: (?=\S)
+      fail: function
+
+  function-parameter-list:
     - match: \(
       scope: punctuation.section.parameters.begin.coffee
       set: function-parameter-list-body
-    - match: (?=\S)
-      set: function-body
+    - include: comments
+    - include: else-pop
 
   function-parameter-list-body:
+    - clear_scopes: 1
     - meta_scope: meta.function.parameters.coffee
     - match: \)
       scope: punctuation.section.parameters.end.coffee
-      set: function-body
+      pop: 1
     - match: '[:=]'
       scope: keyword.operator.assignment.coffee
       push: parameter-value
@@ -165,7 +206,8 @@ contexts:
     - match: '[=-]>'
       scope: meta.function.coffee keyword.declaration.function.coffee
       pop: 1
-    - include: else-pop
+    - match: (?=\S)
+      fail: function
 
 ###[ FUNCTION CALLS ]#########################################################
 
@@ -775,7 +817,7 @@ variables:
   # in embed...escape statements.
   no_escape_behind: (?<![^\\]\\)(?<![\\]{3})
 
-  identifier: '[a-zA-Z\$_]\w*'
+  identifier: '[[:alpha:]_$]\w*'
 
   component_names: '[A-Z][[:alnum:]_.-]*'
   tag_names: '[[:alpha:]][[:alnum:]_.-]*'

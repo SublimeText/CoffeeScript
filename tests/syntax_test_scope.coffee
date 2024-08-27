@@ -78,28 +78,13 @@ class App.Router extends Snakeskin.Router
 #      ^ keyword.operator.assignment.coffee
 #        ^^ keyword.declaration.function.coffee
 
-  namespace.name: ->
-# ^^^^^^^^^^^^^^^^^^ - meta.function meta.function
-# ^^^^^^^^^^^^^^ meta.function.identifier.coffee entity.name.function.coffee
-#               ^^^^ meta.function.coffee
-#               ^ keyword.operator.assignment.coffee
-#                 ^^ keyword.declaration.function.coffee
-
   name = =>
 # ^^^^^^^^^ - meta.function meta.function
 # ^^^^ meta.function.identifier.coffee entity.name.function.coffee
-#     ^ meta.function.identifier.coffee - entity
+#     ^ meta.function.coffee - entity
 #      ^^^^ meta.function.coffee
 #      ^ keyword.operator.assignment.coffee
 #        ^^ keyword.declaration.function.coffee
-
-  namespace.name = =>
-# ^^^^^^^^^^^^^^^^^^^ - meta.function meta.function
-# ^^^^^^^^^^^^^^ meta.function.identifier.coffee entity.name.function.coffee
-#               ^ meta.function.identifier.coffee - entity
-#                ^^^^ meta.function.coffee
-#                ^ keyword.operator.assignment.coffee
-#                  ^^ keyword.declaration.function.coffee
 
   name: =>
 # ^^^^^^^^ - meta.function meta.function
@@ -108,28 +93,13 @@ class App.Router extends Snakeskin.Router
 #     ^ keyword.operator.assignment.coffee
 #       ^^ keyword.declaration.function.coffee
 
-  namespace.name: =>
-# ^^^^^^^^^^^^^^^^^^ - meta.function meta.function
-# ^^^^^^^^^^^^^^ meta.function.identifier.coffee entity.name.function.coffee
-#               ^^^^ meta.function.coffee
-#               ^ keyword.operator.assignment.coffee
-#                 ^^ keyword.declaration.function.coffee
-
   name = =>
 # ^^^^^^^^^ - meta.function meta.function
 # ^^^^ meta.function.identifier.coffee entity.name.function.coffee
-#     ^ meta.function.identifier.coffee - entity
+#     ^ meta.function.coffee - entity
 #      ^^^^ meta.function.coffee
 #      ^ keyword.operator.assignment.coffee
 #        ^^ keyword.declaration.function.coffee
-
-  namespace.name = =>
-# ^^^^^^^^^^^^^^^^^^^ - meta.function meta.function
-# ^^^^^^^^^^^^^^ meta.function.identifier.coffee entity.name.function.coffee
-#               ^ meta.function.identifier.coffee - entity
-#                ^^^^ meta.function.coffee
-#                ^ keyword.operator.assignment.coffee
-#                  ^^ keyword.declaration.function.coffee
 
   name: () ->
 # ^^^^^^^^^^^ - meta.function meta.function
@@ -163,6 +133,30 @@ class App.Router extends Snakeskin.Router
 #                                          ^^^ keyword.operator.variadic.coffee
 #                                             ^ punctuation.section.parameters.end.coffee
 #                                               ^^ keyword.declaration.function.coffee
+
+  name:
+# ^^^^ meta.function.identifier.coffee entity.name.function.coffee
+#     ^ meta.function.coffee keyword.operator.assignment.coffee
+    (foo, bar = undefined,
+#^^^ meta.function.coffee
+#   ^^^^^^^^^^^^^^^^^^^^^^^ meta.function.parameters.coffee
+#   ^ punctuation.section.parameters.begin.coffee
+#    ^^^ variable.parameter.coffee
+#       ^ punctuation.separator.sequence.coffee
+#         ^^^ variable.parameter.coffee
+#             ^ keyword.operator.assignment.coffee
+#               ^^^^^^^^^ constant.language.coffee
+#                        ^ punctuation.separator.sequence.coffee
+      baz="buuz", ...) ->
+#   ^^^^^^^^^^^^^^^^^^ meta.function.parameters.coffee
+#                     ^^^ meta.function.coffee
+#     ^^^ variable.parameter.coffee
+#        ^ keyword.operator.assignment.coffee
+#         ^^^^^^ meta.string.coffee string.quoted.double.coffee
+#               ^ punctuation.separator.sequence.coffee
+#                 ^^^ keyword.operator.variadic.coffee
+#                    ^ punctuation.section.parameters.end.coffee
+#                      ^^ keyword.declaration.function.coffee
 
   name: (
 # ^^^^ meta.function.identifier.coffee entity.name.function.coffee
@@ -203,12 +197,25 @@ class App.Router extends Snakeskin.Router
 #    ^^ keyword.declaration.function.coffee
 
   (foo) ->
-# ^^^^^ meta.function.parameters.coffee
+# ^^^^^ meta.function.parameters.coffee - meta.function meta.function
 #      ^^^ meta.function.coffee
 # ^ punctuation.section.parameters.begin.coffee
 #  ^^^ variable.parameter.coffee
 #     ^ punctuation.section.parameters.end.coffee
 #       ^^ keyword.declaration.function.coffee
+
+  (foo,
+    bar="baz") ->
+# ^^^^^^^^^^^^ meta.function.parameters.coffee - meta.function meta.function
+#             ^^^ meta.function.coffee - meta.function meta.function
+#   ^^^ variable.parameter.coffee
+#      ^ keyword.operator.assignment.coffee
+#       ^^^^^ meta.string.coffee string.quoted.double.coffee
+#            ^ punctuation.section.parameters.end.coffee
+#              ^^ keyword.declaration.function.coffee
+
+  ->
+# ^^ keyword.declaration.function.coffee
 
 ###[ KEYWORDS ]################################################################
 
