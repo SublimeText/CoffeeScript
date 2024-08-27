@@ -368,7 +368,7 @@ contexts:
     # symbolic
     - match: (?:and|or|<<|>>>?|[-+*/%&|^])=
       scope: keyword.operator.assignment.augmented.coffee
-    - match: \+\+?|\-\-?|[*/%]
+    - match: \+\+?|\-\-?|\*\*?|//?|%%?
       scope: keyword.operator.arithmetic.coffee
     - match: '[=!]==?|[<>]=?'
       scope: keyword.operator.comparison.coffee

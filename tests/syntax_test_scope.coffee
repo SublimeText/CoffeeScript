@@ -333,12 +333,15 @@ class App.Router extends Snakeskin.Router
 #     ^ keyword.operator.bitwise.coffee
 #       ^ keyword.operator.bitwise.coffee
 
-  + - * / %
+  + - * / % ** // %%
 # ^ keyword.operator.arithmetic.coffee
 #   ^ keyword.operator.arithmetic.coffee
 #     ^ keyword.operator.arithmetic.coffee
 #       ^ keyword.operator.arithmetic.coffee
 #         ^ keyword.operator.arithmetic.coffee
+#           ^^ keyword.operator.arithmetic.coffee
+#              ^^ keyword.operator.arithmetic.coffee
+#                 ^^ keyword.operator.arithmetic.coffee
 
   = :
 # ^ keyword.operator.assignment.coffee
