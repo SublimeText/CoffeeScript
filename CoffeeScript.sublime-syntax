@@ -169,8 +169,7 @@ contexts:
     - match: '[:=](?!>)'
       scope: keyword.operator.assignment.coffee
       pop: 1
-    - match: (?=\S)
-      fail: function
+    - include: else-pop
 
   function-parameter-list:
     - match: \(
@@ -778,9 +777,39 @@ contexts:
     - match: '{{identifier}}(?=\()'
       scope: meta.function-call.identifier.coffee variable.function.coffee
       set: function-call-argument-list
-    # member variable
+    # member function definition or variable
+    - match: (?=(?:(?!and=|or=)|@){{identifier}})
+      branch_point: member
+      branch:
+        - member-function
+        - member-variable
+      pop: 1
+
+  member-function:
+    - meta_include_prototype: false
+    - meta_scope: meta.function.identifier.coffee meta.path.coffee
+    - match: (@?){{identifier}}
+      scope: entity.name.function.coffee
+      captures:
+        1: punctuation.definition.variable.coffee
+      set:
+        - member-function-body
+        - function-parameter-list
+        - function-assignment
+    - match: ''
+      fail: member
+
+  member-function-body:
+    - meta_content_scope: meta.function.coffee
+    - match: '[=-]>'
+      scope: meta.function.coffee keyword.declaration.function.coffee
+      pop: 1
+    - match: (?=\S)
+      fail: member
+
+  member-variable:
     - match: '{{identifier}}'
-      scope: variable.other.member.coffee
+      scope: meta.path.coffee variable.other.member.coffee
       pop: 1
     - include: immediately-pop
 

@@ -78,13 +78,34 @@ class App.Router extends Snakeskin.Router
 #      ^ keyword.operator.assignment.coffee
 #        ^^ keyword.declaration.function.coffee
 
-  name = =>
+  namespace.name: ->
+# ^^^^^^^^^ meta.path.coffee variable.other.object.coffee
+#          ^ meta.path.coffee punctuation.accessor.dot.coffee
+#           ^^^^^^^^ - meta.function meta.function
+#           ^^^^ meta.function.identifier.coffee meta.path.coffee entity.name.function.coffee
+#               ^ meta.function.coffee keyword.operator.assignment.coffee
+#                ^ meta.function.coffee - keyword
+#                 ^^ meta.function.coffee keyword.declaration.function.coffee
+#                   ^ - meta.function
+
+  name = ->
 # ^^^^^^^^^ - meta.function meta.function
 # ^^^^ meta.function.identifier.coffee entity.name.function.coffee
 #     ^ meta.function.coffee - entity
 #      ^^^^ meta.function.coffee
 #      ^ keyword.operator.assignment.coffee
 #        ^^ keyword.declaration.function.coffee
+
+  namespace.name = ->
+# ^^^^^^^^^ meta.path.coffee variable.other.object.coffee
+#          ^ meta.path.coffee punctuation.accessor.dot.coffee
+#           ^^^^^^^^^ - meta.function meta.function
+#           ^^^^ meta.function.identifier.coffee meta.path.coffee entity.name.function.coffee
+#               ^ meta.function.coffee - keyword
+#                ^ meta.function.coffee keyword.operator.assignment.coffee
+#                 ^ meta.function.coffee - keyword
+#                  ^^ meta.function.coffee keyword.declaration.function.coffee
+#                    ^ - meta.function
 
   name: =>
 # ^^^^^^^^ - meta.function meta.function
@@ -93,6 +114,16 @@ class App.Router extends Snakeskin.Router
 #     ^ keyword.operator.assignment.coffee
 #       ^^ keyword.declaration.function.coffee
 
+  namespace.name: =>
+# ^^^^^^^^^ meta.path.coffee variable.other.object.coffee
+#          ^ meta.path.coffee punctuation.accessor.dot.coffee
+#           ^^^^^^^^ - meta.function meta.function
+#           ^^^^ meta.function.identifier.coffee meta.path.coffee entity.name.function.coffee
+#               ^ meta.function.coffee keyword.operator.assignment.coffee
+#                ^ meta.function.coffee - keyword
+#                 ^^ meta.function.coffee keyword.declaration.function.coffee
+#                   ^ - meta.function
+
   name = =>
 # ^^^^^^^^^ - meta.function meta.function
 # ^^^^ meta.function.identifier.coffee entity.name.function.coffee
@@ -100,6 +131,17 @@ class App.Router extends Snakeskin.Router
 #      ^^^^ meta.function.coffee
 #      ^ keyword.operator.assignment.coffee
 #        ^^ keyword.declaration.function.coffee
+
+  namespace.name = =>
+# ^^^^^^^^^ meta.path.coffee variable.other.object.coffee
+#          ^ meta.path.coffee punctuation.accessor.dot.coffee
+#           ^^^^^^^^^ - meta.function meta.function
+#           ^^^^ meta.function.identifier.coffee meta.path.coffee entity.name.function.coffee
+#               ^ meta.function.coffee - keyword
+#                ^ meta.function.coffee keyword.operator.assignment.coffee
+#                 ^ meta.function.coffee - keyword
+#                  ^^ meta.function.coffee keyword.declaration.function.coffee
+#                    ^ - meta.function
 
   name: () ->
 # ^^^^^^^^^^^ - meta.function meta.function
