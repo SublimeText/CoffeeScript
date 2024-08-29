@@ -95,13 +95,44 @@ contexts:
 ###[ CLASS DECLARATIONS ]#####################################################
 
   classes:
-    - match: (class\b)\s+((?!extends)@?[a-zA-Z\$_][\w\.]*)?(?:\s*(extends)\s+(@?[a-zA-Z\$\._][\w\.]*))?
-      scope: meta.class.coffee
+    - match: class\b
+      scope: meta.class.coffee keyword.declaration.class.coffee
+      push:
+        - class-extends
+        - class-name
+
+  class-name:
+    - match: (?=extends\b)
+      pop: 1
+    - match: ({{identifier}})(\.)
       captures:
-        1: storage.type.class.coffee
-        2: entity.name.type.class.coffee
-        3: keyword.control.inheritance.coffee
-        4: entity.other.inherited-class.coffee
+        1: support.class.coffee
+        2: punctuation.accessor.dot.coffee
+    - match: '{{identifier}}'
+      scope: entity.name.class.coffee
+      pop: 1
+    - include: comments
+    - include: else-pop
+
+  class-extends:
+    - meta_content_scope: meta.class.identifier.coffee
+    - match: extends\b
+      scope: storage.modifier.extends.coffee
+      set: class-extends-name
+    - include: comments
+    - include: else-pop
+
+  class-extends-name:
+    - meta_scope: meta.class.extends.coffee
+    - match: ({{identifier}})(\.)
+      captures:
+        1: support.class.coffee
+        2: punctuation.accessor.dot.coffee
+    - match: '{{identifier}}'
+      scope: entity.other.inherited-class.coffee
+      pop: 1
+    - include: comments
+    - include: else-pop
 
 ###[ FUNCTION DECLARATIONS ]##################################################
 

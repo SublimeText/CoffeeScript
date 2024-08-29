@@ -43,21 +43,29 @@ export parentClass
 ###[ CLASSES ]################################################################
 
 class extends parentClass
-# <- meta.class.coffee storage.type.class.coffee
-#^^^^^^^^^^^^^^^^^^^^^^^^ meta.class.coffee
-#^^^^ storage.type.class.coffee
-#     ^^^^^^^ keyword.control.inheritance.coffee
+# <- meta.class.coffee keyword.declaration.class.coffee
+#^^^^ meta.class.coffee
+#    ^ meta.class.identifier.coffee
+#     ^^^^^^^^^^^^^^^^^^^ meta.class.extends.coffee
+#^^^^ keyword.declaration.class.coffee
+#     ^^^^^^^ storage.modifier.extends.coffee
 #             ^^^^^^^^^^^ entity.other.inherited-class.coffee
   constructor: ->
     return
 
 class App.Router extends Snakeskin.Router
-# <- meta.class.coffee storage.type.class.coffee
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.class.coffee
-#^^^^ storage.type.class.coffee
-#     ^^^^^^^^^^ entity.name.type.class.coffee
-#                ^^^^^^^ keyword.control.inheritance.coffee
-#                        ^^^^^^^^^^^^^^^^ entity.other.inherited-class.coffee
+# <- meta.class.coffee keyword.declaration.class.coffee
+#^^^^ meta.class.coffee
+#    ^^^^^^^^^^^^ meta.class.identifier.coffee
+#                ^^^^^^^^^^^^^^^^^^^^^^^^ meta.class.extends.coffee
+#^^^^ keyword.declaration.class.coffee
+#     ^^^ support.class.coffee
+#        ^ punctuation.accessor.dot.coffee
+#         ^^^^^^ entity.name.class.coffee
+#                ^^^^^^^ storage.modifier.extends.coffee
+#                        ^^^^^^^^^ support.class.coffee
+#                                 ^ punctuation.accessor.dot.coffee
+#                                  ^^^^^^ entity.other.inherited-class.coffee
 
 ###[ FUNCTIONS ]###############################################################
 
