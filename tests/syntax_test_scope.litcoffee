@@ -7,8 +7,8 @@
 # Indendet Code Block
 
     class App.Router extends Snakeskin.Router
-    | <- meta.embedded.litcoffee source.coffee.embedded.markdown meta.class.coffee storage.type.class.coffee
-    |^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.embedded.litcoffee source.coffee.embedded.markdown meta.class.coffee
+    | <- meta.embedded.litcoffee source.coffee.embedded.markdown meta.class.coffee keyword.declaration.class.coffee
+    |^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.embedded.litcoffee source.coffee.embedded.markdown meta.class
       index: () =>
         @ensureData((data) =>
           @_parseDates(data, ['trending', 'new', 'top'])
@@ -18,8 +18,8 @@
 - In list items
 
       class App.Router extends Snakeskin.Router
-      | <- markup.list.unnumbered.markdown meta.embedded.litcoffee source.coffee.embedded.markdown meta.class.coffee storage.type.class.coffee
-      |^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.list.unnumbered.markdown meta.embedded.litcoffee source.coffee.embedded.markdown meta.class.coffee
+      | <- markup.list.unnumbered.markdown meta.embedded.litcoffee source.coffee.embedded.markdown meta.class.coffee keyword.declaration.class.coffee
+      |^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ markup.list.unnumbered.markdown meta.embedded.litcoffee source.coffee.embedded.markdown meta.class
         index: () =>
           @ensureData((data) =>
             @_parseDates(data, ['trending', 'new', 'top'])
