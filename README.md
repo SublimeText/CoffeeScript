@@ -3,9 +3,6 @@
 **This package is for Sublime Text 3+**.
 An old version for Sublime Text 2 is accessible via the [`st2` branch](https://github.com/SublimeText/BetterCoffeeScript/tree/st2).
 
-**We are looking for a maintainer!**
-See https://github.com/SublimeText/BetterCoffeeScript/issues/244 for details.
-
 ## Description
 
 CoffeeScript plug-in was originally created by @Xavura. As I, @aponxi, began writing a lot of code in CoffeeScript, I felt the need for side-by-side view for compiled CoffeeScript. Since Xavura's repository have been inactive I decided to branch out my own version. The biggest change in my branch is the Watch Mode which updates the compiled JavaScript view whenever you modify the CoffeeScript thus enabling you to view your progress side-by-side.
