@@ -499,26 +499,34 @@ contexts:
       scope: constant.language.null.coffee
 
   numbers:
-    - match: \b(0b)([01]+)\b
+    - match: (0b)({{bin_digit}}+)\b
       scope: meta.number.integer.binary.coffee
       captures:
          1: constant.numeric.base.coffee
          2: constant.numeric.value.coffee
-    - match: \b(0o)([0-7]+)\b
+    - match: (0o)({{oct_digit}}+)\b
       scope: meta.number.integer.octal.coffee
       captures:
          1: constant.numeric.base.coffee
          2: constant.numeric.value.coffee
-    - match: \b(0x)(\h+)\b
+    - match: (0x)({{hex_digit}}+)\b
       scope: meta.number.integer.hexadecimal.coffee
       captures:
          1: constant.numeric.base.coffee
          2: constant.numeric.value.coffee
-    - match: \b\d+(?:(\.)\d*(?:e[-+]?\d+)?|(?:e[-+]?\d+))\b
+    # floats
+    - match: |-
+        (?x:
+          # 1., 1.1, 1.1e1, 1.1e-1, 1.e1, 1.e-1 | 1e1, 1e-1
+          {{dec_integer}} (?: (\.) {{dec_digit}}* (?:{{dec_exponent}})? | {{dec_exponent}} )
+          # .1, .1e1, .1e-1
+          | (\.) {{dec_digit}}+ (?:{{dec_exponent}})?
+        )\b
       scope: meta.number.float.decimal.coffee constant.numeric.value.coffee
       captures:
         1: punctuation.separator.decimal.coffee
-    - match: \b\d+\b
+        2: punctuation.separator.decimal.coffee
+    - match: '{{dec_integer}}\b'
       scope: meta.number.integer.decimal.coffee constant.numeric.value.coffee
 
   triple-double-quoted-strings:
@@ -864,6 +872,13 @@ variables:
   # A lookbehind used in embed..escape patterns, to check for unescaped characters
   # in embed...escape statements.
   no_escape_behind: (?<![^\\]\\)(?<![\\]{3})
+
+  bin_digit: '[01_]'
+  oct_digit: '[0-7_]'
+  dec_digit: '[0-9_]'
+  hex_digit: '[\h_]'
+  dec_integer: (?:0|[1-9]{{dec_digit}}*)
+  dec_exponent: '[Ee](?:[-+]|(?![-+])){{dec_digit}}*'
 
   identifier: '[[:alpha:]_$]\w*'
 

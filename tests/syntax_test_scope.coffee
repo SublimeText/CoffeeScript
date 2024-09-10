@@ -547,12 +547,17 @@ class App.Router extends Snakeskin.Router
 
   10.e5
 # ^^^^^ meta.number.float.decimal.coffee constant.numeric.value.coffee
+#   ^ punctuation.separator.decimal.coffee
 
-  10.23
+  10.23 .23
 # ^^^^^ meta.number.float.decimal.coffee constant.numeric.value.coffee
+#   ^ punctuation.separator.decimal.coffee
+#       ^^^ meta.number.float.decimal.coffee constant.numeric.value.coffee
+#       ^ punctuation.separator.decimal.coffee
 
   10.23e-5
 # ^^^^^^^^ meta.number.float.decimal.coffee constant.numeric.value.coffee
+#   ^ punctuation.separator.decimal.coffee
 
   52
 # ^^ meta.number.integer.decimal.coffee constant.numeric.value.coffee
