@@ -30,8 +30,8 @@ contexts:
 
   script:
     - include: classes
-    - include: keywords
     - include: functions
+    - include: keywords
     - include: jsx-tags
     - include: expressions
 
@@ -155,7 +155,7 @@ contexts:
       branch_point: function
       branch:
         - function-name
-        - immediately-pop
+        - variable
     - match: '[=-]>'
       scope: keyword.declaration.function.coffee
 
@@ -353,41 +353,41 @@ contexts:
 
   keywords:
     # export/import
-    - match: export(?!\s*:)\b
+    - match: export\b
       scope: keyword.control.export.coffee
-    - match: (?:import|from)(?!\s*:)\b
+    - match: (?:import|from)\b
       scope: keyword.control.import.coffee
     # excpetion
-    - match: (?:catch|finally|try)(?!\s*:)\b
+    - match: (?:catch|finally|try)\b
       scope: keyword.control.exception.coffee
     # conditional
-    - match: if(?!\s*:)\b
+    - match: if\b
       scope: keyword.control.conditional.if.coffee
-    - match: else(?!\s*:)\b
+    - match: else\b
       scope: keyword.control.conditional.else.coffee
-    - match: switch(?!\s*:)\b
+    - match: switch\b
       scope: keyword.control.conditional.switch.coffee
-    - match: then(?!\s*:)\b
+    - match: then\b
       scope: keyword.control.conditional.then.coffee
-    - match: unless(?!\s*:)\b
+    - match: unless\b
       scope: keyword.control.conditional.unless.coffee
-    - match: when(?!\s*:)\b
+    - match: when\b
       scope: keyword.control.conditional.when.coffee
     # loop
-    - match: by(?!\s*:)\b
+    - match: by\b
       scope: keyword.control.loop.by.coffee
-    - match: do(?!\s*:)\b
+    - match: do\b
       scope: keyword.control.loop.do.coffee
-    - match: for(?:\s+own)?(?!\s*:)\b
+    - match: for(?:\s+own)?\b
       scope: keyword.control.loop.for.coffee
-    - match: loop(?!\s*:)\b
+    - match: loop\b
       scope: keyword.control.loop.loopcoffee
-    - match: until(?!\s*:)\b
+    - match: until\b
       scope: keyword.control.loop.until.coffee
-    - match: while(?!\s*:)\b
+    - match: while\b
       scope: keyword.control.loop.while.coffee
     # flow
-    - match: (?:await|break|continue|return|throw|yield(?:\s+from)?)(?!\s*:)\b
+    - match: (?:await|break|continue|return|throw|yield(?:\s+from)?)\b
       scope: keyword.control.flow.coffee
     # other
     - match: (?:debugger\b|\\)
@@ -804,6 +804,24 @@ contexts:
         1: punctuation.definition.variable.coffee
     - match: '{{identifier}}'
       scope: variable.other.readwrite.coffee
+
+  variable:
+    - match: (?:this|extends)(?!\s*[:=])\b
+      scope: variable.language.coffee
+      pop: 1
+    - match: ({{identifier}})?(\.)
+      captures:
+        1: variable.other.object.coffee
+        2: punctuation.accessor.dot.coffee
+      set: member
+    - match: (@)(?:{{identifier}})?
+      scope: variable.other.member.coffee
+      captures:
+        1: punctuation.definition.variable.coffee
+      pop: 1
+    - match: '{{identifier}}'
+      scope: variable.other.readwrite.coffee
+      pop: 1
 
   member:
     - meta_scope: meta.path.coffee

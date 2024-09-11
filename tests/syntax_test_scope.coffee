@@ -267,6 +267,30 @@ class App.Router extends Snakeskin.Router
   ->
 # ^^ keyword.declaration.function.coffee
 
+  geometry = new Class();
+# ^^^^^^^^ variable.other.readwrite.coffee
+#          ^ keyword.operator.assignment.coffee
+#            ^^^ keyword.operator.object.new.coffee
+#                ^^^^^ support.class.coffee
+
+  try = new Class();
+# ^^^ variable.other.readwrite.coffee
+#     ^ keyword.operator.assignment.coffee
+#       ^^^ keyword.operator.object.new.coffee
+#           ^^^^^ support.class.coffee
+
+  geometry: new Class();
+# ^^^^^^^^ variable.other.readwrite.coffee
+#         ^ keyword.operator.assignment.coffee
+#           ^^^ keyword.operator.object.new.coffee
+#               ^^^^^ support.class.coffee
+
+  try: new Class();
+# ^^^ variable.other.readwrite.coffee
+#    ^ keyword.operator.assignment.coffee
+#      ^^^ keyword.operator.object.new.coffee
+#          ^^^^^ support.class.coffee
+
 ###[ KEYWORDS ]################################################################
 
   if .if _if $if
