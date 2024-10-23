@@ -434,8 +434,21 @@ contexts:
         2: punctuation.accessor.dot.coffee
     - match: '{{identifier}}'
       scope: support.class.coffee
-      pop: 1
+      set: maybe-class-arguments
     - include: else-pop
+
+  maybe-class-arguments:
+    - match: \(
+      scope: punctuation.section.group.begin.coffee
+      set: class-arguments-body
+    - include: else-pop
+
+  class-arguments-body:
+    - meta_scope: meta.group.coffee
+    - match: \)
+      scope: punctuation.section.group.end.coffee
+      pop: 1
+    - include: script
 
 ###[ OPERATORS ]##############################################################
 

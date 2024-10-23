@@ -284,12 +284,21 @@ class App.Router extends Snakeskin.Router
 #         ^ keyword.operator.assignment.coffee
 #           ^^^ keyword.operator.object.new.coffee
 #               ^^^^^ support.class.coffee
+#                    ^ punctuation.section.group.begin.coffee
+#                     ^ punctuation.section.group.end.coffee
 
-  try: new Class();
+  try: new Class("Unknown sort: #{info.type}");
 # ^^^ variable.other.readwrite.coffee
 #    ^ keyword.operator.assignment.coffee
 #      ^^^ keyword.operator.object.new.coffee
 #          ^^^^^ support.class.coffee
+#               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.group.coffee
+#               ^ punctuation.section.group.begin.coffee
+#                ^^^^^^^^^^^^^^^ meta.string.coffee string.quoted.double.coffee - meta.interpolation
+#                               ^^^^^^^^^^^^ meta.string.coffee meta.embedded.coffee source.coffee.embedded.source
+#                                           ^ meta.string.coffee string.quoted.double.coffee - meta.interpolation
+#                                            ^ punctuation.section.group.end.coffee
+#                                             ^ punctuation.terminator.statement.coffee
 
 ###[ KEYWORDS ]################################################################
 
