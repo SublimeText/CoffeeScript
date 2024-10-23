@@ -148,8 +148,8 @@ contexts:
     - match: (?=\()
       branch_point: anonymous
       branch:
-        - anonymous-parameter-list
         - group
+        - anonymous-parameter-list
     # named functions
     - match: (?=(?:(?!and=|or=)|@){{identifier}}\s*[:=][^>])
       branch_point: function
@@ -173,13 +173,23 @@ contexts:
     - match: '[=-]>'
       scope: meta.function.coffee keyword.declaration.function.coffee
       pop: 1
-    - match: (?=\S)
-      fail: anonymous
 
   group:
     - match: \(
       scope: punctuation.section.group.begin.coffee
-      pop: 1
+      set: group-body
+
+  group-body:
+    - meta_scope: meta.group.coffee
+    - match: \)
+      scope: punctuation.section.group.end.coffee
+      set: group-check
+    - include: expressions
+
+  group-check:
+    - match: (?=[=-]>)
+      fail: anonymous
+    - include: else-pop
 
   function-name:
     - meta_include_prototype: false

@@ -267,6 +267,16 @@ class App.Router extends Snakeskin.Router
   ->
 # ^^ keyword.declaration.function.coffee
 
+  (a : "group")
+# ^^^^^^^^^^^^^ meta.group.coffee
+# ^ punctuation.section.group.begin.coffee
+#  ^ variable.other.readwrite.coffee
+#    ^ keyword.operator.assignment.coffee
+#      ^^^^^^^ meta.string.coffee string.quoted.double.coffee
+#      ^ punctuation.definition.string.begin.coffee
+#            ^ punctuation.definition.string.end.coffee
+#             ^ punctuation.section.group.end.coffee
+
   geometry = new Class();
 # ^^^^^^^^ variable.other.readwrite.coffee
 #          ^ keyword.operator.assignment.coffee
