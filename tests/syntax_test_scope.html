@@ -28,11 +28,38 @@
 <script lang="coffee">
 # <- meta.tag.script.begin.html punctuation.definition.tag.begin.html
 #^^^^^^^^^^^^^^^^^^^^^ meta.tag.script.begin.html
+#       ^^^^^^^^^^^^^ meta.attribute-with-value.lang.html
 #^^^^^^ entity.name.tag.script.html
 #       ^^^^ entity.other.attribute-name.html
 #           ^ punctuation.separator.key-value.html
 #            ^^^^^^^^ meta.string.html string.quoted.double.html
 #                    ^ punctuation.definition.tag.end.html
+    class extends parentClass
+    # <- source.coffee.embedded.html meta.class.coffee keyword.declaration.class.coffee
+    #^^^^^^^^^^^^^^^^^^^^^^^^ source.coffee.embedded.html meta.class
+    #^^^^ keyword.declaration.class.coffee
+    #     ^^^^^^^ storage.modifier.extends.coffee
+    #             ^^^^^^^^^^^ entity.other.inherited-class.coffee
+      constructor: ->
+        return
+    # <- source.coffee.embedded.html
+    #   ^^^^^^ source.coffee.embedded.html keyword.control.flow.coffee
+</script>
+# <- meta.tag.script.end.html punctuation.definition.tag.begin.html
+#^^^^^^^^ meta.tag.script.end.html
+#^ punctuation.definition.tag.begin.html
+# ^^^^^^ entity.name.tag.script.html
+#       ^ punctuation.definition.tag.end.html
+
+<script language="coffee">
+# <- meta.tag.script.begin.html punctuation.definition.tag.begin.html
+#^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.script.begin.html
+#       ^^^^^^^^^^^^^^^^^ meta.attribute-with-value.lang.html
+#^^^^^^ entity.name.tag.script.html
+#       ^^^^^^^^ entity.other.attribute-name.html
+#               ^ punctuation.separator.key-value.html
+#                ^^^^^^^^ meta.string.html string.quoted.double.html
+#                        ^ punctuation.definition.tag.end.html
     class extends parentClass
     # <- source.coffee.embedded.html meta.class.coffee keyword.declaration.class.coffee
     #^^^^^^^^^^^^^^^^^^^^^^^^ source.coffee.embedded.html meta.class

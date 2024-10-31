@@ -1,0 +1,25 @@
+{
+	"scope": "text.html meta.tag.script meta.attribute-with-value.type",
+	"completions": [
+		{
+			"trigger": "application/coffee",
+			"kind": ["type", "t", "Mime Type"],
+			"details": "CoffeeScript"
+		},
+		{
+			"trigger": "application/coffeescript",
+			"kind": ["type", "t", "Mime Type"],
+			"details": "CoffeeScript"
+		},
+		{
+			"trigger": "text/coffee",
+			"kind": ["type", "t", "Mime Type"],
+			"details": "CoffeeScript"
+		},
+		{
+			"trigger": "text/coffeescript",
+			"kind": ["type", "t", "Mime Type"],
+			"details": "CoffeeScript"
+		}
+	]
+}

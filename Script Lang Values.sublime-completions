@@ -1,0 +1,10 @@
+{
+	"scope": "text.html meta.tag.script meta.attribute-with-value.lang",
+	"completions": [
+		{
+			"trigger": "coffee",
+			"kind": ["type", "t", "Language Type"],
+			"details": "CoffeeScript"
+		}
+	]
+}

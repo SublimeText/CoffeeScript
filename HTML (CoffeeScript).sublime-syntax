@@ -14,12 +14,12 @@ contexts:
 
   script-common:
     - meta_prepend: true
-    - match: (?i:lang){{attribute_name_break}}
-      scope: meta.attribute-with-value.html entity.other.attribute-name.html
+    - match: (?i:lang(?:uage)?){{attribute_name_break}}
+      scope: meta.attribute-with-value.lang.html entity.other.attribute-name.html
       set: script-lang-attribute-assignment
 
   script-lang-attribute-assignment:
-    - meta_content_scope: meta.tag.script.begin.html meta.attribute-with-value.html
+    - meta_content_scope: meta.tag.script.begin.html meta.attribute-with-value.lang.html
     - match: =
       scope: punctuation.separator.key-value.html
       set: script-lang-attribute-value
@@ -28,25 +28,36 @@ contexts:
 
   script-lang-attribute-value:
     - meta_include_prototype: false
-    - meta_scope: meta.tag.script.begin.html meta.attribute-with-value.html
+    - meta_scope: meta.tag.script.begin.html meta.attribute-with-value.lang.html
     - match: (?=(?i:coffee{{unquoted_attribute_break}}|'coffee'|"coffee"))
       set:
         - script-coffee
-        - tag-generic-attribute-meta
+        - tag-lang-attribute-meta
         - tag-generic-attribute-value
     - match: (?=\S)
       set:
         - script-javascript
-        - tag-generic-attribute-meta
+        - tag-lang-attribute-meta
         - tag-generic-attribute-value
+
+  tag-lang-attribute-meta:
+    - meta_include_prototype: false
+    - meta_scope: meta.attribute-with-value.lang.html
+    - include: immediately-pop
 
   script-type-decider:
     - meta_prepend: true
     - match: (?={{coffee_mime_type}}{{unquoted_attribute_break}}|'{{coffee_mime_type}}'|"{{coffee_mime_type}}")
       set:
         - script-coffee
-        - tag-generic-attribute-meta
+        - tag-type-attribute-meta
         - tag-generic-attribute-value
+
+  tag-type-attribute-meta:
+    # required until ST4184
+    - meta_include_prototype: false
+    - meta_scope: meta.attribute-with-value.type.html
+    - include: immediately-pop
 
   script-coffee:
     - meta_include_prototype: false
@@ -86,4 +97,4 @@ contexts:
 variables:
 
   coffee_mime_type: |-
-    (?xi: (?: (?: application |text ) / coffee(?:script)? ) {{mime_type_parameters}}? )
+    (?xi: (?: (?: application | text ) / coffee(?:script)? ) {{mime_type_parameters}}? )
