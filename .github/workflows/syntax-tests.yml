@@ -3,11 +3,17 @@ name: CI Syntax Tests
 on:
   push:
     branches:
-      - '**'
+      - 'master'
     tags-ignore:
       - '**'
     paths:
-      - '.github/workflows/syntax-tests.yml'
+      - '.github/workflows/ci-syntax-tests.yml'
+      - '**.sublime-syntax'
+      - '**/syntax_test_*'
+      - '**.tmPreferences'
+  pull_request:
+    paths:
+      - '.github/workflows/ci-syntax-tests.yml'
       - '**.sublime-syntax'
       - '**/syntax_test_*'
       - '**.tmPreferences'
@@ -19,17 +25,45 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15 # default is 6 hours!
     strategy:
+      fail-fast: false
       matrix:
         include:
+          # Stable ST4 builds
           - build: 4143
             default_packages: v4143
+          - build: 4152
+            default_packages: v4152
+          - build: 4169
+            default_packages: v4169
           - build: 4180
             default_packages: v4180
+          # Latest dev build
           - build: latest
             default_packages: master
     steps:
-      - uses: actions/checkout@v4
-      - uses: SublimeText/syntax-test-action@v2
+      - name: Checkout Default Packages
+        uses: actions/checkout@v4
         with:
-          build: ${{ matrix.build }}
-          default_packages: ${{ matrix.default_packages }}
+          repository: sublimehq/Packages
+          ref: ${{ matrix.default_packages }}
+          path: st_syntax_tests/Data/Packages
+
+      - name: Delete default package tests
+        run: |
+          find st_syntax_tests/Data/Packages/*/ -type f -name 'syntax_test*' -exec rm -v '{}' \;
+
+      - name: Checkout CoffeeScript
+        uses: actions/checkout@v4
+        with:
+          path: st_syntax_tests/Data/Packages/CoffeeScript
+
+      - name: Run Syntax Tests for Sublime Text ${{ matrix.build }}
+        run: |
+          if [[ "${{ matrix.build }}" == "latest" ]]; then
+            wget -O st_syntax_tests.tar.xz https://download.sublimetext.com/latest/dev/linux/x64/syntax_tests
+          else
+            wget -O st_syntax_tests.tar.xz https://download.sublimetext.com/st_syntax_tests_build_${{ matrix.build }}_x64.tar.xz
+          fi
+          tar xf st_syntax_tests.tar.xz
+          cd st_syntax_tests
+          ./syntax_tests
