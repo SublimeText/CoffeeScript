@@ -29,7 +29,7 @@ contexts:
   script-lang-attribute-value:
     - meta_include_prototype: false
     - meta_scope: meta.tag.script.begin.html meta.attribute-with-value.lang.html
-    - match: (?=(?i:coffee{{unquoted_attribute_break}}|'coffee'|"coffee"))
+    - match: (?=(?i:coffee(?:script)?{{unquoted_attribute_break}}|'coffee(?:script)?'|"coffee(?:script)?"))
       set:
         - script-coffee
         - tag-lang-attribute-meta

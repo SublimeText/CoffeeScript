@@ -1,5 +1,5 @@
 {
-	"scope": "text.html meta.tag.script meta.attribute-with-value.type",
+	"scope": "text.html.coffee meta.tag.script meta.attribute-with-value.type",
 	"completions": [
 		{
 			"trigger": "application/coffee",
