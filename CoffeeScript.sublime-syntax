@@ -95,7 +95,7 @@ contexts:
 ###[ CLASS DECLARATIONS ]#####################################################
 
   classes:
-    - match: class\b
+    - match: class\b(?!\s*:)
       scope: meta.class.coffee keyword.declaration.class.coffee
       push:
         - class-extends
