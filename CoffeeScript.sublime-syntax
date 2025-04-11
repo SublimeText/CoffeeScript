@@ -29,8 +29,8 @@ contexts:
       push: [script, shebang]
 
   script:
-    - include: classes
     - include: functions
+    - include: classes
     - include: keywords
     - include: jsx-tags
     - include: expressions
@@ -95,7 +95,7 @@ contexts:
 ###[ CLASS DECLARATIONS ]#####################################################
 
   classes:
-    - match: class\b(?!\s*:)
+    - match: class\b
       scope: meta.class.coffee keyword.declaration.class.coffee
       push:
         - class-extends

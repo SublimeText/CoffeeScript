@@ -531,6 +531,16 @@ class App.Router extends Snakeskin.Router
 #                 ^^^^^ meta.string.coffee string.quoted.double.coffee
 #                      ^ punctuation.section.group.end.coffee
 
+  class: 1
+# ^^^^^ variable.other.readwrite.coffee
+#      ^ keyword.operator.assignment.coffee
+
+  obj.class: 1
+# ^^^^^^^^^ meta.path.coffee
+# ^^^ variable.other.object.coffee
+#    ^ punctuation.accessor.dot.coffee
+#     ^^^^^ variable.other.member.coffee
+
 ###[ LITERALS ]################################################################
 
   Infinity NaN undefined .Infinity .NaN .undefined
