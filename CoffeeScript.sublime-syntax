@@ -29,8 +29,8 @@ contexts:
       push: [script, shebang]
 
   script:
-    - include: classes
     - include: functions
+    - include: classes
     - include: keywords
     - include: jsx-tags
     - include: expressions
