@@ -347,8 +347,8 @@ class App.Router extends Snakeskin.Router
 # ^^ keyword.operator.assignment.as.coffee
 
   in of
-# ^^ keyword.operator.iterator.coffee
-#    ^^ keyword.operator.iterator.coffee
+# ^^ keyword.operator.iteration.coffee
+#    ^^ keyword.operator.iteration.coffee
 
   and or is isnt not
 # ^^^ keyword.operator.logical.coffee

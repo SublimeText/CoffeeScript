@@ -423,7 +423,7 @@ contexts:
     - match: (?:as)\b
       scope: keyword.operator.word.coffee keyword.operator.assignment.as.coffee
     - match: (?:in|of)\b
-      scope: keyword.operator.word.coffee keyword.operator.iterator.coffee
+      scope: keyword.operator.word.coffee keyword.operator.iteration.coffee
     - match: (?:and|or|is|isnt|not)\b
       scope: keyword.operator.word.coffee keyword.operator.logical.coffee
     - match: (?:new)\b
