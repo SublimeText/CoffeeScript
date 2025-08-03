@@ -102,6 +102,8 @@ contexts:
         - class-name
 
   class-name:
+    - match: $
+      pop: 1
     - match: (?=extends\b)
       pop: 1
     - match: ({{identifier}})(\.)

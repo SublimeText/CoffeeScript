@@ -67,6 +67,11 @@ class App.Router extends Snakeskin.Router
 #                                 ^ punctuation.accessor.dot.coffee
 #                                  ^^^^^^ entity.other.inherited-class.coffee
 
+class
+# <- meta.class.coffee keyword.declaration.class.coffee
+  constructor: ->
+# ^ meta.function.identifier.coffee entity.name.function.coffee
+
 ###[ FUNCTIONS ]###############################################################
 
   name:
