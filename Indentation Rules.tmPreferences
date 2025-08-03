@@ -11,7 +11,7 @@
 		<key>increaseIndentPattern</key>
 		<string>(?x)
 			^\s*
-			( class\b
+			( .*\bclass\b(?!\s*:) # class keyword without colon after it (otherwise we are in object with property name "class")
 			| [a-zA-Z\$_](\w|\$|:|\.)*\s*(?=\:(\s*\(.*\))?\s*((=|-)&gt;\s*$)) # function that is not one line
 			| [a-zA-Z\$_](\w|\$|\.)*\s*(:|=)\s*((if|while)(?!.*?then)|for|$) # assignment using multiline if/while/for
 			| (if|while|unless)\b(?!.*?then)|(for|switch|when|loop)\b
