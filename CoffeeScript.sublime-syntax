@@ -203,7 +203,8 @@ contexts:
         - function-body
         - function-parameter-list
         - function-assignment
-    - match: (?=\S)
+    # any non-whitespace char or end of file
+    - match: \S|\Z
       fail: function
 
   function-assignment:
@@ -246,7 +247,8 @@ contexts:
     - match: '[=-]>'
       scope: meta.function.coffee keyword.declaration.function.coffee
       pop: 1
-    - match: (?=\S)
+    # any non-whitespace char or end of file
+    - match: \S|\Z
       fail: function
 
 ###[ FUNCTION CALLS ]#########################################################
