@@ -497,32 +497,6 @@ contexts:
     - match: \,
       scope: punctuation.separator.sequence.coffee
 
-###[ REGULAR EXPRESSIONS ]#####################################################
-
-  patterns:
-    - match: /{3}
-      scope: punctuation.definition.string.begin.coffee
-      push: heredoc-pattern-body
-    - match: (/)((?![\s=/*+{}?])(?:\\.|.)*?)(/)([igmy]{0,4}(?![a-zA-Z0-9]))
-      scope: meta.string.regexp.coffee
-      captures:
-        1: punctuation.definition.string.begin.coffee
-        2: string.regexp.coffee
-        3: punctuation.definition.string.end.coffee
-        4: constant.language.flags.coffee
-
-  heredoc-pattern-body:
-    - meta_scope: meta.string.heredoc.coffee
-    - meta_content_scope: string.regexp.coffee
-    - match: (/{3})([imgy]{0,4})
-      captures:
-        1: punctuation.definition.string.end.coffee
-        2: constant.language.flags.coffee
-      pop: 1
-    - include: comments
-    - include: string-escapes
-    - include: string-interpolations
-
 ###[ LITERALS ]################################################################
 
   constants:
@@ -565,6 +539,30 @@ contexts:
         2: punctuation.separator.decimal.coffee
     - match: '{{dec_integer}}\b'
       scope: meta.number.integer.decimal.coffee constant.numeric.value.coffee
+
+  patterns:
+    - match: /{3}
+      scope: punctuation.definition.string.begin.coffee
+      push: heredoc-pattern-body
+    - match: (/)((?![\s=/*+{}?])(?:\\.|.)*?)(/)([igmy]{0,4}(?![a-zA-Z0-9]))
+      scope: meta.string.regexp.coffee
+      captures:
+        1: punctuation.definition.string.begin.coffee
+        2: string.regexp.coffee
+        3: punctuation.definition.string.end.coffee
+        4: constant.language.flags.coffee
+
+  heredoc-pattern-body:
+    - meta_scope: meta.string.heredoc.coffee
+    - meta_content_scope: string.regexp.coffee
+    - match: (/{3})([imgy]{0,4})
+      captures:
+        1: punctuation.definition.string.end.coffee
+        2: constant.language.flags.coffee
+      pop: 1
+    - include: comments
+    - include: string-escapes
+    - include: string-interpolations
 
   triple-double-quoted-strings:
     - match: \"{3}
