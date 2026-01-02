@@ -351,16 +351,17 @@ class
   as
 # ^^ keyword.operator.assignment.as.coffee
 
-  in of
-# ^^ keyword.operator.iteration.coffee
-#    ^^ keyword.operator.iteration.coffee
+  in is isnt is not of
+# ^^ keyword.operator.comparison.coffee
+#    ^^ keyword.operator.comparison.coffee
+#       ^^^^ keyword.operator.comparison.coffee
+#            ^^^^^^ keyword.operator.comparison.coffee
+#                   ^^ keyword.operator.comparison.coffee
 
-  and or is isnt not
+  and or not
 # ^^^ keyword.operator.logical.coffee
 #     ^^ keyword.operator.logical.coffee
-#        ^^ keyword.operator.logical.coffee
-#           ^^^^ keyword.operator.logical.coffee
-#                ^^^ keyword.operator.logical.coffee
+#        ^^^ keyword.operator.logical.coffee
 
   new
 # ^^^ keyword.operator.object.new.coffee

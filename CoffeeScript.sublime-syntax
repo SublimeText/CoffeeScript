@@ -424,9 +424,9 @@ contexts:
     # alphanumeric
     - match: (?:as)\b
       scope: keyword.operator.word.coffee keyword.operator.assignment.as.coffee
-    - match: (?:in|of)\b
-      scope: keyword.operator.word.coffee keyword.operator.iteration.coffee
-    - match: (?:and|or|is|isnt|not)\b
+    - match: (?:in|is(?:nt| not)?|of)\b
+      scope: keyword.operator.word.coffee keyword.operator.comparison.coffee
+    - match: (?:and|or|not)\b
       scope: keyword.operator.word.coffee keyword.operator.logical.coffee
     - match: (?:new)\b
       scope: keyword.operator.word.coffee keyword.operator.object.new.coffee
