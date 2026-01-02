@@ -495,12 +495,16 @@ contexts:
 ###[ LITERALS ]################################################################
 
   constants:
-    - match: (?:Infinity|NaN|undefined)\b
-      scope: constant.language.coffee
     - match: (?:true|on|yes)(?!\s*[:=])\b
       scope: constant.language.boolean.true.coffee
     - match: (?:false|off|no)(?!\s*[:=])\b
       scope: constant.language.boolean.false.coffee
+    - match: Infinity(?!\s*[:=])\b
+      scope: constant.language.infinity.coffee
+    - match: NaN(?!\s*[:=])\b
+      scope: constant.language.nan.coffee
+    - match: undefined(?!\s*[:=])\b
+      scope: constant.language.coffee
     - match: null(?!\s*[:=])\b
       scope: constant.language.null.coffee
 

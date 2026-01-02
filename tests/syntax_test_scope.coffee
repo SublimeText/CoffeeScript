@@ -604,8 +604,8 @@ class
 ###[ LITERALS ]################################################################
 
   Infinity NaN undefined .Infinity .NaN .undefined
-# ^^^^^^^^ constant.language.coffee
-#          ^^^ constant.language.coffee
+# ^^^^^^^^ constant.language.infinity.coffee
+#          ^^^ constant.language.nan.coffee
 #              ^^^^^^^^^ constant.language.coffee
 #                        ^ punctuation.accessor.dot.coffee
 #                         ^^^^^^^^ variable.other.member.coffee
