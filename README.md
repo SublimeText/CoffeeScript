@@ -17,7 +17,23 @@ The easiest way to install is using [Package Control](https://packagecontrol.io)
 2. Choose `Package Control: Install Package`
 3. Find `CoffeeScript` and hit <kbd>Enter</kbd>
 
-## Source Control
+### Manual Install
+
+1. Download appropriate [CoffeeScript.sublime-package](https://github.com/SublimeText/CoffeeScript/releases) for your Sublime Text build.  
+2. Copy it into _Installed Packages_ directory
+
+> [!NOTE]
+>
+> To find _Installed Packages_...
+>
+> 1. call _Menu > Preferences > Browse Packages.._
+> 2. Navigate to parent folder
+
+> [!WARNING]
+>
+> Manually installed packages are not automatically updated by Package Control.
+
+### Source Control
 
 > [!TIP]
 >
@@ -31,7 +47,7 @@ Mac: ~/Library/Application\ Support/Sublime\ Text/Packages
 Win: %APPDATA%\Sublime Text\Packages
 ```
 
-### As a repository within the packages directory
+#### As a repository within the packages directory
 
 Open a Terminal/Console and run the following commands, replacing `PACKAGE_PATH` with the path corresponding to your OS above.
 
@@ -40,7 +56,7 @@ cd PACKAGE_PATH
 git clone https://github.com/SublimeText/BetterCoffeeScript.git "CoffeeScript"
 ```
 
-### As a repository outside of the packages directory
+#### As a repository outside of the packages directory
 
 If you use Github for Mac/Windows which store repositories in a specific location, or if you just don't want a repository in your packages directory, then instead you can use a link.
 
