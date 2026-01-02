@@ -59,3 +59,14 @@ into a .litcoffee file and open it in Sublime to see the breakage.
 ...even this markdown is as well. :(
 | <- meta.paragraph.markdown
 |^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.paragraph.markdown
+
+```coffee
+| <- text.html.markdown.litcoffee meta.code-fence.definition.begin.markdown-gfm punctuation.definition.raw.code-fence.begin.markdown
+|^^^^^^^^ text.html.markdown.litcoffee meta.code-fence.definition.begin.markdown-gfm
+|^^ punctuation.definition.raw.code-fence.begin.markdown
+|  ^^^^^^ constant.other.language-name.markdown
+
+| <- text.html.markdown.litcoffee meta.code-fence.body.markdown.markdown-gfm markup.raw.code-fence.coffee.markdown-gfm source.coffee
+```
+| <- text.html.markdown.litcoffee meta.code-fence.definition.end.markdown-gfm punctuation.definition.raw.code-fence.end.markdown
+|^^ text.html.markdown.litcoffee meta.code-fence.definition.end.markdown-gfm punctuation.definition.raw.code-fence.end.markdown
