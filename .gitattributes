@@ -1,4 +1,11 @@
-/.github/           export-ignore
-/.gitattributes     export-ignore
-/.gitignore         export-ignore
-/tests				export-ignore
+# git
+.github/        export-ignore
+.git            export-ignore
+.gitattributes  export-ignore
+.gitignore      export-ignore
+# development
+tests/          export-ignore
+*.cmd           export-ignore
+# other
+logo.*          export-ignore
+preview.*       export-ignore
