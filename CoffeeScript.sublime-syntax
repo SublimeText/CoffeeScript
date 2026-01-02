@@ -31,12 +31,12 @@ contexts:
   script:
     - include: functions
     - include: classes
-    - include: keywords
     - include: jsx-tags
     - include: expressions
 
   expressions:
     - include: comments
+    - include: keywords
     - include: constants
     - include: function-calls
     - include: patterns
@@ -392,6 +392,7 @@ contexts:
       scope: keyword.control.loop.do.coffee
     - match: for(?:\s+own)?\b
       scope: keyword.control.loop.for.coffee
+      push: for-args
     - match: loop\b
       scope: keyword.control.loop.loop.coffee
     - match: until\b
@@ -404,6 +405,15 @@ contexts:
     # other
     - match: (?:debugger\b|\\)
       scope: keyword.other.coffee
+
+  for-args:
+    - match: in\b
+      scope: keyword.control.loop.in.coffee
+      pop: 1
+    - match: ','
+      scope: punctuation.separator.sequence.coffee
+    - include: variables
+    - include: else-pop
 
   operators:
     # symbolic
@@ -908,7 +918,6 @@ contexts:
       pop: 1
 
 ###############################################################################
-
 
 variables:
 

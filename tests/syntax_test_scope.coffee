@@ -315,6 +315,39 @@ class
 #                                            ^ punctuation.section.group.end.coffee
 #                                             ^ punctuation.terminator.statement.coffee
 
+###[ LOOP STATEMENTS ]#########################################################
+
+  for a, b in @links
+# ^^^ keyword.control.loop.for.coffee
+#     ^ variable.other.readwrite.coffee
+#      ^ punctuation.separator.sequence.coffee
+#        ^ variable.other.readwrite.coffee
+#          ^^ keyword.control.loop.in.coffee
+#             ^^^^^^ variable.other.member.coffee
+#             ^ punctuation.definition.variable.coffee
+
+  @links = ($(a) for a in @$links unless a in filtered)
+# ^^^^^^ variable.other.member.coffee
+# ^ punctuation.definition.variable.coffee
+#        ^ keyword.operator.assignment.coffee
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.group.coffee
+#          ^ punctuation.section.group.begin.coffee
+#           ^ meta.function-call.identifier.coffee variable.function.coffee
+#            ^^^ meta.function-call.arguments.coffee
+#            ^ punctuation.section.group.begin.coffee
+#             ^ variable.other.readwrite.coffee
+#              ^ punctuation.section.group.end.coffee
+#                ^^^ keyword.control.loop.for.coffee
+#                    ^ variable.other.readwrite.coffee
+#                      ^^ keyword.control.loop.in.coffee
+#                         ^^^^^^^ variable.other.member.coffee
+#                         ^ punctuation.definition.variable.coffee
+#                                 ^^^^^^ keyword.control.conditional.unless.coffee
+#                                        ^ variable.other.readwrite.coffee
+#                                          ^^ keyword.operator.word.coffee keyword.operator.comparison.coffee
+#                                             ^^^^^^^^ variable.other.readwrite.coffee
+#                                                     ^ punctuation.section.group.end.coffee
+
 ###[ KEYWORDS ]################################################################
 
   if .if _if $if
