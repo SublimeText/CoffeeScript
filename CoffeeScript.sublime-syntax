@@ -153,7 +153,7 @@ contexts:
         - group
         - anonymous-parameter-list
     # named functions
-    - match: (?=(?:(?!and=|or=)|@){{identifier}}\s*[:=][^>])
+    - match: (?=(?:(?!and=|or=)){{identifier}}\s*[:=][^>])
       branch_point: function
       branch:
         - function-name
@@ -196,10 +196,8 @@ contexts:
   function-name:
     - meta_include_prototype: false
     - meta_scope: meta.function.identifier.coffee
-    - match: (@?){{identifier}}
+    - match: '{{identifier}}'
       scope: entity.name.function.coffee
-      captures:
-        1: punctuation.definition.variable.coffee
       set:
         - function-body
         - function-parameter-list
@@ -343,10 +341,8 @@ contexts:
         | Uint(?: 8 | 16 | 32 | 64)Array | XMLHttpRequest | Symbol )\b
       scope: support.class.coffee
     # user function calls
-    - match: (@?){{identifier}}(?=\()
+    - match: '{{identifier}}(?=\()'
       scope: meta.function-call.identifier.coffee variable.function.coffee
-      captures:
-        1: punctuation.definition.variable.coffee
       push: function-call-argument-list
 
   function-call-argument-list:
@@ -443,8 +439,6 @@ contexts:
       push: maybe-class
     - match: (?:delete)\b
       scope: keyword.operator.word.coffee keyword.operator.object.delete.coffee
-    - match: (?:super)\b
-      scope: keyword.operator.word.coffee keyword.operator.object.super.coffee
     - match: (?:instanceof)\b
       scope: keyword.operator.word.coffee keyword.operator.comparison.type.coffee
       push: maybe-class
@@ -826,34 +820,54 @@ contexts:
 ###[ VARIABLES ]##############################################################
 
   variables:
-    - match: (?:this|extends)(?!\s*[:=])\b
-      scope: variable.language.coffee
+    - match: (super)(\.)
+      captures:
+        1: variable.language.super.coffee
+        2: punctuation.accessor.dot.coffee
+      push: member
+    - match: super(?!\s*[:=])\b
+      scope: variable.language.super.coffee
+    - match: (this)(\.)
+      captures:
+        1: variable.language.this.coffee
+        2: punctuation.accessor.dot.coffee
+      push: member
+    - match: this(?!\s*[:=])\b
+      scope: variable.language.this.coffee
+    - match: \@
+      scope: variable.language.this.coffee
+      push: member
     - match: ({{identifier}})?(\.)
       captures:
         1: variable.other.object.coffee
         2: punctuation.accessor.dot.coffee
       push: member
-    - match: (@)(?:{{identifier}})?
-      scope: variable.other.member.coffee
-      captures:
-        1: punctuation.definition.variable.coffee
     - match: '{{identifier}}'
       scope: variable.other.readwrite.coffee
 
   variable:
-    - match: (?:this|extends)(?!\s*[:=])\b
-      scope: variable.language.coffee
-      pop: 1
+    - match: (super)(\.)
+      captures:
+        1: variable.language.super.coffee
+        2: punctuation.accessor.dot.coffee
+      set: member
+    - match: super(?!\s*[:=])\b
+      scope: variable.language.super.coffee
+    - match: (this)(\.)
+      captures:
+        1: variable.language.this.coffee
+        2: punctuation.accessor.dot.coffee
+      set: member
+    - match: this(?!\s*[:=])\b
+      scope: variable.language.this.coffee
+    - match: \@
+      scope: variable.language.this.coffee
+      set: member
     - match: ({{identifier}})?(\.)
       captures:
         1: variable.other.object.coffee
         2: punctuation.accessor.dot.coffee
       set: member
-    - match: (@)(?:{{identifier}})?
-      scope: variable.other.member.coffee
-      captures:
-        1: punctuation.definition.variable.coffee
-      pop: 1
     - match: '{{identifier}}'
       scope: variable.other.readwrite.coffee
       pop: 1
@@ -870,7 +884,7 @@ contexts:
       scope: meta.function-call.identifier.coffee variable.function.coffee
       set: function-call-argument-list
     # member function definition or variable
-    - match: (?=(?:(?!and=|or=)|@){{identifier}})
+    - match: (?=(?:(?!and=|or=)){{identifier}})
       branch_point: member
       branch:
         - member-function
@@ -880,10 +894,8 @@ contexts:
   member-function:
     - meta_include_prototype: false
     - meta_scope: meta.function.identifier.coffee meta.path.coffee
-    - match: (@?){{identifier}}
+    - match: '{{identifier}}'
       scope: entity.name.function.coffee
-      captures:
-        1: punctuation.definition.variable.coffee
       set:
         - member-function-body
         - function-parameter-list

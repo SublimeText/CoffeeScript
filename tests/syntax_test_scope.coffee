@@ -86,7 +86,8 @@ class
 
   @name: ->
 # ^^^^^^^^^ - meta.function meta.function
-# ^^^^^ meta.function.identifier.coffee entity.name.function.coffee
+# ^ variable.language.this.coffee
+#  ^^^^ meta.function.identifier.coffee entity.name.function.coffee
 #      ^^^^ meta.function.coffee
 #      ^ keyword.operator.assignment.coffee
 #        ^^ keyword.declaration.function.coffee
@@ -323,12 +324,12 @@ class
 #      ^ punctuation.separator.sequence.coffee
 #        ^ variable.other.readwrite.coffee
 #          ^^ keyword.control.loop.in.coffee
-#             ^^^^^^ variable.other.member.coffee
-#             ^ punctuation.definition.variable.coffee
+#             ^ variable.language.this.coffee
+#              ^^^^^ variable.other.member.coffee
 
   @links = ($(a) for a in @$links unless a in filtered)
-# ^^^^^^ variable.other.member.coffee
-# ^ punctuation.definition.variable.coffee
+# ^ variable.language.this.coffee
+#  ^^^^^ variable.other.member.coffee
 #        ^ keyword.operator.assignment.coffee
 #          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.group.coffee
 #          ^ punctuation.section.group.begin.coffee
@@ -340,8 +341,8 @@ class
 #                ^^^ keyword.control.loop.for.coffee
 #                    ^ variable.other.readwrite.coffee
 #                      ^^ keyword.control.loop.in.coffee
-#                         ^^^^^^^ variable.other.member.coffee
-#                         ^ punctuation.definition.variable.coffee
+#                         ^ variable.language.this.coffee
+#                          ^^^^^^ variable.other.member.coffee
 #                                 ^^^^^^ keyword.control.conditional.unless.coffee
 #                                        ^ variable.other.readwrite.coffee
 #                                          ^^ keyword.operator.word.coffee keyword.operator.comparison.coffee
@@ -372,16 +373,19 @@ class
 
   yield @foo
 # ^^^^^ keyword.control.flow.coffee
-#       ^^^^ variable.other.member.coffee
+#       ^ variable.language.this.coffee
+#        ^^^ variable.other.member.coffee
 
   yield from @foo
 # ^^^^^^^^^^ keyword.control.flow.coffee
-#            ^^^^ variable.other.member.coffee
+#            ^ variable.language.this.coffee
+#             ^^^ variable.other.member.coffee
 
   await return @foo;
 # ^^^^^ keyword.control.flow.coffee
 #       ^^^^^^ keyword.control.flow.coffee
-#              ^^^^ variable.other.member.coffee
+#              ^ variable.language.this.coffee
+#               ^^^ variable.other.member.coffee
 
 ###[ OPERATORS ]###############################################################
 
@@ -520,13 +524,14 @@ class
 #  ^^^^ meta.function-call.arguments.coffee
 
   @name()
-# ^^^^^ meta.function-call.identifier.coffee variable.function.coffee
+# ^ variable.language.this.coffee
+#  ^^^^ meta.function-call.identifier.coffee variable.function.coffee
 #      ^^ meta.function-call.arguments.coffee
 
   @$('#notification')
-# ^^ meta.function-call.identifier.coffee variable.function.coffee
+# ^ variable.language.this.coffee
+#  ^ meta.function-call.identifier.coffee variable.function.coffee
 #   ^^^^^^^^^^^^^^^^^ meta.function-call.arguments.coffee
-# ^ punctuation.definition.variable.coffee
 #  ^ variable.function.coffee
 #   ^ punctuation.section.group.begin.coffee
 #    ^^^^^^^^^^^^^^^ meta.string.coffee string.quoted.single.coffee
@@ -534,10 +539,22 @@ class
 
 ###[ OBJECT MEMBERS ]##########################################################
 
+  super.key
+# ^^^^^^^^^ meta.path.coffee
+# ^^^^^ variable.language.super.coffee
+#      ^ meta.path.coffee punctuation.accessor.dot.coffee
+#       ^^^ meta.path.coffee variable.other.member.coffee
+
   this.key
-# ^^^^ variable.language.coffee
+# ^^^^^^^^ meta.path.coffee
+# ^^^^ variable.language.this.coffee
 #     ^ meta.path.coffee punctuation.accessor.dot.coffee
 #      ^^^ meta.path.coffee variable.other.member.coffee
+
+  @key
+# ^^^^ meta.path.coffee
+# ^ variable.language.this.coffee
+#  ^^^ variable.other.member.coffee
 
   obj.Object
 # ^^^^^^^^^^ meta.path.coffee
@@ -773,8 +790,8 @@ class
 #                     ^ meta.number.integer.decimal.coffee constant.numeric.value.coffee
 
   @variable
-# ^^^^^^^^^ variable.other.member.coffee
-# ^ punctuation.definition.variable.coffee
+# ^ variable.language.this.coffee
+#  ^^^^^^^^ variable.other.member.coffee
 
 ###[ JSX ]#####################################################################
 
@@ -788,7 +805,9 @@ class
 #                   ^^^ meta.string.coffee string.quoted.double.coffee
 #                      ^^^^^^ meta.string.coffee meta.interpolation.coffee
 #                      ^ punctuation.section.interpolation.begin.coffee
-#                       ^^^^ source.coffee.embedded.jsx variable.other.member.coffee
+#                       ^^^^ source.coffee.embedded.jsx
+#                       ^ variable.language.this.coffee
+#                        ^^^ variable.other.member.coffee
 #                           ^ punctuation.section.interpolation.end.coffee
 #                            ^ meta.string.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
 #                             ^ punctuation.definition.tag.end.coffee
