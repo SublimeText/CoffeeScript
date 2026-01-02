@@ -37,12 +37,14 @@ jobs:
             default_packages: v4169
           - build: 4180
             default_packages: v4180
+          - build: 4200
+            default_packages: v4200
           # Latest dev build
           - build: latest
             default_packages: master
     steps:
       - name: Checkout Default Packages
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: sublimehq/Packages
           ref: ${{ matrix.default_packages }}
@@ -53,7 +55,7 @@ jobs:
           find st_syntax_tests/Data/Packages/*/ -type f -name 'syntax_test*' -exec rm -v '{}' \;
 
       - name: Checkout CoffeeScript
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           path: st_syntax_tests/Data/Packages/CoffeeScript
 
