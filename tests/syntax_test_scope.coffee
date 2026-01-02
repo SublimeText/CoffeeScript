@@ -382,10 +382,10 @@ class
 # ^^^^^^ keyword.operator.object.delete.coffee
 #        ^^^ variable.other.readwrite.coffee
 
-  obj typeof Bar
+  obj = typeof obj
 # ^^^ variable.other.readwrite.coffee
-#     ^^^^^^ keyword.operator.comparison.type.coffee
-#            ^^^ support.class.coffee
+#       ^^^^^^ keyword.operator.object.typeof.coffee
+#              ^^^ variable.other.readwrite.coffee
 
   obj instanceof Bar
 # ^^^ variable.other.readwrite.coffee

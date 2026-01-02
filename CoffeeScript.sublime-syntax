@@ -435,9 +435,11 @@ contexts:
       scope: keyword.operator.word.coffee keyword.operator.object.delete.coffee
     - match: (?:super)\b
       scope: keyword.operator.word.coffee keyword.operator.object.super.coffee
-    - match: (?:instanceof|typeof)\b
+    - match: (?:instanceof)\b
       scope: keyword.operator.word.coffee keyword.operator.comparison.type.coffee
       push: maybe-class
+    - match: (?:typeof)\b
+      scope: keyword.operator.word.coffee keyword.operator.object.typeof.coffee
 
   maybe-class:
     - match: ({{identifier}})?(\.)
