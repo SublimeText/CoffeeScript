@@ -266,7 +266,7 @@ contexts:
         )?
       scope: meta.path.coffee
       captures:
-        1: variable.language.console.coffee
+        1: support.class.console.coffee
         2: punctuation.accessor.dot.coffee
         3: support.function.console.coffee
     - match: |-

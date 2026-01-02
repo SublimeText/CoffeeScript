@@ -493,7 +493,7 @@ class
 ###[ BUILTIN FUNCTIONS ]#######################################################
 
   console.log()
-# ^^^^^^^ variable.language.console.coffee
+# ^^^^^^^ support.class.console.coffee
 #        ^ punctuation.accessor.dot.coffee
 #         ^^^ support.function.console.coffee
 #            ^ punctuation.section.group.begin.coffee
