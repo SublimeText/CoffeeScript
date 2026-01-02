@@ -393,7 +393,7 @@ contexts:
     - match: for(?:\s+own)?\b
       scope: keyword.control.loop.for.coffee
     - match: loop\b
-      scope: keyword.control.loop.loopcoffee
+      scope: keyword.control.loop.loop.coffee
     - match: until\b
       scope: keyword.control.loop.until.coffee
     - match: while\b

@@ -325,6 +325,10 @@ class
 # ^^^ keyword.control.loop.for.coffee
 #    ^^^^^^^^^^^^^^^^ - keyword
 
+  loop .loop _loop $loop
+# ^^^^ keyword.control.loop.loop.coffee
+#      ^^^^^^^^^^^^^^^^^ - keyword
+
   break .break _break $break
 # ^^^^^ keyword.control.flow.coffee
 #      ^^^^^^^^^^^^^^^^^^^^^ - keyword
