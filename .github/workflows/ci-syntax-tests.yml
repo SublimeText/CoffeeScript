@@ -40,8 +40,8 @@ jobs:
           - build: 4200
             default_packages: v4200
           # Latest dev build
-          - build: latest
-            default_packages: master
+          # - build: latest
+          #   default_packages: master
     steps:
       - name: Checkout Default Packages
         uses: actions/checkout@v6
