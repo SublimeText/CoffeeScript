@@ -15,8 +15,8 @@ file_extensions:
 
 first_line_match: |-
   (?xi:
-    ^ \#! .* \b(coffee(-script)?)\b                      # shebang
-  | ^ \s* \# .*? -\*- .*? \bcoffee(-script)?\b .*? -\*-  # editorconfig
+    ^ \#! .* \b(coffee(-script)?(?:\d(?:\.\d+)?)?)\b                      # shebang
+  | ^ \s* \# .*? -\*- .*? \bcoffee(-script)?(?:\d(?:\.\d+)?)?\b .*? -\*-  # editorconfig
   )
 
 ##############################################################################
@@ -87,7 +87,7 @@ contexts:
     - meta_include_prototype: false
     - meta_scope: comment.line.shebang.coffee
     # Note: Keep sync with first_line_match!
-    - match: coffee(?:\d(?:\.\d+)?)?{{break}}
+    - match: coffee(-script)?(?:\d(?:\.\d+)?)?{{break}}
       scope: constant.language.shebang.coffee
     - match: $\n?
       pop: 1
