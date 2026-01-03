@@ -1,4 +1,6 @@
 {
+	"word_separators": "./\\()\"'-:,.;<>~!@#%^&*|+=[]{}`~?",
+
 	/*
 		The directories you would like to include in $PATH environment variable.
 		Use this if your node installation is at a seperate location and getting errors such as `cannot find node executable`

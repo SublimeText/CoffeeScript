@@ -87,7 +87,7 @@ contexts:
     - meta_include_prototype: false
     - meta_scope: comment.line.shebang.coffee
     # Note: Keep sync with first_line_match!
-    - match: coffee(?:\d(?:\.\d+)?)?\b
+    - match: coffee(?:\d(?:\.\d+)?)?{{break}}
       scope: constant.language.shebang.coffee
     - match: $\n?
       pop: 1
@@ -95,14 +95,14 @@ contexts:
 ###[ CLASS DECLARATIONS ]#####################################################
 
   classes:
-    - match: class\b
+    - match: class{{break}}
       scope: meta.class.coffee keyword.declaration.class.coffee
       push:
         - class-extends
         - class-name
 
   class-name:
-    - match: (?=extends\b)
+    - match: (?=extends{{break}})
       pop: 1
     - match: ({{identifier}})(\.)
       captures:
@@ -117,7 +117,7 @@ contexts:
 
   class-extends:
     - meta_content_scope: meta.class.identifier.coffee
-    - match: extends\b
+    - match: extends{{break}}
       scope: storage.modifier.extends.coffee
       set: class-extends-name
     - include: comments
@@ -257,14 +257,14 @@ contexts:
     - match: |-
         (?x)
         ( decodeURI(?: Component)? | encodeURI(?: Component)? | eval
-        | parse(?: Float | Int ) | require )\b
+        | parse(?: Float | Int ) | require ){{break}}
       scope: support.function.coffee
     - match: |-
         (?x)
         (console)
         (?:
         (\.)
-        ( assert | debug | dir | error | info | log | time | timeEnd | warn )\b
+        ( assert | debug | dir | error | info | log | time | timeEnd | warn ){{break}}
         )?
       scope: meta.path.coffee
       captures:
@@ -277,7 +277,7 @@ contexts:
         ( apply | call | concat | every | filter | forEach | from | hasOwnProperty
         | indexOf | isPrototypeOf | join | lastIndexOf | map | of | pop
         | propertyIsEnumerable | push | reduce(?:Right)? | reverse | shift | slice
-        | some | sort | splice | to(?:Locale)?String | unshift | valueOf )\b
+        | some | sort | splice | to(?:Locale)?String | unshift | valueOf ){{break}}
       scope: meta.path.coffee
       captures:
         1: punctuation.accessor.dot.coffee
@@ -287,7 +287,7 @@ contexts:
         (Array)
         (?:
         (\.)
-        ( isArray )\b
+        ( isArray ){{break}}
         )?
       scope: meta.path.coffee
       captures:
@@ -301,7 +301,7 @@ contexts:
         (\.)
         ( create | definePropert(?: ies | y ) | freeze | getOwnProperty(?: Descriptors? | Names )
         | getProperty(Descriptor | Names) | getPrototypeOf | is(?: Extensible | Frozen | Sealed)?
-        | isnt | keys | preventExtensions | seal )\b
+        | isnt | keys | preventExtensions | seal ){{break}}
         )?
       scope: meta.path.coffee
       captures:
@@ -316,7 +316,7 @@ contexts:
         ( abs | acos | acosh | asin | asinh | atan | atan2 | atanh | ceil | cos
         | cosh | exp | expm1 | floor | hypot | log | log10 | log1p | log2 | max
         | min | pow | random | round | sign | sin | sinh | sqrt | tan | tanh
-        | trunc )\b
+        | trunc ){{break}}
         )?
       scope: meta.path.coffee
       captures:
@@ -328,7 +328,7 @@ contexts:
         (Number)
         (?:
         (\.)
-        ( is(?: Finite | Integer | NaN ) | toInteger )\b
+        ( is(?: Finite | Integer | NaN ) | toInteger ){{break}}
         )?
       scope: meta.path.coffee
       captures:
@@ -338,10 +338,10 @@ contexts:
     # other classes
     - match: |-
         (?x)
-        \b( ArrayBuffer | Blob | Boolean | Date | document | event
+        ( ArrayBuffer | Blob | Boolean | Date | document | event
         | Float(?: 32 | 64)Array | Function | Int(?: 8 | 16 | 32 | 64)Array
         | Map | Proxy | RegExp | Set | String | WeakMap | window
-        | Uint(?: 8 | 16 | 32 | 64)Array | XMLHttpRequest | Symbol )\b
+        | Uint(?: 8 | 16 | 32 | 64)Array | XMLHttpRequest | Symbol ){{break}}
       scope: support.class.coffee
     # user function calls
     - match: '{{identifier}}(?=\()'
@@ -364,63 +364,63 @@ contexts:
 
   keywords:
     # export/import
-    - match: export\b
+    - match: export{{break}}
       scope: keyword.control.export.coffee
-    - match: (?:import|from)\b
+    - match: (?:import|from){{break}}
       scope: keyword.control.import.coffee
     # conditional
-    - match: if\b
+    - match: if{{break}}
       scope: keyword.control.conditional.if.coffee
-    - match: else\b
+    - match: else{{break}}
       scope: keyword.control.conditional.else.coffee
-    - match: switch\b
+    - match: switch{{break}}
       scope: keyword.control.conditional.switch.coffee
-    - match: then\b
+    - match: then{{break}}
       scope: keyword.control.conditional.then.coffee
-    - match: unless\b
+    - match: unless{{break}}
       scope: keyword.control.conditional.unless.coffee
-    - match: when\b
+    - match: when{{break}}
       scope: keyword.control.conditional.when.coffee
     # exceptions
-    - match: catch\b
+    - match: catch{{break}}
       scope: keyword.control.exception.catch.coffee
-    - match: finally\b
+    - match: finally{{break}}
       scope: keyword.control.exception.finally.coffee
-    - match: try\b
+    - match: try{{break}}
       scope: keyword.control.exception.try.coffee
     # loop
-    - match: by\b
+    - match: by{{break}}
       scope: keyword.control.loop.by.coffee
-    - match: for(?:\s+own)?\b
+    - match: for(?:\s+own)?{{break}}
       scope: keyword.control.loop.for.coffee
       push: for-args
-    - match: loop\b
+    - match: loop{{break}}
       scope: keyword.control.loop.loop.coffee
-    - match: until\b
+    - match: until{{break}}
       scope: keyword.control.loop.until.coffee
-    - match: while\b
+    - match: while{{break}}
       scope: keyword.control.loop.while.coffee
     # flow
-    - match: await\b
+    - match: await{{break}}
       scope: keyword.control.flow.await.coffee
-    - match: break\b
+    - match: break{{break}}
       scope: keyword.control.flow.break.coffee
-    - match: continue\b
+    - match: continue{{break}}
       scope: keyword.control.flow.continue.coffee
-    - match: do\b
+    - match: do{{break}}
       scope: keyword.control.flow.do.coffee
-    - match: return\b
+    - match: return{{break}}
       scope: keyword.control.flow.return.coffee
-    - match: throw\b
+    - match: throw{{break}}
       scope: keyword.control.flow.throw.coffee
-    - match: yield(?:\s+from)?\b
+    - match: yield(?:\s+from)?{{break}}
       scope: keyword.control.flow.yield.coffee
     # other
-    - match: (?:debugger\b|\\)
+    - match: (?:debugger{{break}}|\\)
       scope: keyword.control.coffee
 
   for-args:
-    - match: in\b
+    - match: in{{break}}
       scope: keyword.control.loop.in.coffee
       pop: 1
     - match: ','
@@ -445,21 +445,21 @@ contexts:
     - match: \.{2,3}
       scope: keyword.operator.variadic.coffee
     # alphanumeric
-    - match: as\b
+    - match: as{{break}}
       scope: keyword.operator.word.coffee keyword.operator.assignment.as.coffee
-    - match: (?:in|is(?:nt| not)?|of)\b
+    - match: (?:in|is(?:nt| not)?|of){{break}}
       scope: keyword.operator.word.coffee keyword.operator.comparison.coffee
-    - match: (?:and|or|not)\b
+    - match: (?:and|or|not){{break}}
       scope: keyword.operator.word.coffee keyword.operator.logical.coffee
-    - match: new\b
+    - match: new{{break}}
       scope: keyword.operator.word.coffee keyword.operator.object.new.coffee
       push: maybe-class
-    - match: delete\b
+    - match: delete{{break}}
       scope: keyword.operator.word.coffee keyword.operator.object.delete.coffee
-    - match: instanceof\b
+    - match: instanceof{{break}}
       scope: keyword.operator.word.coffee keyword.operator.comparison.type.coffee
       push: maybe-class
-    - match: typeof\b
+    - match: typeof{{break}}
       scope: keyword.operator.word.coffee keyword.operator.object.typeof.coffee
 
   maybe-class:
@@ -511,31 +511,31 @@ contexts:
 ###[ LITERALS ]################################################################
 
   constants:
-    - match: (?:true|on|yes)(?!\s*[:=])\b
+    - match: (?:true|on|yes)(?!\s*[:=]){{break}}
       scope: constant.language.boolean.true.coffee
-    - match: (?:false|off|no)(?!\s*[:=])\b
+    - match: (?:false|off|no)(?!\s*[:=]){{break}}
       scope: constant.language.boolean.false.coffee
-    - match: Infinity(?!\s*[:=])\b
+    - match: Infinity(?!\s*[:=]){{break}}
       scope: constant.language.infinity.coffee
-    - match: NaN(?!\s*[:=])\b
+    - match: NaN(?!\s*[:=]){{break}}
       scope: constant.language.nan.coffee
-    - match: undefined(?!\s*[:=])\b
+    - match: undefined(?!\s*[:=]){{break}}
       scope: constant.language.coffee
-    - match: null(?!\s*[:=])\b
+    - match: null(?!\s*[:=]){{break}}
       scope: constant.language.null.coffee
 
   numbers:
-    - match: (0b)({{bin_digit}}+)\b
+    - match: (0b)({{bin_digit}}+){{break}}
       scope: meta.number.integer.binary.coffee
       captures:
          1: constant.numeric.base.coffee
          2: constant.numeric.value.coffee
-    - match: (0o)({{oct_digit}}+)\b
+    - match: (0o)({{oct_digit}}+){{break}}
       scope: meta.number.integer.octal.coffee
       captures:
          1: constant.numeric.base.coffee
          2: constant.numeric.value.coffee
-    - match: (0x)({{hex_digit}}+)\b
+    - match: (0x)({{hex_digit}}+){{break}}
       scope: meta.number.integer.hexadecimal.coffee
       captures:
          1: constant.numeric.base.coffee
@@ -547,12 +547,12 @@ contexts:
           {{dec_integer}} (?: (\.) {{dec_digit}}* (?:{{dec_exponent}})? | {{dec_exponent}} )
           # .1, .1e1, .1e-1
           | (\.) {{dec_digit}}+ (?:{{dec_exponent}})?
-        )\b
+        ){{break}}
       scope: meta.number.float.decimal.coffee constant.numeric.value.coffee
       captures:
         1: punctuation.separator.decimal.coffee
         2: punctuation.separator.decimal.coffee
-    - match: '{{dec_integer}}\b'
+    - match: '{{dec_integer}}{{break}}'
       scope: meta.number.integer.decimal.coffee constant.numeric.value.coffee
 
   patterns:
@@ -846,14 +846,14 @@ contexts:
         1: variable.language.super.coffee
         2: punctuation.accessor.dot.coffee
       push: member
-    - match: super(?!\s*[:=])\b
+    - match: super(?!\s*[:=]){{break}}
       scope: variable.language.super.coffee
     - match: (this)(\.)
       captures:
         1: variable.language.this.coffee
         2: punctuation.accessor.dot.coffee
       push: member
-    - match: this(?!\s*[:=])\b
+    - match: this(?!\s*[:=]){{break}}
       scope: variable.language.this.coffee
     - match: \@
       scope: variable.language.this.coffee
@@ -872,14 +872,14 @@ contexts:
         1: variable.language.super.coffee
         2: punctuation.accessor.dot.coffee
       set: member
-    - match: super(?!\s*[:=])\b
+    - match: super(?!\s*[:=]){{break}}
       scope: variable.language.super.coffee
     - match: (this)(\.)
       captures:
         1: variable.language.this.coffee
         2: punctuation.accessor.dot.coffee
       set: member
-    - match: this(?!\s*[:=])\b
+    - match: this(?!\s*[:=]){{break}}
       scope: variable.language.this.coffee
     - match: \@
       scope: variable.language.this.coffee
@@ -958,6 +958,7 @@ contexts:
 variables:
 
   ascii_space: '\t\n\f '
+  break: (?!{{ident_char}})
 
   # A lookbehind used in embed..escape patterns, to check for unescaped characters
   # in embed...escape statements.
@@ -970,7 +971,9 @@ variables:
   dec_integer: (?:0|[1-9]{{dec_digit}}*)
   dec_exponent: '[Ee](?:[-+]|(?![-+])){{dec_digit}}*'
 
-  identifier: '[[:alpha:]_$]\w*'
+  identifier: '{{ident_start}}{{ident_char}}*'
+  ident_start: '[[:alpha:]$_]'
+  ident_char: '[[:alnum:]$_]'
 
   component_names: '[A-Z][[:alnum:]_.-]*'
   tag_names: '[[:alpha:]][[:alnum:]_.-]*'

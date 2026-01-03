@@ -351,78 +351,78 @@ class
 
 ###[ KEYWORDS ]################################################################
 
-  await .await _await $await
+  await .await _await await_ $await await$
 # ^^^^^ keyword.control.flow.await.coffee
-#      ^^^^^^^^^^^^^^^^^^^^^ - keyword
-  break .break _break $break
+#      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  break .break _break break_ $break break$
 # ^^^^^ keyword.control.flow.break.coffee
-#      ^^^^^^^^^^^^^^^^^^^^^ - keyword
+#      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
   by .by _by $by
 # ^^ keyword.control.loop.by.coffee
 #   ^^^^^^^^^^^^ - keyword
-  catch .catch _catch $catch
+  catch .catch _catch catch_ $catch catch$
 # ^^^^^ keyword.control.exception.catch.coffee
-#      ^^^^^^^^^^^^^^^^^^^^^ - keyword
-  continue .continue _continue $continue
+#      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  continue .continue _continue continue_ $continue continue$
 # ^^^^^^^^ keyword.control.flow.continue.coffee
-#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
-  debugger .debugger _debugger $debugger
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  debugger .debugger _debugger debugger_ $debugger debugger$
 # ^^^^^^^^ keyword.control.coffee
-#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
   do .do _do $do
 # ^^ keyword.control.flow.do.coffee
 #   ^^^^^^^^^^^^ - keyword
-  else .else _else $else
+  else .else _else else_ $else else$
 # ^^^^ keyword.control.conditional.else.coffee
-#     ^^^^^^^^^^^^^^^^^^ - keyword
-  finally .finally _finally $finally
+#     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  finally .finally _finally finally_ $finally finally$
 # ^^^^^^^ keyword.control.exception.finally.coffee
-#        ^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
-  for .for _for $for
+#        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  for .for _for for_ $for for$
 # ^^^ keyword.control.loop.for.coffee
-#    ^^^^^^^^^^^^^^^ - keyword
-  from .from _from $from
+#    ^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  from .from _from from_ $from from$
 # ^^^^ keyword.control.import.coffee
-#     ^^^^^^^^^^^^^^^^^^ - keyword
+#     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
   if .if _if $if
 # ^^ keyword.control.conditional.if.coffee
 #   ^^^^^^^^^^^^ - keyword
-  import .import _import $import
+  import .import _import import_ $import import$
 # ^^^^^^ keyword.control.import.coffee
-#       ^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
-  loop .loop _loop $loop
+#       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  loop .loop _loop loop_ $loop loop$
 # ^^^^ keyword.control.loop.loop.coffee
-#     ^^^^^^^^^^^^^^^^^^ - keyword
-  return .return _return $return
+#     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  return .return _return return_ $return return$
 # ^^^^^^ keyword.control.flow.return.coffee
-#       ^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
-  switch .switch _switch $switch
+#       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  switch .switch _switch switch_ $switch switch$
 # ^^^^^^ keyword.control.conditional.switch.coffee
-#       ^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
-  then .then _then $then
+#       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  then .then _then then_ $then then$
 # ^^^^ keyword.control.conditional.then.coffee
-#     ^^^^^^^^^^^^^^^^^^ - keyword
-  throw .throw _throw $throw
+#     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  throw .throw _throw throw_ $throw throw$
 # ^^^^^ keyword.control.flow.throw.coffee
-#      ^^^^^^^^^^^^^^^^^^^^^ - keyword
-  try .try _try $try
+#      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  try .try _try try_ $try try$
 # ^^^ keyword.control.exception.try.coffee
-#    ^^^^^^^^^^^^^^^ - keyword
-  unless .unless _unless $unless
+#    ^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  unless .unless _unless unless_ $unless unless$
 # ^^^^^^ keyword.control.conditional.unless.coffee
-#       ^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
-  until .until _until $until
+#       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  until .until _until until_ $until until$
 # ^^^^^ keyword.control.loop.until.coffee
-#      ^^^^^^^^^^^^^^^^^^^^^ - keyword
-  when .when _when $when
+#      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  when .when _when when_ $when when$
 # ^^^^ keyword.control.conditional.when.coffee
-#     ^^^^^^^^^^^^^^^^^^ - keyword
-  while .while _while $while
+#     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  while .while _while while_ $while while$
 # ^^^^^ keyword.control.loop.while.coffee
-#      ^^^^^^^^^^^^^^^^^^^^^ - keyword
-  yield .yield _yield $yield
+#      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  yield .yield _yield yield_ $yield yield$
 # ^^^^^ keyword.control.flow.yield.coffee
-#      ^^^^^^^^^^^^^^^^^^^^^ - keyword
+#      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
   yield from
 # ^^^^^^^^^^ keyword.control.flow.yield.coffee
 
