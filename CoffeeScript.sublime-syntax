@@ -368,9 +368,6 @@ contexts:
       scope: keyword.control.export.coffee
     - match: (?:import|from)\b
       scope: keyword.control.import.coffee
-    # excpetion
-    - match: (?:catch|finally|try)\b
-      scope: keyword.control.exception.coffee
     # conditional
     - match: if\b
       scope: keyword.control.conditional.if.coffee
@@ -384,11 +381,16 @@ contexts:
       scope: keyword.control.conditional.unless.coffee
     - match: when\b
       scope: keyword.control.conditional.when.coffee
+    # exceptions
+    - match: catch\b
+      scope: keyword.control.exception.catch.coffee
+    - match: finally\b
+      scope: keyword.control.exception.finally.coffee
+    - match: try\b
+      scope: keyword.control.exception.try.coffee
     # loop
     - match: by\b
       scope: keyword.control.loop.by.coffee
-    - match: do\b
-      scope: keyword.control.loop.do.coffee
     - match: for(?:\s+own)?\b
       scope: keyword.control.loop.for.coffee
       push: for-args
@@ -399,11 +401,23 @@ contexts:
     - match: while\b
       scope: keyword.control.loop.while.coffee
     # flow
-    - match: (?:await|break|continue|return|throw|yield(?:\s+from)?)\b
-      scope: keyword.control.flow.coffee
+    - match: await\b
+      scope: keyword.control.flow.await.coffee
+    - match: break\b
+      scope: keyword.control.flow.break.coffee
+    - match: continue\b
+      scope: keyword.control.flow.continue.coffee
+    - match: do\b
+      scope: keyword.control.flow.do.coffee
+    - match: return\b
+      scope: keyword.control.flow.return.coffee
+    - match: throw\b
+      scope: keyword.control.flow.throw.coffee
+    - match: yield(?:\s+from)?\b
+      scope: keyword.control.flow.yield.coffee
     # other
     - match: (?:debugger\b|\\)
-      scope: keyword.other.coffee
+      scope: keyword.control.coffee
 
   for-args:
     - match: in\b

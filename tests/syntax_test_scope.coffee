@@ -351,41 +351,80 @@ class
 
 ###[ KEYWORDS ]################################################################
 
+  await .await _await $await
+# ^^^^^ keyword.control.flow.await.coffee
+#      ^^^^^^^^^^^^^^^^^^^^^ - keyword
+  break .break _break $break
+# ^^^^^ keyword.control.flow.break.coffee
+#      ^^^^^^^^^^^^^^^^^^^^^ - keyword
+  by .by _by $by
+# ^^ keyword.control.loop.by.coffee
+#   ^^^^^^^^^^^^ - keyword
+  catch .catch _catch $catch
+# ^^^^^ keyword.control.exception.catch.coffee
+#      ^^^^^^^^^^^^^^^^^^^^^ - keyword
+  continue .continue _continue $continue
+# ^^^^^^^^ keyword.control.flow.continue.coffee
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  debugger .debugger _debugger $debugger
+# ^^^^^^^^ keyword.control.coffee
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  do .do _do $do
+# ^^ keyword.control.flow.do.coffee
+#   ^^^^^^^^^^^^ - keyword
+  else .else _else $else
+# ^^^^ keyword.control.conditional.else.coffee
+#     ^^^^^^^^^^^^^^^^^^ - keyword
+  finally .finally _finally $finally
+# ^^^^^^^ keyword.control.exception.finally.coffee
+#        ^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  for .for _for $for
+# ^^^ keyword.control.loop.for.coffee
+#    ^^^^^^^^^^^^^^^ - keyword
+  from .from _from $from
+# ^^^^ keyword.control.import.coffee
+#     ^^^^^^^^^^^^^^^^^^ - keyword
   if .if _if $if
 # ^^ keyword.control.conditional.if.coffee
 #   ^^^^^^^^^^^^ - keyword
-
-  for .for _for $for
-# ^^^ keyword.control.loop.for.coffee
-#    ^^^^^^^^^^^^^^^^ - keyword
-
+  import .import _import $import
+# ^^^^^^ keyword.control.import.coffee
+#       ^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
   loop .loop _loop $loop
 # ^^^^ keyword.control.loop.loop.coffee
-#      ^^^^^^^^^^^^^^^^^ - keyword
-
-  break .break _break $break
-# ^^^^^ keyword.control.flow.coffee
+#     ^^^^^^^^^^^^^^^^^^ - keyword
+  return .return _return $return
+# ^^^^^^ keyword.control.flow.return.coffee
+#       ^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  switch .switch _switch $switch
+# ^^^^^^ keyword.control.conditional.switch.coffee
+#       ^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  then .then _then $then
+# ^^^^ keyword.control.conditional.then.coffee
+#     ^^^^^^^^^^^^^^^^^^ - keyword
+  throw .throw _throw $throw
+# ^^^^^ keyword.control.flow.throw.coffee
 #      ^^^^^^^^^^^^^^^^^^^^^ - keyword
-
-  continue .continue _continue $continue
-# ^^^^^^^^ keyword.control.flow.coffee
-#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
-
-  yield @foo
-# ^^^^^ keyword.control.flow.coffee
-#       ^ variable.language.this.coffee
-#        ^^^ variable.other.member.coffee
-
-  yield from @foo
-# ^^^^^^^^^^ keyword.control.flow.coffee
-#            ^ variable.language.this.coffee
-#             ^^^ variable.other.member.coffee
-
-  await return @foo;
-# ^^^^^ keyword.control.flow.coffee
-#       ^^^^^^ keyword.control.flow.coffee
-#              ^ variable.language.this.coffee
-#               ^^^ variable.other.member.coffee
+  try .try _try $try
+# ^^^ keyword.control.exception.try.coffee
+#    ^^^^^^^^^^^^^^^ - keyword
+  unless .unless _unless $unless
+# ^^^^^^ keyword.control.conditional.unless.coffee
+#       ^^^^^^^^^^^^^^^^^^^^^^^^ - keyword
+  until .until _until $until
+# ^^^^^ keyword.control.loop.until.coffee
+#      ^^^^^^^^^^^^^^^^^^^^^ - keyword
+  when .when _when $when
+# ^^^^ keyword.control.conditional.when.coffee
+#     ^^^^^^^^^^^^^^^^^^ - keyword
+  while .while _while $while
+# ^^^^^ keyword.control.loop.while.coffee
+#      ^^^^^^^^^^^^^^^^^^^^^ - keyword
+  yield .yield _yield $yield
+# ^^^^^ keyword.control.flow.yield.coffee
+#      ^^^^^^^^^^^^^^^^^^^^^ - keyword
+  yield from
+# ^^^^^^^^^^ keyword.control.flow.yield.coffee
 
 ###[ OPERATORS ]###############################################################
 
