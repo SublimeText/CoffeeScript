@@ -911,6 +911,7 @@ contexts:
         - member-function
         - member-variable
       pop: 1
+    - include: immediately-pop
 
   member-function:
     - meta_include_prototype: false

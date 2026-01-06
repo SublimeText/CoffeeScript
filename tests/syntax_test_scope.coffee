@@ -562,10 +562,19 @@ class
 # ^ meta.function-call.identifier.coffee variable.function.coffee
 #  ^^^^ meta.function-call.arguments.coffee
 
-  @name()
+  @name(@, obj.obj.)
 # ^ variable.language.this.coffee
 #  ^^^^ meta.function-call.identifier.coffee variable.function.coffee
-#      ^^ meta.function-call.arguments.coffee
+#      ^^^^^^^^^^^^^ meta.function-call.arguments.coffee
+#      ^ punctuation.section.group.begin.coffee
+#       ^ variable.language.this.coffee
+#        ^ punctuation.separator.sequence.coffee
+#          ^^^^^^^^ meta.path.coffee
+#          ^^^ variable.other.object.coffee
+#             ^ punctuation.accessor.dot.coffee
+#              ^^^ variable.other.object.coffee
+#                 ^ punctuation.accessor.dot.coffee
+#                  ^ punctuation.section.group.end.coffee
 
   @$('#notification')
 # ^ variable.language.this.coffee
@@ -581,19 +590,48 @@ class
   super.key
 # ^^^^^^^^^ meta.path.coffee
 # ^^^^^ variable.language.super.coffee
-#      ^ meta.path.coffee punctuation.accessor.dot.coffee
-#       ^^^ meta.path.coffee variable.other.member.coffee
+#      ^ punctuation.accessor.dot.coffee
+#       ^^^ variable.other.member.coffee
+#          ^ - meta
 
-  this.key
-# ^^^^^^^^ meta.path.coffee
+  this.member
+# ^^^^^^^^^^^ meta.path.coffee
 # ^^^^ variable.language.this.coffee
-#     ^ meta.path.coffee punctuation.accessor.dot.coffee
-#      ^^^ meta.path.coffee variable.other.member.coffee
+#     ^ punctuation.accessor.dot.coffee
+#      ^^^^^^ variable.other.member.coffee
+#            ^ - meta
 
-  @key
+  this.obj.member
+# ^^^^^^^^^^^^^^^ meta.path.coffee
+# ^^^^ variable.language.this.coffee
+#     ^ punctuation.accessor.dot.coffee
+#      ^^^ variable.other.object.coffee
+#         ^ punctuation.accessor.dot.coffee
+#          ^^^^^^ variable.other.member.coffee
+#                ^ - meta
+
+  @member
+# ^^^^^^^ meta.path.coffee
+# ^ variable.language.this.coffee
+#  ^^^^^^ variable.other.member.coffee
+#        ^ - meta
+
+  @obj.member
 # ^^^^ meta.path.coffee
 # ^ variable.language.this.coffee
-#  ^^^ variable.other.member.coffee
+#  ^^^ variable.other.object.coffee
+#     ^ punctuation.accessor.dot.coffee
+#      ^^^^^^ variable.other.member.coffee
+#            ^ - meta
+
+  @obj.obj.
+# ^^^^^^^^^ meta.path.coffee
+# ^ variable.language.this.coffee
+#  ^^^ variable.other.object.coffee
+#     ^ punctuation.accessor.dot.coffee
+#      ^^^ variable.other.object.coffee
+#         ^ punctuation.accessor.dot.coffee
+#          ^ - meta
 
   obj.Object
 # ^^^^^^^^^^ meta.path.coffee
