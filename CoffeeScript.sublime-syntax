@@ -196,16 +196,13 @@ contexts:
 
   function-name:
     - meta_include_prototype: false
-    - meta_scope: meta.function.identifier.coffee
     - match: '{{identifier}}'
-      scope: entity.name.function.coffee
-      set:
+      scope: meta.function.identifier.coffee entity.name.function.coffee
+      push:
         - function-body
         - function-parameter-list
         - function-assignment
-    # any non-whitespace char or end of file
-    - match: \S|\Z
-      fail: function
+    - include: immediately-pop
 
   function-assignment:
     - meta_include_prototype: false
@@ -246,9 +243,9 @@ contexts:
     - meta_content_scope: meta.function.coffee
     - match: '[=-]>'
       scope: meta.function.coffee keyword.declaration.function.coffee
-      pop: 1
+      pop: 2
     # any non-whitespace char or end of file
-    - match: \S|\Z
+    - match: (?=\S|\Z)
       fail: function
 
 ###[ FUNCTION CALLS ]#########################################################
@@ -918,22 +915,20 @@ contexts:
 
   member-function:
     - meta_include_prototype: false
-    - meta_scope: meta.function.identifier.coffee meta.path.coffee
     - match: '{{identifier}}'
-      scope: entity.name.function.coffee
-      set:
+      scope: meta.function.identifier.coffee meta.path.coffee entity.name.function.coffee
+      push:
         - member-function-body
         - function-parameter-list
         - function-assignment
-    - match: ''
-      fail: member
+    - include: immediately-pop
 
   member-function-body:
     - meta_content_scope: meta.function.coffee
     - match: '[=-]>'
       scope: meta.function.coffee keyword.declaration.function.coffee
-      pop: 1
-    - match: (?=\S)
+      pop: 2
+    - match: (?=\S|\Z)
       fail: member
 
   member-variable:
