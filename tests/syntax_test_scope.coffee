@@ -349,6 +349,37 @@ class
 #                                             ^^^^^^^^ variable.other.readwrite.coffee
 #                                                     ^ punctuation.section.group.end.coffee
 
+  for a, b of @links
+# ^^^ keyword.control.loop.for.coffee
+#     ^ variable.other.readwrite.coffee
+#      ^ punctuation.separator.sequence.coffee
+#        ^ variable.other.readwrite.coffee
+#          ^^ keyword.control.loop.of.coffee
+#             ^ variable.language.this.coffee
+#              ^^^^^ variable.other.member.coffee
+
+  @links = ($(a) for a of @$links unless a of filtered)
+# ^ variable.language.this.coffee
+#  ^^^^^ variable.other.member.coffee
+#        ^ keyword.operator.assignment.coffee
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.group.coffee
+#          ^ punctuation.section.group.begin.coffee
+#           ^ meta.function-call.identifier.coffee variable.function.coffee
+#            ^^^ meta.function-call.arguments.coffee
+#            ^ punctuation.section.group.begin.coffee
+#             ^ variable.other.readwrite.coffee
+#              ^ punctuation.section.group.end.coffee
+#                ^^^ keyword.control.loop.for.coffee
+#                    ^ variable.other.readwrite.coffee
+#                      ^^ keyword.control.loop.of.coffee
+#                         ^ variable.language.this.coffee
+#                          ^^^^^^ variable.other.member.coffee
+#                                 ^^^^^^ keyword.control.conditional.unless.coffee
+#                                        ^ variable.other.readwrite.coffee
+#                                          ^^ keyword.operator.word.coffee keyword.operator.comparison.coffee
+#                                             ^^^^^^^^ variable.other.readwrite.coffee
+#                                                     ^ punctuation.section.group.end.coffee
+
 ###[ KEYWORDS ]################################################################
 
   await .await _await await_ $await await$
