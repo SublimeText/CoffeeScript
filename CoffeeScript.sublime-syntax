@@ -423,6 +423,9 @@ contexts:
     - match: in{{break}}
       scope: keyword.control.loop.in.coffee
       pop: 1
+    - match: of{{break}}
+      scope: keyword.control.loop.of.coffee
+      pop: 1
     - match: ','
       scope: punctuation.separator.sequence.coffee
     - include: variables
